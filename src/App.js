@@ -1,8 +1,12 @@
 import React from 'react';
+import io from "socket.io-client";
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  let socket = io("http://localhost:9000");
+
   return (
     <div className="App">
       <header className="App-header">
