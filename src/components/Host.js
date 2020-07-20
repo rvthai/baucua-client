@@ -22,9 +22,10 @@ class Host extends Component{
           <p>Host</p>
           <input placeholder="Name" type="text" onChange={this.onChangeName}/>
           <Link to={{
-            pathname: `/lobby/${this.state.room}`,
+            pathname: `/${this.state.room}`,
             state: {
               name: this.state.name,
+              host:1,
             }
           }}>
             <button>Start</button>

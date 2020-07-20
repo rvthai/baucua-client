@@ -11,7 +11,10 @@ class Main extends Component{
           <Link to="/host">
             <button className="btn">Host</button>
           </Link>
-          <button className="btn">Join</button>
+          <Link to="/join">
+            <button className="btn">Join</button>
+          </Link>
+        
       </div>
     )};
 }
