@@ -12,19 +12,28 @@ function Lobby(props){
   const [room] = useState(props.match.params.roomId);
   const [host, setHost] = useState((props.location.state.host=== 1) ? true: false);
   const [player, setUsers] = useState([]);
+  const [gamestate, setGameState] = useState({});
 
   const ENDPOINT = "http://localhost:9000";
 
   useEffect(() => {
-
+    let err = false;
     socket = io(ENDPOINT);
 
     socket.emit('join', {name, room, host}, (error)=>{
       if(error){
+        err = true;
         alert(error);
       }
     });
     
+    return () =>{
+      if (!err){
+        socket.emit("leaveroom", {id:socket.id, room});
+      }
+      socket.disconnect();
+    }
+
     // eslint-disable-next-line
   },[ENDPOINT,name,room]);
 
@@ -37,29 +46,22 @@ function Lobby(props){
       setHost(true);
     })
 
-    socket.on('gamestart', () => {
+    socket.on('gamestart', ({gamestate}) => {
+      setGameState(gamestate);
       setRender(1);
     })
 
   }, [])
 
-  const onClickBack = () => {
-    socket.emit("leaveroom", {id:socket.id, room});
-    socket.disconnect();
-  }
-
   const onClickStart = () => {
-    socket.emit("startgame", ({room}));
+    socket.emit("startgame", ({room, players:player}));
   }
 
   switch(renderView){
     case 1:
-      return <Game socket={socket}/>
+      return <Game socket={socket} gamestate={gamestate} host={host}/>
     default:
-      return <LobbyUI onClickStart={onClickStart} onClickBack={onClickBack} player={player} room={room} host={host}/>
+      return <LobbyUI onClickStart={onClickStart} player={player} room={room} host={host}/>
   }
-  
 }
-
-
 export default Lobby;

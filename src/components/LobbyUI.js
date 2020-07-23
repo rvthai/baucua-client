@@ -18,7 +18,7 @@ function LobbyUI(props){
         </div>
         {button}
         <Link to="/">
-          <button onClick={props.onClickBack}>back</button>
+          <button>back</button>
         </Link>
     </div>
   )
