@@ -1,0 +1,86 @@
+.join-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border: solid 1px black;
+  border-radius: 15px;
+  z-index: 1;
+  background-color: white;
+  padding: 4rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-title {
+  color: #353535;
+  font-size: 40px;
+}
+
+.modal-input {
+  font-size: 24px;
+  padding: 1rem;
+  width: 250px;
+  border: 1px solid #c9c9c9;
+  transition: all 0.2s ease-out;
+  text-align: center;
+}
+
+.modal-input:focus {
+  border-color: #353535;
+  outline: 0;
+}
+
+.modal-input::placeholder {
+  color: #c9c9c9;
+  font-family: "Oswald", sans-serif;
+}
+
+.modal-input[type="text"] {
+  font-family: "Oswald", sans-serif;
+}
+
+.modal-buttons {
+  margin-top: 2rem;
+}
+
+.modal-cancel-button {
+  color: #353535;
+  background-color: #e6e6e6;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  width: 125px;
+  height: 50px;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-cancel-button:hover {
+  background-color: #c9c9c9;
+  transition: 0.3s;
+}
+
+.modal-join-button {
+  color: white;
+  background-color: #88181b;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  width: 125px;
+  height: 50px;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-join-button:hover {
+  background-color: #caa56c;
+  transition: 0.3s;
+}
