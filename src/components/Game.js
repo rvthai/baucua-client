@@ -14,10 +14,10 @@ function Game(props){
 
   const bet = (event) =>{
 
-    socket.emit("bet", ({room:gamestate.room, id:socket.id, amount:10, animal:event.target.value}));
+    socket.emit("bet", ({room:gamestate.roomId, id:socket.id, amount:10, animal:event.target.value}));
   }
   const roll = () => {
-    socket.emit("roll", ({room: gamestate.room}));
+    socket.emit("roll", ({room: gamestate.roomId}));
   }
 
   return(

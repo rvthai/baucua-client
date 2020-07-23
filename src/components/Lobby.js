@@ -54,7 +54,7 @@ function Lobby(props){
   }, [])
 
   const onClickStart = () => {
-    socket.emit("startgame", ({room, players:player}));
+    socket.emit("startgame", ({room}));
   }
 
   switch(renderView){
