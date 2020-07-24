@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { Redirect } from 'react-router-dom'
 import LobbyUI from './LobbyUI';
 import Game from "./Game";
 
@@ -17,20 +18,15 @@ function Lobby(props){
   const ENDPOINT = "http://localhost:9000";
 
   useEffect(() => {
-    let err = false;
     socket = io(ENDPOINT);
 
     socket.emit('join', {name, room, host}, (error)=>{
       if(error){
-        err = true;
-        alert(error);
+        setRender(2);
       }
     });
     
     return () =>{
-      if (!err){
-        socket.emit("leaveroom", {id:socket.id, room});
-      }
       socket.disconnect();
     }
 
@@ -60,6 +56,8 @@ function Lobby(props){
   switch(renderView){
     case 1:
       return <Game socket={socket} gamestate={gamestate} host={host}/>
+    case 2:
+      return <Redirect to="/"/>
     default:
       return <LobbyUI onClickStart={onClickStart} player={player} room={room} host={host}/>
   }
