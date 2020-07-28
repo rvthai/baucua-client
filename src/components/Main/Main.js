@@ -6,6 +6,16 @@ import "./Main.css";
 import Host from "../Host/Host";
 import Join from "../Join/Join";
 
+// Fontawesome Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInfoCircle,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
+
+// Images
+import Logo from "../../assets/logo.png";
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -39,32 +49,23 @@ class Main extends Component {
 
   render() {
     return (
-      <div className="main-container">
-        <div className="header">
-          <p className="game-title" lang="vi">
-            BẦU CUA CÁ CỌP
-          </p>
-          <p className="game-description">
-            A Traditional Vietnamese New Year Board Game
-          </p>
-        </div>
-
-        <div className="main-buttons">
+      <div className="main-menu">
+        <img src={Logo} className="logo" />
+        <div className="main-menu-btns">
           <button
             id="host-button"
-            className="main-button"
+            className="main-menu-btn"
             onClick={this.showHostModal}
           >
-            HOST
+            Host
           </button>
           <button
             id="join-button"
-            className="main-button"
+            className="main-menu-btn"
             onClick={this.showJoinModal}
           >
-            JOIN
+            Join
           </button>
-
           {this.state.showOverlay ? (
             <div id="overlay" onClick={this.hideModal} />
           ) : null}
@@ -84,8 +85,13 @@ class Main extends Component {
           >
             <Join onCancelClick={this.hideModal} />
           </CSSTransition>
-          <button className="main-button-2">HOW TO PLAY</button>
         </div>
+        <FontAwesomeIcon
+          className="help-btn"
+          icon={faQuestionCircle}
+          size="3x"
+        />
+        <p className="copyright">© 2020 The Lazy Developers</p>
       </div>
     );
   }
