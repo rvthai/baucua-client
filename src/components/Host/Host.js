@@ -27,18 +27,18 @@ class Host extends Component {
         <FontAwesomeIcon
           style={{ color: "#353535" }}
           icon={faUsers}
-          size="5x"
+          size="4x"
         />
-        <p className="modal-title">Host a room.</p>
+        <p className="host-modal-title">Host a room.</p>
         <input
-          className="modal-input"
+          className="host-modal-input"
           placeholder="Enter your name"
           type="text"
           onChange={this.onChangeName}
         />
-        <div className="modal-buttons">
+        <div className="host-modal-btns">
           <button
-            className="modal-cancel-button"
+            className="host-modal-cancel-btn"
             onClick={this.props.onCancelClick}
           >
             Cancel
@@ -52,7 +52,7 @@ class Host extends Component {
               },
             }}
           >
-            <button className="modal-host-button">Host</button>
+            <button className="host-modal-host-btn">Host</button>
           </Link>
         </div>
       </div>

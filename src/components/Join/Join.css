@@ -2,85 +2,83 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  border: solid 1px black;
+  padding: 2rem;
+  max-width: 300px;
   border-radius: 15px;
-  z-index: 1;
   background-color: white;
-  padding: 4rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+  z-index: 1;
 }
 
-.modal-title {
+.join-modal-title {
   color: #353535;
-  font-size: 40px;
+  font-size: 34px;
 }
 
-.modal-input {
+.join-modal-input {
   font-size: 24px;
-  padding: 1rem;
-  width: 250px;
+  padding: 0.75rem;
   border: 1px solid #c9c9c9;
   transition: all 0.2s ease-out;
   text-align: center;
 }
 
-.modal-input:focus {
+.join-modal-input:focus {
   border-color: #353535;
   outline: 0;
 }
 
-.modal-input::placeholder {
+.join-modal-input::placeholder {
   color: #c9c9c9;
+}
+
+.join-modal-input[type="text"] {
   font-family: "Oswald", sans-serif;
 }
 
-.modal-input[type="text"] {
-  font-family: "Oswald", sans-serif;
-}
-
-.modal-buttons {
+.join-modal-btns {
+  display: flex;
+  justify-content: center;
   margin-top: 2rem;
 }
 
-.modal-cancel-button {
+.join-modal-cancel-btn {
   color: #353535;
   background-color: #e6e6e6;
   outline: none;
   border: none;
   border-radius: 15px;
-  font-family: "Oswald", sans-serif;
+  font-family: "Francois One", sans-serif;
   font-size: 18px;
-  width: 125px;
+  width: 110px;
   height: 50px;
-  margin-right: 1rem;
+  margin-right: 0.75rem;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.modal-cancel-button:hover {
+.join-modal-cancel-btn :hover {
   background-color: #c9c9c9;
   transition: 0.3s;
 }
 
-.modal-join-button {
+.join-modal-join-btn {
   color: white;
   background-color: #88181b;
   outline: none;
   border: none;
   border-radius: 15px;
-  font-family: "Oswald", sans-serif;
+  font-family: "Francois One", sans-serif;
   font-size: 18px;
-  width: 125px;
+  width: 110px;
   height: 50px;
-  margin-left: 1rem;
+  margin-left: 0.75rem;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.modal-join-button:hover {
-  background-color: #caa56c;
+.join-modal-join-btn:hover {
+  background-color: #580c0e;
   transition: 0.3s;
 }

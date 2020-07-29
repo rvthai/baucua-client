@@ -33,24 +33,25 @@ class Join extends Component {
         <FontAwesomeIcon
           style={{ color: "#353535" }}
           icon={faDoorOpen}
-          size="5x"
+          size="4x"
         />
-        <p className="modal-title">Join a room.</p>
+        <p className="join-modal-title">Join a room.</p>
         <input
-          className="modal-input"
+          className="join-modal-input"
           placeholder="Enter your name"
           type="text"
           onChange={this.onChangeName}
         />
         <input
-          className="modal-input modal-input-spacing"
+          className="join-modal-input"
+          style={{ marginTop: "1rem" }}
           placeholder="Enter room code"
           type="text"
           onChange={this.onChangeRoom}
         />
-        <div className="modal-buttons">
+        <div className="join-modal-btns">
           <button
-            className="modal-cancel-button"
+            className="join-modal-cancel-btn"
             onClick={this.props.onCancelClick}
           >
             Cancel
@@ -64,7 +65,7 @@ class Join extends Component {
               },
             }}
           >
-            <button className="modal-join-button">Join</button>
+            <button className="join-modal-join-btn">Join</button>
           </Link>
         </div>
       </div>
