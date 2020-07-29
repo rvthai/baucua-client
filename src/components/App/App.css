@@ -1,13 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Francois+One&display=swap");
 
 body {
+  font-family: "Oswald", sans-serif;
+  background: #88181b;
   margin: 0;
   padding: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  font-family: "Oswald", sans-serif;
 }
