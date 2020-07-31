@@ -20,9 +20,8 @@
 
 .copyright {
   color: #c9c9c9;
-  position: absolute;
-  bottom: 1rem;
   text-align: center;
+  margin-top: 2rem;
   z-index: -1;
 }
 
@@ -70,6 +69,8 @@
   left: 0;
   background-color: black;
   opacity: 0.5;
+  width: 100%;
+  height: 100%;
 }
 
 /* CSS Transition Group */
