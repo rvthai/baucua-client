@@ -41,6 +41,7 @@ class Join extends Component {
           placeholder="Enter your name"
           type="text"
           onChange={this.onChangeName}
+          maxLength="12"
         />
         <input
           className="join-modal-input"
@@ -48,6 +49,7 @@ class Join extends Component {
           placeholder="Enter room code"
           type="text"
           onChange={this.onChangeRoom}
+          maxLength="6"
         />
         <div className="join-modal-btns">
           <button

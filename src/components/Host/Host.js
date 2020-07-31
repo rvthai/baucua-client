@@ -35,6 +35,7 @@ class Host extends Component {
           placeholder="Enter your name"
           type="text"
           onChange={this.onChangeName}
+          maxLength="12"
         />
         <div className="host-modal-btns">
           <button
