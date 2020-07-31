@@ -49,7 +49,7 @@ class Host extends Component {
               pathname: `/${this.state.room}`,
               state: {
                 name: this.state.name,
-                host: 1,
+                newRoom: true,
               },
             }}
           >
