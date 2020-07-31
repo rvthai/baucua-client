@@ -11,7 +11,7 @@ class Host extends Component {
     super(props);
     this.state = {
       name: "",
-      room: Math.random().toString(36).substring(7),
+      room: Math.random().toString(36).substring(2, 8).toUpperCase(),
     };
   }
 
