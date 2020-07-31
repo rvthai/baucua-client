@@ -83,3 +83,39 @@
   background-color: #580c0e;
   transition: 0.3s;
 }
+
+/* mobile orientation: landscape  */
+@media only screen and (orientation: landscape) {
+  .join-modal {
+    max-width: 250px;
+  }
+
+  .join-modal-title {
+    font-size: 24px;
+  }
+
+  .join-modal-input {
+    font-size: 20px;
+    padding: 0.5rem;
+  }
+
+  .join-modal-btns {
+    margin-top: 1rem;
+  }
+
+  .join-modal-cancel-btn {
+    font-size: 14px;
+    width: 100px;
+    height: 40px;
+  }
+
+  .join-modal-join-btn {
+    font-size: 14px;
+    width: 100px;
+    height: 40px;
+  }
+
+  .join-modal-input {
+    margin-top: -1rem;
+  }
+}

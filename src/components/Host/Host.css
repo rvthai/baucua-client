@@ -83,3 +83,31 @@
   background-color: #580c0e;
   transition: 0.3s;
 }
+
+/* mobile orientation: landscape  */
+@media only screen and (orientation: landscape) {
+  .host-modal-title {
+    font-size: 24px;
+  }
+
+  .host-modal-input {
+    font-size: 20px;
+    padding: 0.75rem;
+  }
+
+  .host-modal-btns {
+    margin-top: 1rem;
+  }
+
+  .host-modal-cancel-btn {
+    font-size: 14px;
+    width: 100px;
+    height: 40px;
+  }
+
+  .host-modal-host-btn {
+    font-size: 14px;
+    width: 100px;
+    height: 40px;
+  }
+}
