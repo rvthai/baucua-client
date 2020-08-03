@@ -97,8 +97,6 @@ function Game(props){
 
   const playerReady = () => {
     showBet.show = false;
-    const player = gamestate.players.find((user) => user.id === socket.id);
-    player.ready = true;
     document.getElementById("ready-button").classList.add("on-click-ready");
     setReady(true)
     socket.emit("readyplayer", ({gamestate}));
@@ -114,7 +112,7 @@ function Game(props){
       }
     }
   }
-  
+  console.log(gamestate);
   return(
     <div className="game-container">
       <div className="game-header-container">
