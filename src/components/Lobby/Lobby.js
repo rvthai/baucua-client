@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom";
 import io from "socket.io-client";
 
 // Components
 import LobbyUI from "./LobbyUI";
-import Game from "../Game";
+import Game from "../Game/Game";
 
 let socket;
 
@@ -24,11 +24,13 @@ function Lobby(props) {
 
   const [gamestate, setGameState] = useState({});
 
-  // const ENDPOINT = "http://localhost:9000";
-  const ENDPOINT = "http://192.168.1.17:9000";
+  const ENDPOINT = "http://localhost:9000";
+  //const ENDPOINT = "http://192.168.1.17:9000";
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    socket = io(ENDPOINT, {
+      reconnection: false,
+    });
 
     socket.emit("join", { name, room, newRoom }, (error) => {
       if (error) {
@@ -41,7 +43,7 @@ function Lobby(props) {
     };
 
     // eslint-disable-next-line
-  }, [ENDPOINT, name, room]);
+  }, [ENDPOINT]);
 
   useEffect(() => {
     socket.on("players", ({ players }) => {
@@ -75,7 +77,7 @@ function Lobby(props) {
 
   switch (renderView) {
     case 1:
-      return <Game socket={socket} gamestate={gamestate} host={true} />;
+      return <Game socket={socket} gamestate={gamestate} host={isHost} />;
     case 2:
       return <Redirect to="/" />;
     default:
