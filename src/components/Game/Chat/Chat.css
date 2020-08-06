@@ -1,0 +1,40 @@
+/* GAME MAIN - Chat
+-------------------------------------------*/
+.game-chat-container{
+  flex-grow: 0.4;
+  width: 315px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.chat-header-container > p{
+  font-size: 48px;
+  text-align: center;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+.chat-messages{
+  flex: 1 1 auto;
+  border: 1px solid;
+}
+.chat-input{
+  flex: 0.3 1 auto;
+  border: 1px solid;
+  display: flex;
+}
+.chat-input > input{
+  font-size: 1em;
+  width: 100%;
+  outline: none;
+}
+
+@media screen and (max-width:615px){
+  .game-chat-container{
+      display: none;
+  }
+ 
+}

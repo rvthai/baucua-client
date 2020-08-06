@@ -1,32 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import ScrollToBottom from "react-scroll-to-bottom";
-
 import "./Game.css";
 import Logo from "../../assets/logo.png";
-import Deer from "../../assets/deer.png";
-import Gourd from "../../assets/gourd.png";
-import Rooster from "../../assets/rooster.png";
-import Fish from "../../assets/fish.png";
-import Crab from "../../assets/crab.png";
-import Shrimp from "../../assets/shrimp.png";
 
-import Player from "../Player/Player";
-
-function Chatbox(props){
-  const chat = props.chat;
-  const message = [];
-  for (let i = 0; i < chat.length; ++i){
-    message.push(
-      <div className="message">
-        <p className="message-content">{chat[i].name}: {chat[i].message}</p>
-      </div>)
-  }
-  return(
-  <ScrollToBottom className="scroll-chat">
-    {message}
-  </ScrollToBottom>
-)}
+import Header from "./Header/Header";
+import Board from "./Board/Board";
+import Players from "./Players/Players";
+import Chat from "./Chat/Chat";
 
 function Game(props){
   const [socket] = useState(props.socket);
@@ -39,6 +19,8 @@ function Game(props){
 
   const [chat, setChat] = useState([]);
 
+  const [timer, setTime] = useState(60);
+
   useEffect(()=>{
     socket.on("gamestate", ({gamestate}) => {
       setGamestate(gamestate);
@@ -48,15 +30,35 @@ function Game(props){
       setChat(chat.message);
     })
 
+    socket.on("timer", ({second}) => {
+      setTime(second);
+    })
+
+    socket.on("endtimer", () => {
+      playerReady();
+    })
+
     socket.on("newgamestate", ({gamestate}) => {
       document.getElementById("ready-button").classList.remove("on-click-ready");
       setReady(false);
       setShow({animal: "", show:false});
       setTotal(0);
+      setTime(60);
       setGamestate(gamestate);
     })
     //eslint-disable-next-line
   }, [])
+
+  useEffect(() => {
+    let interval;
+    if (props.host && timer >= 0){
+      interval = setInterval(() => {
+        socket.emit("timer", ({room:gamestate.roomId, timer}));
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  // eslint-disable-next-line
+  }, [timer]);
 
   const amount = (event) => {
     setShow({animal: event.target.id, show:true});
@@ -112,97 +114,46 @@ function Game(props){
       }
     }
   }
-  console.log(gamestate);
+ 
   return(
     <div className="game-container">
       <div className="game-header-container">
-        <div className="game-logo"><a href="/"><img id="ingame-logo"src={Logo}alt="logo"/></a></div>
-        <div className="game-leave"><a id="ingame-leave" href="/"><p>Leave</p></a></div>
+        <div className="game-logo">
+          <a href="/">
+            <img id="ingame-logo"src={Logo}alt="logo"/>
+          </a>
+        </div>
+        <div className="game-leave">
+          <a id="ingame-leave" href="/">
+            <p>Leave</p>
+          </a>
+        </div>
       </div>
       <div className="game-main-container">
-        <div className="main-header-container">
-          <div className="game-time"><p>Time</p></div>
-          <div className="game-dice">
-            <div id="dice1" className="game-die">{gamestate.dice.length > 0 ? gamestate.dice[0]:null}</div>
-            <div id="dice2" className="game-die">{gamestate.dice.length > 0 ? gamestate.dice[1]:null}</div>
-            <div id="dice3" className="game-die">{gamestate.dice.length > 0 ? gamestate.dice[2]:null}</div>
-          </div>
-          <div className="game-done">
-            <button id="ready-button" className="ready-button" onClick={!ready ? playerReady: null}>READY</button></div>
-        </div>
+        <Header 
+          timer={timer} 
+          gamestate={gamestate} 
+          ready={ready} 
+          playerReady={playerReady}
+        />
+
         <div className="game-game-container">
-          <div className="game-players-container">
-            <div className="player-header-container">
-              <p>Players</p>
-            </div>
-            <div className="players-container">
-              {gamestate.players.map((player, index) => (
-                <div key={index+"game-card"}className="game-player-card"> 
-                  <Player key={index} player={player} host={props.host} />
-                  <div key={index+"total"}className="game-player-total">
-                    <p>Total: {gamestate.players[index].total}</p>
-                    <p>Current: {gamestate.players[index].current}</p>
-                  </div>
-                </div>
-                ))}
-            </div>
-          </div>
-          <div className="game-board-container">
-            <div className="game-choose">
-              <div className="animals">
-                <div className="button-container">
-                  <button id="deer" onClick={!ready ? amount : null} value="deer">
-                    <img id="deer"className="animal-img" src={Deer} alt="deer"/></button>
-                  <button id="bau" onClick={!ready ? amount : null} value="bau">
-                    <img id="bau" className="animal-img" src={Gourd} alt="gourd"/></button>
-                  <button id="chicken" onClick={!ready ? amount : null} value="chicken">
-                    <img id="chicken" className="animal-img" src={Rooster} alt="rooster"/></button>
-                  <button id="fish" onClick={!ready ? amount : null} value="fish">
-                    <img id="fish" className="animal-img" src={Fish} alt="fish"/></button>
-                  <button id="crab" onClick={!ready ? amount : null} value="crab">
-                    <img id="crab" className="animal-img" src={Crab} alt="crab"/></button>
-                  <button id="shrimp" onClick={!ready ? amount : null} value="shrimp">
-                    <img id="shrimp" className="animal-img" src={Shrimp} alt="shrimp"/></button>
-                </div>
-              </div>
-            </div>
-            {showBet.show ? 
-            <div className="game-bet">
-              <div className="bet-options">
-                <div className="bet-animal">
-                  <p> BET: {showBet.animal.toUpperCase()} </p>
-                  <p>${total}</p>
-                </div>
-                <div className="plus-or-minus">
-                  <button id="plus-button" className="plus-button" onClick={betting}>+</button>
-                  <button id="minus-button" className="minus-button" onClick={betting}>-</button>
-                </div>
-              </div>
-              <div className="bet-buttons">
-                <button value={1} onClick={bet}>1</button>
-                <button value={5} onClick={bet}>5</button>
-                <button value={10} onClick={bet}>10</button>
-                <button value={20} onClick={bet}>20</button>
-                <button value={50} onClick={bet}>50</button>
-                <button value={100} onClick={bet}>100</button>
-              </div>
-            </div> 
-            : null}
-          </div>
-          <div className="game-chat-container">
-            <div className="chat-header-container"><p>Chat</p></div>
-            <div className="chat-messages">
-              <Chatbox chat={chat}/>
-            </div>
-            <div className="chat-input">
-              <input 
-                autoComplete="off" 
-                placeholder="click to start typing"  
-                id="message" 
-                type="text" 
-                onKeyUp={onKeyUp}/>
-              </div>
-          </div>
+          <Players 
+            host={props.host}
+            gamestate={gamestate}
+          />
+          <Board 
+            amount={amount} 
+            ready={ready} 
+            showBet={showBet} 
+            total={total}
+            bet={bet}
+            betting={betting}
+          />
+          <Chat 
+            chat={chat} 
+            onKeyUp={onKeyUp}
+          />
         </div>
       </div>
       <div className="game-footer-container"></div>
