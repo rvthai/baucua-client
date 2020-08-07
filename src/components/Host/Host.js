@@ -21,6 +21,27 @@ class Host extends Component {
     });
   };
 
+  checkInput = (event) => {
+    var e = document.getElementById("name-input");
+    if (this.state.name === "") {
+      event.preventDefault();
+      e.style.boxShadow = "0 0 5px #CC0000";
+      e.style.border = "none";
+      e.style.transition = "none";
+    }
+  };
+
+  onKeyUp = (event) => {
+    var e = document.getElementById("name-input");
+    if (event.key === "Enter") {
+      if (this.state.name === "") {
+        e.style.boxShadow = "0 0 5px #CC0000";
+        e.style.border = "none";
+        e.style.transition = "none";
+      }
+    }
+  };
+
   render() {
     return (
       <div className="host-modal">
@@ -31,11 +52,14 @@ class Host extends Component {
         />
         <p className="host-modal-title">Host a room.</p>
         <input
+          id="name-input"
           className="host-modal-input"
           placeholder="Enter your name"
           type="text"
+          onKeyUp={this.onKeyUp}
           onChange={this.onChangeName}
           maxLength="12"
+          autoComplete="off"
         />
         <div className="host-modal-btns">
           <button
@@ -45,6 +69,7 @@ class Host extends Component {
             Cancel
           </button>
           <Link
+            onClick={this.checkInput}
             to={{
               pathname: `/${this.state.room}`,
               state: {

@@ -1,10 +1,16 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./Join.css";
+import io from "socket.io-client";
 
 // Fontawesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
+import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
+
+var socket;
+const ENDPOINT = "http://localhost:9000";
+
+socket = io(ENDPOINT);
 
 class Join extends Component {
   constructor(props) {
@@ -12,6 +18,7 @@ class Join extends Component {
     this.state = {
       name: "",
       room: "",
+      redirect: false,
     };
   }
 
@@ -27,7 +34,65 @@ class Join extends Component {
     });
   };
 
+  checkRoomCode = () => {
+    socket.emit("check", this.state.room, (error, message) => {
+      if (error) {
+        this.props.onInvalidCode(message);
+      } else {
+        this.setState({ redirect: true });
+      }
+    });
+  };
+
+  checkInputs = (event) => {
+    event.preventDefault();
+
+    var name_input = document.getElementById("name-input");
+    var room_input = document.getElementById("room-input");
+
+    if (this.state.name !== "" && this.state.room !== "") {
+      this.checkRoomCode();
+    }
+
+    if (this.state.name === "") {
+      name_input.classList.remove("join-modal-input");
+      name_input.classList.add("join-modal-input-error");
+    } else {
+      name_input.classList.remove("join-modal-input-error");
+      name_input.classList.add("join-modal-input");
+    }
+
+    if (this.state.room === "") {
+      room_input.classList.remove("join-modal-input");
+      room_input.classList.add("join-modal-input-error");
+    } else {
+      room_input.classList.remove("join-modal-input-error");
+      room_input.classList.add("join-modal-input");
+    }
+  };
+
+  onKeyUp = (event) => {
+    if (event.key === "Enter") {
+      event.persist();
+      this.checkInputs(event);
+    }
+  };
+
   render() {
+    if (this.state.redirect) {
+      return (
+        <Redirect
+          to={{
+            pathname: `/${this.state.room}`,
+            state: {
+              name: this.state.name,
+              newRoom: false,
+            },
+          }}
+        />
+      );
+    }
+
     return (
       <div className="join-modal">
         <FontAwesomeIcon
@@ -37,19 +102,25 @@ class Join extends Component {
         />
         <p className="join-modal-title">Join a room.</p>
         <input
+          id="name-input"
           className="join-modal-input"
           placeholder="Enter your name"
           type="text"
+          onKeyUp={this.onKeyUp}
           onChange={this.onChangeName}
           maxLength="12"
+          autoComplete="off"
         />
         <input
+          id="room-input"
           className="join-modal-input"
           style={{ marginTop: "1rem" }}
           placeholder="Enter room code"
           type="text"
+          onKeyUp={this.onKeyUp}
           onChange={this.onChangeRoom}
           maxLength="6"
+          autoComplete="off"
         />
         <div className="join-modal-btns">
           <button
@@ -59,11 +130,12 @@ class Join extends Component {
             Cancel
           </button>
           <Link
+            onClick={this.checkInputs}
             to={{
               pathname: `/${this.state.room}`,
               state: {
                 name: this.state.name,
-                host: 0,
+                newRoom: false,
               },
             }}
           >

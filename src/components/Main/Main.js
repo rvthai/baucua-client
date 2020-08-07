@@ -5,6 +5,7 @@ import "./Main.css";
 // Components
 import Host from "../Host/Host";
 import Join from "../Join/Join";
+import ErrorModal from "../../ErrorModal/ErrorModal";
 
 // Fontawesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,7 +24,9 @@ class Main extends Component {
     this.state = {
       showHostModal: false,
       showJoinModal: false,
+      showErrorModal: false,
       showOverlay: false,
+      errorMessage: "",
     };
   }
 
@@ -37,12 +40,20 @@ class Main extends Component {
     this.setState({ showJoinModal: true, showOverlay: true });
   };
 
-  hideModal = () => {
-    document.getElementById("host-button").classList.remove("active");
-    document.getElementById("join-button").classList.remove("active");
+  showErrorModal = (message) => {
     this.setState({
       showHostModal: false,
       showJoinModal: false,
+      showErrorModal: true,
+      errorMessage: message,
+    });
+  };
+
+  hideModal = () => {
+    this.setState({
+      showHostModal: false,
+      showJoinModal: false,
+      showErrorModal: false,
       showOverlay: false,
     });
   };
@@ -83,7 +94,21 @@ class Main extends Component {
             unmountOnExit
             classNames="modal"
           >
-            <Join onCancelClick={this.hideModal} />
+            <Join
+              onCancelClick={this.hideModal}
+              onInvalidCode={this.showErrorModal}
+            />
+          </CSSTransition>
+          <CSSTransition
+            in={this.state.showErrorModal}
+            timeout={300}
+            unmountOnExit
+            classNames="modal"
+          >
+            <ErrorModal
+              onCancelClick={this.hideModal}
+              message={this.state.errorMessage}
+            />
           </CSSTransition>
         </div>
         <FontAwesomeIcon

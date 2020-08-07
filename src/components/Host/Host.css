@@ -23,6 +23,7 @@
   border: 1px solid #c9c9c9;
   transition: all 0.2s ease-out;
   text-align: center;
+  border-radius: 5px;
 }
 
 .host-modal-input:focus {
@@ -83,9 +84,8 @@
   background-color: #580c0e;
   transition: 0.3s;
 }
-
 /* Landscape */
-@media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+/* @media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
   .host-modal-title {
     font-size: 24px;
   }
@@ -110,4 +110,4 @@
     width: 100px;
     height: 40px;
   }
-}
+} */

@@ -25,7 +25,6 @@ function Lobby(props) {
   const [gamestate, setGameState] = useState({});
 
   const ENDPOINT = "http://localhost:9000";
-  //const ENDPOINT = "http://192.168.1.17:9000";
 
   useEffect(() => {
     socket = io(ENDPOINT, {

@@ -23,6 +23,7 @@
   border: 1px solid #c9c9c9;
   transition: all 0.2s ease-out;
   text-align: center;
+  border-radius: 5px;
 }
 
 .join-modal-input:focus {
@@ -85,7 +86,7 @@
 }
 
 /* Landscape */
-@media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+/* @media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
   .join-modal {
     max-width: 250px;
   }
@@ -118,4 +119,25 @@
   .join-modal-input {
     margin-top: -1rem;
   }
+} */
+
+.join-modal-input-error {
+  font-size: 24px;
+  padding: 0.75rem;
+  border: solid 1px #c9c9c9;
+  box-shadow: 0 0 5px #cc0000;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.join-modal-input-error:focus {
+  outline: 0;
+}
+
+.join-modal-input-error::placeholder {
+  color: #c9c9c9;
+}
+
+.join-modal-input-error[type="text"] {
+  font-family: "Oswald", sans-serif;
 }
