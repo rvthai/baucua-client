@@ -7,11 +7,6 @@ import io from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 
-var socket;
-const ENDPOINT = "http://localhost:9000";
-
-socket = io(ENDPOINT);
-
 class Join extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +15,15 @@ class Join extends Component {
       room: "",
       redirect: false,
     };
+  }
+
+  componentDidMount() {
+    const ENDPOINT = "http://localhost:9000";
+    this.socket = io(ENDPOINT);
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
   }
 
   onChangeName = (event) => {
@@ -35,7 +39,7 @@ class Join extends Component {
   };
 
   checkRoomCode = () => {
-    socket.emit("check", this.state.room, (error, message) => {
+    this.socket.emit("check", this.state.room, (error, message) => {
       if (error) {
         this.props.onInvalidCode(message);
       } else {
