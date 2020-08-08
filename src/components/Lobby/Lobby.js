@@ -5,14 +5,15 @@ import io from "socket.io-client";
 // Components
 import LobbyUI from "./LobbyUI";
 import Game from "../Game/Game";
-
+import Loading from "../Loading/Loading";
 let socket;
 
 function Lobby(props) {
   // State
   const [renderView, setRender] = useState(0);
 
-  const [newRoom] = useState(props.location.state.newRoom);
+  const [newRoom] = useState(props.location.state !== undefined ?
+    props.location.state.newRoom : null);
   const [room] = useState(props.match.params.roomId);
 
   const [host, setHost] = useState("");
@@ -20,9 +21,13 @@ function Lobby(props) {
 
   const [players, setPlayers] = useState([]);
   const [player, setPlayer] = useState("");
-  const [name] = useState(props.location.state.name);
+  const [name] = useState(props.location.state !== undefined ?
+    props.location.state.name : null);
 
   const [gamestate, setGameState] = useState({});
+
+  const [timerSelect, setTimerSelect] = useState(60);
+  const [roundSelect, setRoundSelect] = useState(7); 
 
   const ENDPOINT = "http://localhost:9000";
 
@@ -30,10 +35,14 @@ function Lobby(props) {
     socket = io(ENDPOINT, {
       reconnection: false,
     });
-
+    
     socket.emit("join", { name, room, newRoom }, (error) => {
       if (error) {
-        setRender(2);
+        //add interval here for loading
+        setTimeout(function(){setRender(2)}, 2000);
+      }else{
+        //add interval here for loading
+        setTimeout(function(){setRender(3)}, 2000);
       }
     });
 
@@ -57,6 +66,13 @@ function Lobby(props) {
       setPlayer(id);
     });
 
+    socket.on("timeropt", ({timer}) => {
+      setTimerSelect(timer);
+    })
+    socket.on("roundopt", ({round}) => {
+      setRoundSelect(round);
+    })
+
     socket.on("newhost", (newhost) => {
       if (newhost === player) {
         setIsHost(true);
@@ -73,13 +89,19 @@ function Lobby(props) {
   const onClickStart = () => {
     socket.emit("startgame", { room });
   };
+  const timerChange = (event) => {
+    socket.emit("timerchange", ({timer:event.target.value}));
+  }
+  const roundChange = (event) => {
+    socket.emit("roundchange", ({round:event.target.value}));
+  }
 
   switch (renderView) {
     case 1:
-      return <Game socket={socket} gamestate={gamestate} host={isHost} />;
+      return <Game socket={socket} timer={timerSelect} round={roundSelect} gamestate={gamestate} host={isHost} />;
     case 2:
       return <Redirect to="/" />;
-    default:
+    case 3:
       return (
         <LobbyUI
           onClickStart={onClickStart}
@@ -87,9 +109,15 @@ function Lobby(props) {
           room={room}
           isHost={isHost}
           host={host}
+          timer={timerSelect}
+          round={roundSelect}
+          timerChange={timerChange}
+          amountChange={roundChange}
         />
       );
-  }
+    default:
+      return <Loading />
+    }
 }
 
 export default Lobby;
