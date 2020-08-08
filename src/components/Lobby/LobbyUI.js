@@ -36,6 +36,13 @@ function LobbyUI(props) {
     lobby_message = "Waiting for the host to start the game...";
   }
 
+  if (props.players.length > 1 && !props.isHost){
+    if (document.getElementById("timer") && document.getElementById("round")){
+      document.getElementById("timer").classList.add("no-touch");
+    document.getElementById("round").classList.add("no-touch");
+    }
+  }
+
   return (
     <div className="lobby-container">
       <Link to="/">
@@ -50,6 +57,20 @@ function LobbyUI(props) {
           onClick={copyToClipboard}
         />
       </p>
+      <div className="lobby-options">
+        <p>Time</p>
+          <select id="timer"  onChange={props.timerChange} value={props.timer}>
+            <option value={30}>30s</option>
+            <option value={60}>60s</option>
+            <option value={90}>90s</option>
+          </select>
+          <p>Rounds</p>
+          <select id="round" onChange={props.amountChange} value={props.round}>
+            <option value={5}>5</option>
+            <option value={7}>7</option>
+            <option value={10}>10</option>
+          </select>
+      </div> 
       <div className="lobby">
         <p className="lobby-title">Lobby ({props.players.length}/8)</p>
         <p className="lobby-message">{lobby_message}</p>
