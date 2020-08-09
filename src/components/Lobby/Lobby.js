@@ -130,6 +130,7 @@ function Lobby(props) {
           onClickStart={onClickStart}
           players={players}
           room={room}
+          host={host}
           isHost={isHost}
           timer={timer}
           round={round}

@@ -14,15 +14,14 @@ import Player from "../Player/Player";
 import Settings from "./Settings/Settings";
 
 function LobbyUI(props) {
-  function copyToClipboard() {
-    // alert("Room code copied!");
+  const copyToClipboard = () => {
     const el = document.createElement("textarea");
     el.value = props.room;
     document.body.appendChild(el);
     el.select();
     document.execCommand("copy");
     document.body.removeChild(el);
-  }
+  };
 
   var button;
   var lobby_message;
@@ -38,36 +37,43 @@ function LobbyUI(props) {
   }
 
   return (
-    <div className="lobby-container">
-      <Link to="/">
-        <img src={Logo} className="mini-logo" />
-      </Link>
-      <p className="room-code">
-        Room Code:
-        <span className="room-code-code">{props.room}</span>
-        <FontAwesomeIcon
-          className="copy-btn"
-          icon={faCopy}
-          onClick={copyToClipboard}
-        />
-      </p>
-      <Settings
-        players={props.players}
-        isHost={props.isHost}
-        timer={props.timer}
-        round={props.round}
-        balance={props.balance}
-        onSettingsChange={props.onSettingsChange}
-      />
-      <div className="lobby">
-        <p className="lobby-title">Lobby ({props.players.length}/8)</p>
-        <p className="lobby-message">{lobby_message}</p>
-        <div className="players">
-          {props.players.map((player, index) => (
-            <Player key={index} player={player} host={props.host} />
-          ))}
+    <div className="lobby-page-container">
+      <div className="nav">
+        <div className="mini-logo-wrapper">
+          <Link to="/">
+            <img src={Logo} className="mini-logo" />
+          </Link>
         </div>
-        {button}
+        <p className="how-to-play">HOW TO PLAY</p>
+      </div>
+      <div className="lobby-container">
+        <p className="room-code">
+          Room Code:
+          <span className="room-code-code">{props.room}</span>
+          <FontAwesomeIcon
+            className="copy-btn"
+            icon={faCopy}
+            onClick={copyToClipboard}
+          />
+        </p>
+        <Settings
+          players={props.players}
+          isHost={props.isHost}
+          timer={props.timer}
+          round={props.round}
+          balance={props.balance}
+          onSettingsChange={props.onSettingsChange}
+        />
+        <div className="lobby">
+          <p className="lobby-title">Lobby ({props.players.length}/8)</p>
+          <p className="lobby-message">{lobby_message}</p>
+          <div className="players">
+            {props.players.map((player, index) => (
+              <Player key={index} player={player} host={props.host} />
+            ))}
+          </div>
+          {button}
+        </div>
       </div>
     </div>
   );
