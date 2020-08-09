@@ -111,11 +111,11 @@ class Main extends Component {
             />
           </CSSTransition>
         </div>
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           className="help-btn"
           icon={faQuestionCircle}
           size="3x"
-        />
+        /> */}
         <p className="copyright">© 2020 The Lazy Developers</p>
       </div>
     );

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./Host.css";
 
 // Fontawesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faDoorClosed } from "@fortawesome/free-solid-svg-icons";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 class Host extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class Host extends Component {
     this.state = {
       name: "",
       room: Math.random().toString(36).substring(2, 8).toUpperCase(),
+      rediredct: false,
     };
   }
 
@@ -38,11 +39,27 @@ class Host extends Component {
         e.style.boxShadow = "0 0 5px #CC0000";
         e.style.border = "none";
         e.style.transition = "none";
+      } else {
+        this.setState({ redirect: true });
       }
     }
   };
 
   render() {
+    if (this.state.redirect) {
+      return (
+        <Redirect
+          to={{
+            pathname: `/${this.state.room}`,
+            state: {
+              name: this.state.name,
+              newRoom: true,
+            },
+          }}
+        />
+      );
+    }
+
     return (
       <div className="host-modal">
         <FontAwesomeIcon

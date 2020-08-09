@@ -7,13 +7,13 @@
 .mini-logo {
   margin-top: 3rem;
   width: 100%;
-  max-width: 325px;
+  max-width: 200px;
 }
 
 .room-code {
   color: white;
   font-size: 40px;
-  margin: 2rem 0 0.5rem 0;
+  margin: 0.5rem 0 1rem 0;
 }
 
 .room-code-code {
@@ -24,7 +24,7 @@
 
 .copy-btn {
   color: #e6e6e6;
-  opacity: 0.5;
+  opacity: 1;
   font-size: 24px;
   margin-left: 1rem;
   margin-bottom: 0.4rem;
@@ -33,37 +33,10 @@
 }
 
 .copy-btn:active {
-  opacity: 1;
+  opacity: 0.5;
   transition: 0.3s;
 }
 
-.lobby-options{
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
-  width: 600px;
-  height: auto;
-  padding: 1rem 1rem 1rem 1rem;
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  justify-content: space-evenly;
-}
-
-.lobby-options > p{
-  font-size: 24px;
-  margin-block-start: 0;
-  margin-block-end: 0;
-}
-.lobby-options > select{
-  font-size: 16px;
-  width: 200px;
-  outline: none;
-}
-.no-touch{
-  cursor: default;
-  pointer-events: none;
-}
 .lobby {
   color: white;
   background-color: rgba(0, 0, 0, 0.2);
@@ -114,13 +87,11 @@
 
 /* mobile */
 @media screen and (max-width: 800px) {
-  .lobby, .lobby-options {
+  .lobby {
     width: 300px;
     height: 100%;
   }
-  .lobby-options > select{
-    width: 50px;
-  }
+
   .players {
     grid-template-columns: repeat(2, 1fr);
     margin-top: 2rem;

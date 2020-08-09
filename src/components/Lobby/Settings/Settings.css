@@ -1,0 +1,60 @@
+.lobby-options {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  width: 600px;
+  height: 25px;
+  padding: 1rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  /* flex-wrap: wrap; */
+}
+
+.lobby-options > select {
+  width: 100px;
+  outline: none;
+}
+
+.select {
+  outline: none;
+  width: 100px;
+}
+
+.setting-label {
+  margin-right: 0.5rem;
+}
+
+.setting-icon {
+  margin-right: 0.25rem;
+}
+
+.disable {
+  background-color: #cccccc;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* mobile */
+@media screen and (max-width: 800px) {
+  .lobby-options {
+    width: 300px;
+    height: 100%;
+    display: table;
+    text-align: center;
+  }
+
+  .lobby-options > label {
+    display: table-row;
+  }
+
+  .setting-label {
+    display: table-cell;
+    text-align: right;
+  }
+
+  .select {
+    align-self: flex-end;
+  }
+}

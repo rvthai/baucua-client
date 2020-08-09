@@ -12,8 +12,9 @@ function Lobby(props) {
   // State
   const [renderView, setRender] = useState(0);
 
-  const [newRoom] = useState(props.location.state !== undefined ?
-    props.location.state.newRoom : null);
+  const [newRoom] = useState(
+    props.location.state !== undefined ? props.location.state.newRoom : null
+  );
   const [room] = useState(props.match.params.roomId);
 
   const [host, setHost] = useState("");
@@ -21,28 +22,34 @@ function Lobby(props) {
 
   const [players, setPlayers] = useState([]);
   const [player, setPlayer] = useState("");
-  const [name] = useState(props.location.state !== undefined ?
-    props.location.state.name : null);
+  const [name] = useState(
+    props.location.state !== undefined ? props.location.state.name : null
+  );
 
   const [gamestate, setGameState] = useState({});
 
-  const [timerSelect, setTimerSelect] = useState(60);
-  const [roundSelect, setRoundSelect] = useState(7); 
+  const [timer, setTimer] = useState(60);
+  const [round, setRound] = useState(7);
+  const [balance, setBalance] = useState(100);
 
-  const ENDPOINT = "http://localhost:9000";
+  const ENDPOINT = "http://192.168.1.17:9000";
 
   useEffect(() => {
     socket = io(ENDPOINT, {
       reconnection: false,
     });
-    
+
     socket.emit("join", { name, room, newRoom }, (error) => {
       if (error) {
         //add interval here for loading
-        setTimeout(function(){setRender(2)}, 2000);
-      }else{
+        setTimeout(function () {
+          setRender(2);
+        }, 2000);
+      } else {
         //add interval here for loading
-        setTimeout(function(){setRender(3)}, 2000);
+        setTimeout(function () {
+          setRender(3);
+        }, 2000);
       }
     });
 
@@ -66,12 +73,15 @@ function Lobby(props) {
       setPlayer(id);
     });
 
-    socket.on("timeropt", ({timer}) => {
-      setTimerSelect(timer);
-    })
-    socket.on("roundopt", ({round}) => {
-      setRoundSelect(round);
-    })
+    socket.on("timeropt", ({ timer }) => {
+      setTimer(timer);
+    });
+    socket.on("roundopt", ({ round }) => {
+      setRound(round);
+    });
+    socket.on("balanceopt", ({ balance }) => {
+      setBalance(balance);
+    });
 
     socket.on("newhost", (newhost) => {
       if (newhost === player) {
@@ -89,16 +99,29 @@ function Lobby(props) {
   const onClickStart = () => {
     socket.emit("startgame", { room });
   };
-  const timerChange = (event) => {
-    socket.emit("timerchange", ({timer:event.target.value}));
-  }
-  const roundChange = (event) => {
-    socket.emit("roundchange", ({round:event.target.value}));
-  }
+
+  const onSettingsChange = (setting, value) => {
+    if (setting === "timer") {
+      socket.emit("timerchange", { timer: value });
+    } else if (setting === "round") {
+      socket.emit("roundchange", { round: value });
+    } else if (setting === "balance") {
+      socket.emit("balancechange", { balance: value });
+    }
+  };
 
   switch (renderView) {
     case 1:
-      return <Game socket={socket} timer={timerSelect} round={roundSelect} gamestate={gamestate} host={isHost} />;
+      return (
+        <Game
+          socket={socket}
+          timer={timer}
+          round={round}
+          balance={balance}
+          gamestate={gamestate}
+          host={isHost}
+        />
+      );
     case 2:
       return <Redirect to="/" />;
     case 3:
@@ -108,16 +131,15 @@ function Lobby(props) {
           players={players}
           room={room}
           isHost={isHost}
-          host={host}
-          timer={timerSelect}
-          round={roundSelect}
-          timerChange={timerChange}
-          amountChange={roundChange}
+          timer={timer}
+          round={round}
+          balance={balance}
+          onSettingsChange={onSettingsChange}
         />
       );
     default:
-      return <Loading />
-    }
+      return <Loading />;
+  }
 }
 
 export default Lobby;
