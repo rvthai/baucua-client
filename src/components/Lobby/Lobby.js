@@ -32,9 +32,13 @@ function Lobby(props) {
   const [round, setRound] = useState(7);
   const [balance, setBalance] = useState(100);
 
-  const ENDPOINT = "http://192.168.1.17:9000";
-
+  //const ENDPOINT = "http://192.168.1.17:9000";
+  const ENDPOINT = "http://localhost:9000";
   useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      setRender(4);
+    })
+
     socket = io(ENDPOINT, {
       reconnection: false,
     });
@@ -138,6 +142,8 @@ function Lobby(props) {
           onSettingsChange={onSettingsChange}
         />
       );
+    case 4:
+      return <Redirect to="/baucuacacop" />;
     default:
       return <Loading />;
   }
