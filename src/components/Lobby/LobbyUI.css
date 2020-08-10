@@ -129,7 +129,7 @@
   }
 
   .how-to-play {
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     left: 50%;
     transform: translate(-50%, 0);
@@ -148,4 +148,24 @@
     grid-template-columns: repeat(2, 1fr);
     margin-top: 2rem;
   }
+}
+
+/* CSS Transition Group */
+.drawer-enter {
+  transform: translateY(100%);
+}
+.drawer-enter-active {
+  transform: translateY(0%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.drawer-enter-done {
+  transform: translateY(0%);
+}
+.drawer-exit {
+  transform: translateY(0%);
+}
+.drawer-exit-active {
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
 }
