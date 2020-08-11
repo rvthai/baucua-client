@@ -6,6 +6,7 @@ import io from "socket.io-client";
 import LobbyUI from "./LobbyUI";
 import Game from "../Game/Game";
 import Loading from "../Loading/Loading";
+import DiceSpinner from "../Loading/DiceSpinner";
 let socket;
 
 function Lobby(props) {
@@ -37,7 +38,7 @@ function Lobby(props) {
   useEffect(() => {
     window.addEventListener("beforeunload", () => {
       setRender(4);
-    })
+    });
 
     socket = io(ENDPOINT, {
       reconnection: false,
@@ -145,7 +146,7 @@ function Lobby(props) {
     case 4:
       return <Redirect to="/baucuacacop" />;
     default:
-      return <Loading />;
+      return <DiceSpinner />;
   }
 }
 
