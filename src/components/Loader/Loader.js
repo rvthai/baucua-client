@@ -1,7 +1,7 @@
 import React from "react";
-import "./DiceSpinner.css";
+import "./Loader.css";
 
-function DiceSpinner2() {
+function Loader() {
   return (
     <div id="wrapper">
       <div id="platform">
@@ -54,4 +54,4 @@ function DiceSpinner2() {
   );
 }
 
-export default DiceSpinner2;
+export default Loader;
