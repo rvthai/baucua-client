@@ -3,7 +3,9 @@
   flex-direction: row;
   justify-content: flex-start;
   padding: .5em 0 .5em 5px;
-  background-color:#dfdfdf;
+  background-color:rgba(0, 0, 0, 0.2);
+  outline: none;
+  border: none;
 }
 .alternate{
   display: flex;
@@ -14,6 +16,7 @@
 .message-content{
   width: 100%;
   font-size: 1em;
+  color: white;
   margin-block-start: 0em;
   margin-block-end: 0em;
   overflow-wrap: break-word;

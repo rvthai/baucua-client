@@ -26,6 +26,9 @@
   flex-wrap: nowrap;
   margin: 1rem;
 }
+#button-container{
+  visibility: hidden;
+}
 .button-container{
   flex: 0 0 100%;
   display: flex;

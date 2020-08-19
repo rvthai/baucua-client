@@ -14,7 +14,7 @@ function Board(props){
     <div className="game-board-container">
       <div className="game-choose">
         <div className="animals">
-          <div className="button-container">
+          <div id="button-container" className="button-container">
             <button id="deer" onClick={!props.ready ? props.amount : null} value="deer">
               <img id="deer"className="animal-img" src={Deer} alt="deer"/></button>
             <button id="bau" onClick={!props.ready ? props.amount : null} value="bau">

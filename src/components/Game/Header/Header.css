@@ -7,6 +7,9 @@
   justify-content: space-evenly;
   border: solid;
 }
+#game-time{
+  visibility: hidden;
+}
 .game-time{
   flex-basis: 10%;
   border-right: solid;
@@ -25,6 +28,9 @@
   width: 75px;
   background-color: white;
   margin: 5px;
+}
+#game-done{
+  visibility: hidden;
 }
 .game-done{
   flex-basis: 15%;

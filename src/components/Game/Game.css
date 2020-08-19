@@ -57,6 +57,39 @@
   max-height: 606px;
 }
 
+#round-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* CSS Transition Group */
+.modal-round-enter {
+  opacity: 0%;
+  transform: translate(-50%, -50%); 
+}
+.modal-round-enter-active {
+  transform: translate(-50%, -50%);
+  opacity: 100%;
+  transition: 0.3s;
+}
+.modal-round-enter-done {
+  transform: translate(-50%, -50%);
+  opacity: 1000%;
+}
+.modal-round-exit {
+  transform: translate(-50%, -50%);
+  opacity: 100%;
+}
+.modal-round-exit-active {
+  transform: translate(-50%, -50%);
+  opacity: 0%;
+  transition: 0.3s;
+}
+
 @media screen and (max-width:615px){
   .game-board-container{
       flex-basis: 100%;

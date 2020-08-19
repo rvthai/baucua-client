@@ -50,10 +50,7 @@ function Lobby(props) {
           setRender(2);
         }, 2000);
       } else {
-        //add interval here for loading
-        setTimeout(function () {
-          setRender(3);
-        }, 2000);
+        setRender(3);
       }
     });
 

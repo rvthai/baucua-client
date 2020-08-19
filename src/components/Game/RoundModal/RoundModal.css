@@ -1,0 +1,16 @@
+.round-modal {
+  position: fixed;
+  top: 40%;
+  left: 48.5%;
+  padding: 2rem;
+  max-width: 300px;
+  border-radius: 15px;
+  background-color: transparent;
+  text-align: center;
+  z-index: 1;
+}
+
+.round-modal > p, .gameover-modal > p{
+  color: #d39943;
+  font-size: 64px;
+}

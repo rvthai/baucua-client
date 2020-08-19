@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 
 import "./Game.css";
@@ -8,6 +9,7 @@ import Header from "./Header/Header";
 import Board from "./Board/Board";
 import Players from "./Players/Players";
 import Chat from "./Chat/Chat";
+import RoundModal from "./RoundModal/RoundModal";
 
 function Game(props) {
   const [socket] = useState(props.socket);
@@ -20,7 +22,33 @@ function Game(props) {
 
   const [chat, setChat] = useState([]);
 
-  const [timer, setTime] = useState(60);
+  const [round, setRound] = useState(props.gamestate.round);
+  const [timer, setTime] = useState(10);
+  const [maxRound] = useState(2);
+
+  const [startTimer, setStartTimer] = useState(false);
+
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showRoundStart, setRoundStart] = useState(false);
+  const [showRoundEnd, setRoundEnd] = useState(false);
+  const [showGameOver, setGameOver] = useState(false);
+
+  useEffect(() => {
+    if (props.host){
+      socket.emit("showstartmodal");
+    }
+  },[socket])
+
+  useEffect(() => {
+    let interval;
+    if (startTimer && props.host && timer >= 0) {
+      interval = setInterval(() => {
+        socket.emit("timer", { room: gamestate.roomId, timer });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, [timer, startTimer]);
 
   useEffect(() => {
     socket.on("gamestate", ({ gamestate }) => {
@@ -34,34 +62,72 @@ function Game(props) {
     socket.on("timer", ({ second }) => {
       setTime(second);
     });
-
+    //SOCKET MODALS
+    socket.on("hidestart", () => {
+      setRoundStart(false);
+      setTimeout(() => {
+        setShowOverlay(false);
+      },300);
+      document.getElementById("game-time").style.visibility = "visible";
+      document.getElementById("game-done").style.visibility = "visible";
+      document.getElementById("button-container").style.visibility = "visible";
+      setTimeout(() => {
+        setStartTimer(true);
+      },600);
+    })
+    socket.on("hideend", ({gameover}) => {
+      setRoundEnd(false);
+      revealDice();
+      if (props.host && gameover){
+        setTimeout(() => {
+          socket.emit("showgameover");
+        }, 3400);
+      }
+      if (props.host && !gameover){
+        setTimeout(() => {
+          socket.emit("showstartmodal");
+        }, 3400);//timeout depends on how long our reveal is
+      }
+    })
+    socket.on("showstartmodal", () => {
+      setRoundStart(true);
+      setShowOverlay(true);
+    })
+    socket.on("showendmodal", ({round}) => {
+      document.getElementById("game-time").style.visibility = "hidden";
+      document.getElementById("game-done").style.visibility = "hidden";
+      document.getElementById("button-container").style.visibility = "hidden";
+      //interval
+      setStartTimer(false);
+      setRound(round);
+      setRoundEnd(true);
+      setShowOverlay(true);
+    })
+    socket.on("showgameover", () => {
+      document.getElementById("game-time").style.visibility = "hidden";
+      document.getElementById("game-done").style.visibility = "hidden";
+      setStartTimer(false);
+      setGameOver(true);
+      setShowOverlay(true);
+    })
     socket.on("endtimer", () => {
       playerReady();
     });
+    //SOCKET MODAL END
 
     socket.on("newgamestate", ({ gamestate }) => {
-      document
-        .getElementById("ready-button")
-        .classList.remove("on-click-ready");
+      document.getElementById("ready-button").classList.remove("on-click-ready");
       setReady(false);
       setShow({ animal: "", show: false });
       setTotal(0);
-      setTime(60);
+      setTime(10);
+      document.getElementById("dice1").style.visibility = "hidden";
+      document.getElementById("dice2").style.visibility = "hidden";
+      document.getElementById("dice3").style.visibility = "hidden";
       setGamestate(gamestate);
     });
     //eslint-disable-next-line
   }, []);
-
-  useEffect(() => {
-    let interval;
-    if (props.host && timer >= 0) {
-      interval = setInterval(() => {
-        socket.emit("timer", { room: gamestate.roomId, timer });
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-    // eslint-disable-next-line
-  }, [timer]);
 
   const amount = (event) => {
     setShow({ animal: event.target.id, show: true });
@@ -129,6 +195,32 @@ function Game(props) {
     }
   };
 
+  const revealDice = () => {
+    setTimeout(() => {
+      document.getElementById("dice1").style.zIndex = "1";
+      document.getElementById("dice1").style.visibility = "visible";
+    },1000);
+    setTimeout(() => {
+      document.getElementById("dice2").style.zIndex = "1";
+      document.getElementById("dice2").style.visibility = "visible";
+    },2000);
+    setTimeout(() => {
+      document.getElementById("dice3").style.zIndex = "1";
+      document.getElementById("dice3").style.visibility = "visible";
+    },3000);
+  }
+
+  if (props.host && showRoundStart){
+    setTimeout(() => {
+      socket.emit("hidestartmodal");
+    }, 3000);
+  }
+  if (props.host && showRoundEnd){
+    setTimeout(() => {
+      socket.emit("hideendmodal", {round, maxRound});
+    }, 3000);
+  }
+  console.log(gamestate);
   return (
     <div className="game-container">
       <div className="game-header-container">
@@ -164,7 +256,33 @@ function Game(props) {
           <Chat chat={chat} onKeyUp={onKeyUp} />
         </div>
       </div>
-      <div className="game-footer-container"></div>
+      {showOverlay ? <div id="overlay"></div> : null}
+      <CSSTransition
+        in={showRoundStart}
+        timeout={300}
+        unmountOnExit
+        classNames="modal-round"
+      >
+        <RoundModal start={showRoundStart} round={round}/>
+      </CSSTransition>
+
+      <CSSTransition
+        in={showRoundEnd}
+        timeout={300}
+        unmountOnExit
+        classNames="modal-round"
+      >
+        <RoundModal end={showRoundEnd} round={round}/>
+      </CSSTransition>
+
+      <CSSTransition
+        in={showGameOver}
+        timeout={300}
+        unmountOnExit
+        classNames="modal-round"
+      >
+        <RoundModal gameover={showGameOver} round={round}/>
+      </CSSTransition>
     </div>
   );
 }
