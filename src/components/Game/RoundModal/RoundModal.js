@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./RoundModal.css";
 
 function RoundModal(props){
@@ -10,9 +9,7 @@ function RoundModal(props){
       {props.gameover !== undefined 
         ? <div className="gameover-modal">
             <p>GAMEOVER</p>
-            <Link to="/">
-              <button>MAIN MENU</button>
-            </Link> 
+            <button onClick={props.return}>MAIN MENU</button>
           </div>
         : null}
     </div>

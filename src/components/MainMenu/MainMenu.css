@@ -22,7 +22,10 @@
   color: #c9c9c9;
   text-align: center;
   margin-top: 2rem;
-  z-index: -1;
+}
+
+.copyright > a {
+  color: #e6e6e6;
 }
 
 .main-menu-btn {
@@ -55,11 +58,6 @@
   cursor: pointer;
   transition: 0.3s;
 }
-
-/* .help-btn:hover {
-  transform: translateY(-20%);
-  transition: 0.3s;
-} */
 
 #overlay {
   position: fixed;

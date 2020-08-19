@@ -17,7 +17,15 @@ function Settings(props) {
         options[i].classList.add("disable");
       }
     }
-  }, []);
+
+    var disabled_options = document.getElementsByClassName("disable");
+
+    if (props.isHost && disabled_options.length > 0) {
+      while (disabled_options.length > 0) {
+        disabled_options[0].classList.remove("disable");
+      }
+    }
+  }, [props.isHost]);
 
   const onOptionChange = (event) => {
     props.onSettingsChange(event.target.id, event.target.value);

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CSSTransition } from "react-transition-group";
-import { Link } from "react-router-dom";
+import SocketContext from "contexts/socket-context";
 
 import "./Game.css";
 import Logo from "../../assets/logo.png";
@@ -12,7 +12,7 @@ import Chat from "./Chat/Chat";
 import RoundModal from "./RoundModal/RoundModal";
 
 function Game(props) {
-  const [socket] = useState(props.socket);
+  const socket = useContext(SocketContext);
   const [gamestate, setGamestate] = useState(props.gamestate);
 
   const [ready, setReady] = useState(false);
@@ -225,9 +225,7 @@ function Game(props) {
     <div className="game-container">
       <div className="game-header-container">
         <div className="game-logo">
-          <Link to="/">
-            <img src={Logo} className="mini-logo" />
-          </Link>
+          <img src={Logo} className="mini-logo" onClick={props.onLogoClick} />
         </div>
         <div className="game-leave">
           <a id="ingame-leave" href="/">
@@ -281,7 +279,7 @@ function Game(props) {
         unmountOnExit
         classNames="modal-round"
       >
-        <RoundModal gameover={showGameOver} round={round}/>
+        <RoundModal gameover={showGameOver} round={round} return={props.onLogoClick}/>
       </CSSTransition>
     </div>
   );
