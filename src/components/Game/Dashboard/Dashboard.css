@@ -1,0 +1,40 @@
+.dashboard-container {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.money-wrapper {
+  display: flex;
+}
+
+.money {
+  width: 137px;
+  margin-right: 1rem;
+}
+
+.ready-button2 {
+  color: white;
+  background-color: #caa56c;
+  border-radius: 15px;
+  font-size: 36px;
+  font-family: "Francois One", sans-serif;
+  width: 137px;
+  height: 65px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.unready-button {
+  color: white;
+  background-color: #caa56c;
+  border-radius: 15px;
+  font-size: 30px;
+  font-family: "Francois One", sans-serif;
+  width: 137px;
+  height: 65px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}

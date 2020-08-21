@@ -1,24 +1,42 @@
-.game-board-container{
-  flex-grow: 0.4;
-  width: 800px;
-  height: auto;
-  display: flex;
+.game-board-container {
+  /* flex-grow: 0.4; */
+  width: 900px;
+  height: 500px;
+  background: #f5cac3;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
   margin-right: 10px;
-  margin-left: 10px;
+  margin-left: 10px; */
+}
+
+.spots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.spot {
+  background-color: #e6e6e6;
+  border-radius: 50%;
+  width: 225px;
+  height: 225px;
+}
+
+.symbol {
+  width: 200px;
 }
 /* GAME MAIN - BOARD
 -------------------------------------------*/
-.game-choose{
-  flex-grow: 0.6;
+.game-choose {
   width: 100%;
-  background: pink;
+  background: rgba(255, 192, 203, 0.63);
   display: flex;
   justify-content: space-evenly;
 }
-.animals{
+.animals {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -26,99 +44,101 @@
   flex-wrap: nowrap;
   margin: 1rem;
 }
-#button-container{
+#button-container {
   visibility: hidden;
 }
-.button-container{
+.button-container {
   flex: 0 0 100%;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-.button-container > button{
+.button-container > button {
   cursor: pointer;
   flex: 1 0 33.33%;
   max-width: 200px;
   max-height: 200px;
   border-radius: 50%;
-  border: none;
+  border: solid 1px rgba(0, 0, 0, 0);
   outline: none;
   margin: 1rem;
 }
-.button-container > button:hover{
-  background-color: #c9c9c9;
+.button-container > button:hover {
+  /*background-color: #c9c9c9;*/
+  border: solid 1px rgba(0, 0, 0, 1);
+  transition: 0.3s;
 }
-.button-select{
+.button-select {
   border: blue solid;
 }
 
-.animal-img{
+.animal-img {
   height: 75px;
   width: 75px;
 }
-.game-bet{
+.game-bet {
   background: white;
-  flex:0.2 1 auto;
+  flex: 0.2 1 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
-.bet-options{
+.bet-options {
   flex: 0.5 0 25%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.bet-buttons{
+.bet-buttons {
   flex: 0.5 0 50%;
 }
-.bet-animal{
+.bet-animal {
   flex: 0.5 1 auto;
   display: flex;
   flex-direction: column;
 }
-.plus-or-minus{
+.plus-or-minus {
   flex: 1 1 auto;
   display: flex;
   margin: 5px;
 }
-.plus-or-minus > button{
+.plus-or-minus > button {
   width: 100%;
   margin: 1px;
   outline: none;
   border: none;
 }
-.plus-button{
+.plus-button {
   background: #666666;
 }
-.minus-button{
+.minus-button {
   background-color: #e2e0e0;
 }
-.minus-select{
+.minus-select {
   background-color: #666666;
 }
-.plus-select{
+.plus-select {
   background-color: #e2e0e0;
 }
 
-.bet-animal > p{
+.bet-animal > p {
   text-align: center;
   font-size: 24px;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
-.bet-buttons{
+.bet-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-.bet-buttons > button{
+.bet-buttons > button {
   flex: 1 1 33.33%;
   outline: none;
 }
-.bet-buttons > button:hover{
+.bet-buttons > button:hover {
   background-color: #c9c9c9;
 }

@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import SocketContext from "contexts/socket-context";
-
 import "./Game.css";
+
+// Fontawesome Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCommentDots } from "@fortawesome/free-solid-svg-icons";
+
+// Logo
 import Logo from "../../assets/logo.png";
 
+// Components
 import Header from "./Header/Header";
 import Board from "./Board/Board";
 import Players from "./Players/Players";
 import Chat from "./Chat/Chat";
+import Dashboard from "./Dashboard/Dashboard";
 import RoundModal from "./RoundModal/RoundModal";
 
 function Game(props) {
@@ -23,8 +30,8 @@ function Game(props) {
   const [chat, setChat] = useState([]);
 
   const [round, setRound] = useState(props.gamestate.round);
-  const [timer, setTime] = useState(10);
-  const [maxRound] = useState(2);
+  const [timer, setTime] = useState(props.timer);
+  const [maxRound] = useState(props.round);
 
   const [startTimer, setStartTimer] = useState(false);
 
@@ -34,21 +41,21 @@ function Game(props) {
   const [showGameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    if (props.host){
+    if (props.host) {
       socket.emit("showstartmodal");
     }
-  },[socket])
+  }, [socket]);
 
-  useEffect(() => {
-    let interval;
-    if (startTimer && props.host && timer >= 0) {
-      interval = setInterval(() => {
-        socket.emit("timer", { room: gamestate.roomId, timer });
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-    // eslint-disable-next-line
-  }, [timer, startTimer]);
+  // useEffect(() => {
+  //   let interval;
+  //   if (startTimer && props.host && timer >= 0) {
+  //     interval = setInterval(() => {
+  //       socket.emit("timer", { room: gamestate.roomId, timer });
+  //     }, 1000);
+  //   }
+  //   return () => clearInterval(interval);
+  //   // eslint-disable-next-line
+  // }, [timer, startTimer]);
 
   useEffect(() => {
     socket.on("gamestate", ({ gamestate }) => {
@@ -67,60 +74,62 @@ function Game(props) {
       setRoundStart(false);
       setTimeout(() => {
         setShowOverlay(false);
-      },300);
+      }, 300);
       document.getElementById("game-time").style.visibility = "visible";
-      document.getElementById("game-done").style.visibility = "visible";
-      document.getElementById("button-container").style.visibility = "visible";
+      //document.getElementById("game-done").style.visibility = "visible";
+      //document.getElementById("button-container").style.visibility = "visible";
       setTimeout(() => {
         setStartTimer(true);
-      },600);
-    })
-    socket.on("hideend", ({gameover}) => {
+      }, 600);
+    });
+    socket.on("hideend", ({ gameover }) => {
       setRoundEnd(false);
       revealDice();
-      if (props.host && gameover){
+      if (props.host && gameover) {
         setTimeout(() => {
           socket.emit("showgameover");
         }, 3400);
       }
-      if (props.host && !gameover){
+      if (props.host && !gameover) {
         setTimeout(() => {
           socket.emit("showstartmodal");
-        }, 3400);//timeout depends on how long our reveal is
+        }, 3400); //timeout depends on how long our reveal is
       }
-    })
+    });
     socket.on("showstartmodal", () => {
       setRoundStart(true);
       setShowOverlay(true);
-    })
-    socket.on("showendmodal", ({round}) => {
+    });
+    socket.on("showendmodal", ({ round }) => {
       document.getElementById("game-time").style.visibility = "hidden";
-      document.getElementById("game-done").style.visibility = "hidden";
+      //document.getElementById("game-done").style.visibility = "hidden";
       document.getElementById("button-container").style.visibility = "hidden";
       //interval
       setStartTimer(false);
       setRound(round);
       setRoundEnd(true);
       setShowOverlay(true);
-    })
+    });
     socket.on("showgameover", () => {
       document.getElementById("game-time").style.visibility = "hidden";
-      document.getElementById("game-done").style.visibility = "hidden";
+      //document.getElementById("game-done").style.visibility = "hidden";
       setStartTimer(false);
       setGameOver(true);
       setShowOverlay(true);
-    })
+    });
     socket.on("endtimer", () => {
       playerReady();
     });
     //SOCKET MODAL END
 
     socket.on("newgamestate", ({ gamestate }) => {
-      document.getElementById("ready-button").classList.remove("on-click-ready");
+      // document
+      //   .getElementById("ready-button")
+      //   .classList.remove("on-click-ready");
       setReady(false);
       setShow({ animal: "", show: false });
       setTotal(0);
-      setTime(10);
+      setTime(timer);
       document.getElementById("dice1").style.visibility = "hidden";
       document.getElementById("dice2").style.visibility = "hidden";
       document.getElementById("dice3").style.visibility = "hidden";
@@ -179,7 +188,7 @@ function Game(props) {
 
   const playerReady = () => {
     showBet.show = false;
-    document.getElementById("ready-button").classList.add("on-click-ready");
+    //document.getElementById("ready-button").classList.add("on-click-ready");
     setReady(true);
     socket.emit("readyplayer", { gamestate });
   };
@@ -199,88 +208,90 @@ function Game(props) {
     setTimeout(() => {
       document.getElementById("dice1").style.zIndex = "1";
       document.getElementById("dice1").style.visibility = "visible";
-    },1000);
+    }, 1000);
     setTimeout(() => {
       document.getElementById("dice2").style.zIndex = "1";
       document.getElementById("dice2").style.visibility = "visible";
-    },2000);
+    }, 2000);
     setTimeout(() => {
       document.getElementById("dice3").style.zIndex = "1";
       document.getElementById("dice3").style.visibility = "visible";
-    },3000);
-  }
+    }, 3000);
+  };
 
-  if (props.host && showRoundStart){
+  if (props.host && showRoundStart) {
     setTimeout(() => {
       socket.emit("hidestartmodal");
     }, 3000);
   }
-  if (props.host && showRoundEnd){
+  if (props.host && showRoundEnd) {
     setTimeout(() => {
-      socket.emit("hideendmodal", {round, maxRound});
+      socket.emit("hideendmodal", { round, maxRound });
     }, 3000);
   }
   console.log(gamestate);
   return (
-    <div className="game-container">
-      <div className="game-header-container">
-        <div className="game-logo">
+    <div className="game-page-container">
+      <div className="nav">
+        <div className="mini-logo-wrapper">
           <img src={Logo} className="mini-logo" onClick={props.onLogoClick} />
         </div>
-        <div className="game-leave">
-          <a id="ingame-leave" href="/">
-            <p>Leave</p>
-          </a>
-        </div>
+        <FontAwesomeIcon className="chat-button" icon={faCommentDots} />
       </div>
-      <div className="game-main-container">
+      <div className="game-container">
         <Header
           timer={timer}
           gamestate={gamestate}
           ready={ready}
           playerReady={playerReady}
         />
-
-        <div className="game-game-container">
+        <div className="bottom-half">
           <Players host={props.host} gamestate={gamestate} />
-          <Board
-            amount={amount}
-            ready={ready}
-            showBet={showBet}
-            total={total}
-            bet={bet}
-            betting={betting}
-          />
-          <Chat chat={chat} onKeyUp={onKeyUp} />
+          <div className="main-board">
+            <Board
+              amount={amount}
+              ready={ready}
+              showBet={showBet}
+              total={total}
+              bet={bet}
+              betting={betting}
+            />
+            <Dashboard />
+          </div>
         </div>
+
+        {showOverlay ? <div id="overlay"></div> : null}
+        <CSSTransition
+          in={showRoundStart}
+          timeout={300}
+          unmountOnExit
+          classNames="modal-round"
+        >
+          <RoundModal start={showRoundStart} round={round} />
+        </CSSTransition>
+
+        <CSSTransition
+          in={showRoundEnd}
+          timeout={300}
+          unmountOnExit
+          classNames="modal-round"
+        >
+          <RoundModal end={showRoundEnd} round={round} />
+        </CSSTransition>
+
+        <CSSTransition
+          in={showGameOver}
+          timeout={300}
+          unmountOnExit
+          classNames="modal-round"
+        >
+          <RoundModal
+            gameover={showGameOver}
+            round={round}
+            return={props.onLogoClick}
+          />
+        </CSSTransition>
       </div>
-      {showOverlay ? <div id="overlay"></div> : null}
-      <CSSTransition
-        in={showRoundStart}
-        timeout={300}
-        unmountOnExit
-        classNames="modal-round"
-      >
-        <RoundModal start={showRoundStart} round={round}/>
-      </CSSTransition>
-
-      <CSSTransition
-        in={showRoundEnd}
-        timeout={300}
-        unmountOnExit
-        classNames="modal-round"
-      >
-        <RoundModal end={showRoundEnd} round={round}/>
-      </CSSTransition>
-
-      <CSSTransition
-        in={showGameOver}
-        timeout={300}
-        unmountOnExit
-        classNames="modal-round"
-      >
-        <RoundModal gameover={showGameOver} round={round} return={props.onLogoClick}/>
-      </CSSTransition>
     </div>
   );
 }
