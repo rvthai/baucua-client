@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 
 // Logo
-import Logo from "assets/logo.png";
+import Logo from "assets/logo/logo.png";
 
 function Lobby(props) {
   const [tutorial, showTutorial] = useState(false);

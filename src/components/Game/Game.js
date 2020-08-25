@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCommentDots } from "@fortawesome/free-solid-svg-icons";
 
 // Logo
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo/logo.png";
 
 // Components
 import Header from "./Header/Header";
@@ -75,7 +75,7 @@ function Game(props) {
       setTimeout(() => {
         setShowOverlay(false);
       }, 300);
-      document.getElementById("game-time").style.visibility = "visible";
+      //document.getElementById("game-time").style.visibility = "visible";
       //document.getElementById("game-done").style.visibility = "visible";
       //document.getElementById("button-container").style.visibility = "visible";
       setTimeout(() => {

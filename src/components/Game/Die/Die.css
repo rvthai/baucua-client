@@ -1,0 +1,54 @@
+.die {
+  background-color: white;
+  border-radius: 15px;
+  width: 100px;
+  height: 100px;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.die-roll {
+  animation: roll 1s;
+}
+
+.die-img {
+  width: 75px;
+}
+
+@keyframes roll {
+  /* 0% {
+    transform: translateY(0) rotate(0);
+  }
+  16% {
+    transform: translateY(-5%);
+  }
+  33% {
+    transform: translateY(-15%);
+  }
+  50% {
+    transform: translateY(-35%);
+  }
+  66% {
+    transform: translateY(-15%);
+  }
+  83% {
+    transform: translateY(-5%);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  } */
+  0% {
+    transform: translateY(0) rotate(720deg);
+  }
+
+  50% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

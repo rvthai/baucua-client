@@ -8,7 +8,7 @@ import JoinModal from "./JoinModal/JoinModal";
 import ErrorModal from "./ErrorModal/ErrorModal";
 
 // Logo
-import Logo from "assets/logo.png";
+import Logo from "assets/logo/logo.png";
 
 function MainMenu(props) {
   const [hostModal, setHostModal] = useState(false);

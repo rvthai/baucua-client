@@ -1,22 +1,19 @@
 import React from "react";
 import "./Header.css";
 
+// Components
+import Die from "components/Game/Die/Die";
+import Die2 from "components/Game/Die/Die2";
 function Header(props) {
   return (
     <div className="main-header-container">
-      <div id="game-time" className="game-time">
-        <p>{props.timer}</p>
+      <div className="game-time">
+        <p>Round 1</p>
       </div>
       <div className="game-dice">
-        <div id="dice1" className="game-die">
-          {props.gamestate.dice.length > 0 ? props.gamestate.dice[0] : null}
-        </div>
-        <div id="dice2" className="game-die">
-          {props.gamestate.dice.length > 0 ? props.gamestate.dice[1] : null}
-        </div>
-        <div id="dice3" className="game-die">
-          {props.gamestate.dice.length > 0 ? props.gamestate.dice[2] : null}
-        </div>
+        <Die />
+        <Die />
+        <Die />
       </div>
     </div>
   );

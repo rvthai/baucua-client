@@ -2,36 +2,35 @@ import React from "react";
 
 import "./Board.css";
 
-import Deer from "../../../assets/deer.png";
-import Gourd from "../../../assets/gourd.png";
-import Rooster from "../../../assets/rooster.png";
-import Fish from "../../../assets/fish.png";
-import Crab from "../../../assets/crab.png";
-import Shrimp from "../../../assets/shrimp.png";
+import Deer from "../../../assets/symbols/deer.png";
+import Gourd from "../../../assets/symbols/gourd.png";
+import Rooster from "../../../assets/symbols/rooster.png";
+import Fish from "../../../assets/symbols/fish.png";
+import Crab from "../../../assets/symbols/crab.png";
+import Shrimp from "../../../assets/symbols/shrimp.png";
 
 function Board(props) {
   return (
     <div className="game-board-container">
-      <div className="spots">
-        <div className="spot">
-          <img id="deer" className="symbol" src={Deer} alt="deer" />
-        </div>
-        <div className="spot">
-          <img id="bau" className="symbol" src={Gourd} alt="gourd" />
-        </div>
-        <div className="spot">
-          <img id="chicken" className="symbol" src={Rooster} alt="rooster" />
-        </div>
-        <div className="spot">
-          <img id="fish" className="symbol" src={Fish} alt="fish" />
-        </div>
-        <div className="spot">
-          <img id="crab" className="symbol" src={Crab} alt="crab" />
-        </div>
-        <div className="spot">
-          <img id="shrimp" className="symbol" src={Shrimp} alt="shrimp" />
-        </div>
+      <div className="spot">
+        <img id="deer" className="symbol" src={Deer} alt="deer" />
       </div>
+      <div className="spot">
+        <img id="bau" className="symbol" src={Gourd} alt="gourd" />
+      </div>
+      <div className="spot">
+        <img id="chicken" className="symbol" src={Rooster} alt="rooster" />
+      </div>
+      <div className="spot">
+        <img id="fish" className="symbol" src={Fish} alt="fish" />
+      </div>
+      <div className="spot">
+        <img id="crab" className="symbol" src={Crab} alt="crab" />
+      </div>
+      <div className="spot">
+        <img id="shrimp" className="symbol" src={Shrimp} alt="shrimp" />
+      </div>
+
       {/* <div className="game-choose">
         <div className="animals">
           <div id="button-container" className="button-container">

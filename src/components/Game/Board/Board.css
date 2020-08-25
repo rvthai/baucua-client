@@ -3,6 +3,11 @@
   width: 900px;
   height: 500px;
   background: #f5cac3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-content: center;
+  border-radius: 15px;
   /* display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,22 +16,26 @@
   margin-left: 10px; */
 }
 
-.spots {
+/* .spots {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  align-items: center;
-}
+  align-content: space-evenly;
+} */
 
 .spot {
-  background-color: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
   border-radius: 50%;
   width: 225px;
   height: 225px;
+  margin: 0.5rem;
 }
 
 .symbol {
-  width: 200px;
+  width: 125px;
 }
 /* GAME MAIN - BOARD
 -------------------------------------------*/

@@ -1,4 +1,4 @@
-@keyframes spin {
+/* @keyframes spin {
   0% {
     transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
@@ -31,10 +31,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* width: 50px;
-  padding-top: 100px;
-  margin: 0 auto;
-  perspective: 1200px; */
 }
 
 #dice {
@@ -50,7 +46,6 @@
   width: 50px;
   height: 50px;
   background: #fff;
-  /*box-shadow: inset 0 0 40px #ccc;*/
   border-radius: 15px;
 }
 
@@ -69,7 +64,7 @@
   transform: rotateX(90deg);
 }
 #dice .front {
-  background-image: url("../../assets/crab.png");
+  background-image: url("../../assets/symbols/crab.png");
   background-size: cover;
   background-color: white;
   background-position: center center;
@@ -79,7 +74,7 @@
   transform: translateZ(24px);
 }
 #dice .back {
-  background-image: url("../../assets/gourd.png");
+  background-image: url("../../assets/symbols/gourd.png");
   background-size: cover;
   background-color: white;
   background-position: center center;
@@ -89,7 +84,7 @@
   transform: rotateX(-180deg) translateZ(24px);
 }
 #dice .right {
-  background-image: url("../../assets/fish.png");
+  background-image: url("../../assets/symbols/fish.png");
   background-size: cover;
   background-color: white;
   background-position: center center;
@@ -99,7 +94,7 @@
   transform: rotateY(90deg) translateZ(24px);
 }
 #dice .left {
-  background-image: url("../../assets/shrimp.png");
+  background-image: url("../../assets/symbols/shrimp.png");
   background-size: cover;
   background-color: white;
   background-position: center center;
@@ -109,7 +104,7 @@
   transform: rotateY(-90deg) translateZ(24px);
 }
 #dice .top {
-  background-image: url("../../assets/rooster.png");
+  background-image: url("../../assets/symbols/rooster.png");
   background-size: cover;
   background-color: white;
   background-position: center center;
@@ -119,7 +114,7 @@
   transform: rotateX(90deg) translateZ(24px);
 }
 #dice .bottom {
-  background-image: url("../../assets/deer.png");
+  background-image: url("../../assets/symbols/deer.png");
   background-size: cover;
   background-color: white;
   background-position: center center;
@@ -127,4 +122,4 @@
 }
 #dice .bottom.inner {
   transform: rotateX(-90deg) translateZ(24px);
-}
+} */
