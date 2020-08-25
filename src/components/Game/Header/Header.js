@@ -7,14 +7,13 @@ import Die2 from "components/Game/Die/Die2";
 function Header(props) {
   return (
     <div className="main-header-container">
-      <div className="game-time">
-        <p>Round 1</p>
-      </div>
+      <div className="game-time">Round 1</div>
       <div className="game-dice">
         <Die />
         <Die />
         <Die />
       </div>
+      <div className="game-time">30s</div>
     </div>
   );
 }

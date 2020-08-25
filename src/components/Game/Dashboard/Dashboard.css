@@ -11,6 +11,12 @@
 .money {
   width: 137px;
   margin-right: 1rem;
+  cursor: pointer;
+}
+
+.money:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .ready-button2 {

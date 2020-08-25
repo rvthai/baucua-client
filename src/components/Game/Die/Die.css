@@ -1,6 +1,9 @@
 .die {
   background-color: white;
   border-radius: 15px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 85px;
   width: 100px;
   height: 100px;
   margin: 0.5rem;
@@ -8,10 +11,13 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border: outset 5px;
 }
 
 .die-roll {
   animation: roll 1s;
+  /* transform: rotate(360deg);
+  transition: transform 1s; */
 }
 
 .die-img {
@@ -19,33 +25,12 @@
 }
 
 @keyframes roll {
-  /* 0% {
-    transform: translateY(0) rotate(0);
-  }
-  16% {
-    transform: translateY(-5%);
-  }
-  33% {
-    transform: translateY(-15%);
-  }
-  50% {
-    transform: translateY(-35%);
-  }
-  66% {
-    transform: translateY(-15%);
-  }
-  83% {
-    transform: translateY(-5%);
-  }
-  100% {
-    transform: translateY(0) rotate(360deg);
-  } */
   0% {
     transform: translateY(0) rotate(720deg);
   }
 
   50% {
-    transform: translateY(-50%);
+    transform: translateY(-10%);
   }
 
   100% {

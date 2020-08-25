@@ -16,7 +16,8 @@ function Die(props) {
     var pics = document.getElementsByClassName("die-img");
     for (let i = 0; i < d.length; i++) {
       d[i].classList.toggle("die-roll");
-      pics[i].src = "../../../assets/symbols/crab.png";
+      d[i].style.backgroundImage =
+        "url(" + require("../../../assets/symbols/crab.png") + ")";
     }
   };
 

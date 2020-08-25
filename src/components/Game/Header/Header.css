@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   /* background-color: rgba(0, 0, 0, 0.2); */
   border-radius: 15px;
   margin-bottom: 1rem;
@@ -13,11 +14,10 @@
 }
 .game-time {
   justify-content: center;
-}
-.game-time > p {
-  font-size: 24px;
+  font-size: 40px;
   color: white;
 }
+
 .game-dice {
   flex-basis: 80%;
   display: flex;
