@@ -29,14 +29,14 @@
   align-items: center;
   background-color: white;
   border-radius: 50%;
-  width: 225px;
-  height: 225px;
+  width: 200px;
+  height: 200px;
   margin: 0.5rem;
-  border: double 3px gold;
+  border: double 5px #caa56c;
 }
 
 .symbol {
-  width: 125px;
+  width: 100px;
 }
 /* GAME MAIN - BOARD
 -------------------------------------------*/
