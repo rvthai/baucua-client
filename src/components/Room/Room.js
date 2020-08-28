@@ -60,10 +60,10 @@ function Room(props) {
     socket.on("gamestart", ({ gamestate }) => {
       setGameState(gamestate);
       setRender(0);
-      setTimeout(() => setRender(2), 2000);
+      setTimeout(() => setRender(2), 0); // change time for loader
     });
 
-    setTimeout(() => setRender(1), 2000);
+    setTimeout(() => setRender(1), 0); // change time for loader
   }, [player, players, host, isHost, timer, round, balance]);
 
   const onSettingsChange = (setting, value) => {

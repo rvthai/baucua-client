@@ -1,16 +1,19 @@
+.dice-container {
+  display: flex;
+}
+
 .die {
   background-color: white;
   border-radius: 15px;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 85px;
+  background-size: 75px;
   width: 100px;
   height: 100px;
   margin: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   border: outset 5px;
 }
 
@@ -21,12 +24,12 @@
 }
 
 .die-img {
-  width: 75px;
+  width: 50px;
 }
 
 @keyframes roll {
   0% {
-    transform: translateY(0) rotate(720deg);
+    transform: translateY(0) rotate(-360deg);
   }
 
   50% {
