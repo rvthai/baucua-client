@@ -11,18 +11,27 @@
 .money {
   width: 137px;
   margin-right: 1rem;
+
   cursor: pointer;
 }
 
 .money:hover {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s ease-in-out;
+  box-shadow: 0 0 3px 2px #caa56c;
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+
+.active-dollar {
+  box-shadow: 0 0 3px 2px #caa56c;
+  transform: translateY(-5px);
+  transition: 0.3s;
 }
 
 .ready-button2 {
   color: white;
   background-color: #caa56c;
   border-radius: 15px;
+  box-shadow: 0 5px #644e2d;
   font-size: 36px;
   font-family: "Francois One", sans-serif;
   width: 137px;
@@ -30,6 +39,15 @@
   outline: none;
   border: none;
   cursor: pointer;
+  transition: 0.1s;
+}
+
+.active-bet {
+  transform: translateY(5px);
+  background-color: #80663f;
+  color: #c9c9c9;
+  box-shadow: 0 2px #644e2d;
+  transition: 0.3s;
 }
 
 .unready-button {

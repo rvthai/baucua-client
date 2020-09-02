@@ -35,7 +35,7 @@ function Game(props) {
 
   // forsure
   const [startTimer, setStartTimer] = useState(false);
-  const [timer, setTime] = useState(3); //props.timer
+  const [timer, setTime] = useState(props.timer); //props.timer
 
   // displays for banner
   const [showOverlay, setShowOverlay] = useState(false);
@@ -43,25 +43,25 @@ function Game(props) {
   const [showRoundEnd, setRoundEnd] = useState(false);
   const [showGameOver, setGameOver] = useState(false);
 
+  // betting
+  const [betAmount, setBetAmount] = useState(0);
+
   // The Game Flow
   // GAME START
-  if (props.host && showRoundStart) {
+  if (showRoundStart) {
     setTimeout(() => {
       socket.emit("hidestartmodal");
     }, 3000);
   }
 
-  if (props.host && showRoundEnd) {
+  if (showRoundEnd) {
     setTimeout(() => {
       socket.emit("hideendmodal", { round, maxRound });
-    });
+    }, 3000);
   }
   // modal stuff- emit
   useEffect(() => {
-    if (props.host) {
-      // need to be host so it stays consistent per game and not per person
-      socket.emit("showstartmodal");
-    }
+    socket.emit("showstartmodal");
   }, []);
 
   // modal stuff - listener
@@ -75,7 +75,7 @@ function Game(props) {
       setRoundStart(false);
       setShowOverlay(false);
       setStartTimer(true);
-      setTime(3);
+      setTime(timer);
     });
 
     socket.on("hideend", ({ gameover }) => {
@@ -85,24 +85,24 @@ function Game(props) {
           socket.emit("showgameover");
         }, 3400);
       }
-      if (props.host && !gameover) {
+      if (!gameover) {
+        // had a if props.host condition to it
         setTimeout(() => {
           socket.emit("showstartmodal");
-        }, 3400); //timeout depends on how long our reveal is
+        }, 3000); //timeout depends on how long our reveal is
       }
     });
   }, []);
 
-  // emit timer -emit
+  // emit timer -emit // THERE COULD BE A PROBLEM HERE
   useEffect(() => {
-    socket.on("showendmodal", () => {
+    socket.on("showendmodal", ({ round }) => {
       setStartTimer(false);
-      // may need a timeout to wait out
       setTimeout(() => {
-        setRound(round);
         setRoundEnd(true);
         setShowOverlay(true);
-      }, 10000);
+        setRound(round);
+      }, 6000);
     });
 
     let interval; // THE PROBLEM IS HERERERERE MAYBE
@@ -126,24 +126,8 @@ function Game(props) {
     });
   }, []);
 
-  // gamestate
-  //   socket.on("hideend", ({ gameover }) => {
-  //     setRoundEnd(false);
-  //     revealDice();
-  //     if (props.host && gameover) {
-  //       setTimeout(() => {
-  //         socket.emit("showgameover");
-  //       }, 3400);
-  //     }
-  //     if (props.host && !gameover) {
-  //       setTimeout(() => {
-  //         socket.emit("showstartmodal");
-  //       }, 3400); //timeout depends on how long our reveal is
-  //     }
-  //   });
   useEffect(() => {
     socket.on("newgamestate", ({ gamestate }) => {
-      console.log("new game state");
       setGamestate(gamestate);
     });
   }, []);
@@ -154,94 +138,6 @@ function Game(props) {
     setReady(true);
     socket.emit("readyplayer", { gamestate });
   };
-
-  // Use effect 2
-  // useEffect(() => {
-  //   let interval;
-  //   if (startTimer && props.host && timer >= 0) {
-  //     interval = setInterval(() => {
-  //       socket.emit("timer", { room: gamestate.roomId, timer });
-  //     }, 1000);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [timer, startTimer]);
-
-  // use effect 3
-  // useEffect(() => {
-  //   socket.on("showstartmodal", () => {
-  //     setRoundStart(true);
-  //     setShowOverlay(true);
-  //   });
-
-  //   socket.on("timer", ({ second }) => {
-  //     setTime(second);
-  //   });
-
-  //   socket.on("endtimer", () => {
-  //     playerReady();
-  //   });
-
-  //   socket.on("newgamestate", ({ gamestate }) => {
-  //     setReady(false);
-  //     setShow({ animal: "", show: false }); // has to do with betting
-  //     setTotal(0); // has to do with betting
-  //     //setGamestate(gamestate);
-  //     // setTime(timer)
-  //   });
-
-  //   socket.on("gamestate", ({ gamestate }) => {
-  //     setGamestate(gamestate);
-  //   });
-
-  //   socket.on("chatbox", ({ chat }) => {
-  //     setChat(chat.message);
-  //   });
-  //   //SOCKET MODALS
-  //   socket.on("hidestart", () => {
-  //     setRoundStart(false);
-  //     setTimeout(() => {
-  //       setShowOverlay(false);
-  //     }, 300);
-  //     //document.getElementById("game-time").style.visibility = "visible";
-  //     //document.getElementById("game-done").style.visibility = "visible";
-  //     //document.getElementById("button-container").style.visibility = "visible";
-  //     setTimeout(() => {
-  //       setStartTimer(true);
-  //     }, 600);
-  //   });
-  //   socket.on("hideend", ({ gameover }) => {
-  //     setRoundEnd(false);
-  //     revealDice();
-  //     if (props.host && gameover) {
-  //       setTimeout(() => {
-  //         socket.emit("showgameover");
-  //       }, 3400);
-  //     }
-  //     if (props.host && !gameover) {
-  //       setTimeout(() => {
-  //         socket.emit("showstartmodal");
-  //       }, 3400); //timeout depends on how long our reveal is
-  //     }
-  //   });
-
-  //   socket.on("showendmodal", ({ round }) => {
-  //     //document.getElementById("game-time").style.visibility = "hidden";
-  //     //document.getElementById("game-done").style.visibility = "hidden";
-  //     //document.getElementById("button-container").style.visibility = "hidden";
-  //     //interval
-  //     setStartTimer(false);
-  //     setRound(round);
-  //     setRoundEnd(true);
-  //     setShowOverlay(true);
-  //   });
-  //   socket.on("showgameover", () => {
-  //     //document.getElementById("game-time").style.visibility = "hidden";
-  //     //document.getElementById("game-done").style.visibility = "hidden";
-  //     setStartTimer(false);
-  //     setGameOver(true);
-  //     setShowOverlay(true);
-  //   });
-  // }, []);
 
   const amount = (event) => {
     setShow({ animal: event.target.id, show: true });
@@ -257,38 +153,38 @@ function Game(props) {
     setTotal(total);
   };
 
-  const bet = (event) => {
-    if (betOption) {
-      setTotal(total + parseInt(event.target.value));
+  const bet = (pick) => {
+    if (betAmount > 0) {
       socket.emit("bet", {
         room: gamestate.roomId,
         id: socket.id,
-        amount: parseInt(event.target.value),
-        animal: showBet.animal,
+        amount: parseInt(betAmount),
+        animal: pick,
       });
-    } else {
-      if (total - parseInt(event.target.value) >= 0) {
-        setTotal(total - parseInt(event.target.value));
-        socket.emit("bet", {
-          room: gamestate.roomId,
-          id: socket.id,
-          amount: -1 * parseInt(event.target.value),
-          animal: showBet.animal,
-        });
-      }
     }
+    // if (betOption) {
+    //   setTotal(total + parseInt(event.target.value));
+    //   socket.emit("bet", {
+    //     room: gamestate.roomId,
+    //     id: socket.id,
+    //     amount: parseInt(event.target.value),
+    //     animal: showBet.animal,
+    //   });
+    // } else {
+    //   if (total - parseInt(event.target.value) >= 0) {
+    //     setTotal(total - parseInt(event.target.value));
+    //     socket.emit("bet", {
+    //       room: gamestate.roomId,
+    //       id: socket.id,
+    //       amount: -1 * parseInt(event.target.value),
+    //       animal: showBet.animal,
+    //     });
+    //   }
+    // }
   };
 
-  const betting = (event) => {
-    if (event.target.id === "plus-button") {
-      document.getElementById("minus-button").classList.remove("minus-select");
-      document.getElementById("plus-button").classList.remove("plus-select");
-      setBetOption(true);
-    } else {
-      document.getElementById("minus-button").classList.add("minus-select");
-      document.getElementById("plus-button").classList.add("plus-select");
-      setBetOption(false);
-    }
+  const betting = (dollar) => {
+    setBetAmount(dollar);
   };
 
   const onKeyUp = (event) => {
@@ -316,14 +212,11 @@ function Game(props) {
           <Players host={props.host} gamestate={gamestate} />
           <div className="main-board">
             <Board
-              amount={amount}
-              ready={ready}
-              showBet={showBet}
-              total={total}
-              bet={bet}
-              betting={betting}
+              bets={gamestate.bets}
+              handleBet={bet}
+              // betting={betting}
             />
-            <Dashboard />
+            <Dashboard handleBetting={betting} />
           </div>
         </div>
 
@@ -364,3 +257,106 @@ function Game(props) {
 }
 
 export default Game;
+
+// Use effect 2
+// useEffect(() => {
+//   let interval;
+//   if (startTimer && props.host && timer >= 0) {
+//     interval = setInterval(() => {
+//       socket.emit("timer", { room: gamestate.roomId, timer });
+//     }, 1000);
+//   }
+//   return () => clearInterval(interval);
+// }, [timer, startTimer]);
+
+// use effect 3
+// useEffect(() => {
+//   socket.on("showstartmodal", () => {
+//     setRoundStart(true);
+//     setShowOverlay(true);
+//   });
+
+//   socket.on("timer", ({ second }) => {
+//     setTime(second);
+//   });
+
+//   socket.on("endtimer", () => {
+//     playerReady();
+//   });
+
+//   socket.on("newgamestate", ({ gamestate }) => {
+//     setReady(false);
+//     setShow({ animal: "", show: false }); // has to do with betting
+//     setTotal(0); // has to do with betting
+//     //setGamestate(gamestate);
+//     // setTime(timer)
+//   });
+
+//   socket.on("gamestate", ({ gamestate }) => {
+//     setGamestate(gamestate);
+//   });
+
+//   socket.on("chatbox", ({ chat }) => {
+//     setChat(chat.message);
+//   });
+//   //SOCKET MODALS
+//   socket.on("hidestart", () => {
+//     setRoundStart(false);
+//     setTimeout(() => {
+//       setShowOverlay(false);
+//     }, 300);
+//     //document.getElementById("game-time").style.visibility = "visible";
+//     //document.getElementById("game-done").style.visibility = "visible";
+//     //document.getElementById("button-container").style.visibility = "visible";
+//     setTimeout(() => {
+//       setStartTimer(true);
+//     }, 600);
+//   });
+//   socket.on("hideend", ({ gameover }) => {
+//     setRoundEnd(false);
+//     revealDice();
+//     if (props.host && gameover) {
+//       setTimeout(() => {
+//         socket.emit("showgameover");
+//       }, 3400);
+//     }
+//     if (props.host && !gameover) {
+//       setTimeout(() => {
+//         socket.emit("showstartmodal");
+//       }, 3400); //timeout depends on how long our reveal is
+//     }
+//   });
+
+//   socket.on("showendmodal", ({ round }) => {
+//     //document.getElementById("game-time").style.visibility = "hidden";
+//     //document.getElementById("game-done").style.visibility = "hidden";
+//     //document.getElementById("button-container").style.visibility = "hidden";
+//     //interval
+//     setStartTimer(false);
+//     setRound(round);
+//     setRoundEnd(true);
+//     setShowOverlay(true);
+//   });
+//   socket.on("showgameover", () => {
+//     //document.getElementById("game-time").style.visibility = "hidden";
+//     //document.getElementById("game-done").style.visibility = "hidden";
+//     setStartTimer(false);
+//     setGameOver(true);
+//     setShowOverlay(true);
+//   });
+// }, []);
+// gamestate
+//   socket.on("hideend", ({ gameover }) => {
+//     setRoundEnd(false);
+//     revealDice();
+//     if (props.host && gameover) {
+//       setTimeout(() => {
+//         socket.emit("showgameover");
+//       }, 3400);
+//     }
+//     if (props.host && !gameover) {
+//       setTimeout(() => {
+//         socket.emit("showstartmodal");
+//       }, 3400); //timeout depends on how long our reveal is
+//     }
+//   });

@@ -24,6 +24,7 @@
 } */
 
 .spot {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +34,14 @@
   height: 200px;
   margin: 0.5rem;
   border: double 5px #caa56c;
+}
+
+.bets {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 15px;
+  row-gap: 15px;
 }
 
 .symbol {

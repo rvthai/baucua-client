@@ -1,0 +1,26 @@
+.token {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  border: double white 3px;
+  color: white;
+  text-align: center;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  /* min-width: 50px;
+  height: 25px;
+  border-radius: 15px;
+  padding: 2px;
+  margin: 0.5rem; */
+}
+
+.minus-icon {
+  position: absolute;
+  top: -25%;
+  right: -20%;
+  color: red;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}

@@ -7,9 +7,9 @@
   border-radius: 15px;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 75px;
-  width: 100px;
-  height: 100px;
+  background-size: 50px;
+  width: 75px;
+  height: 75px;
   margin: 0.5rem;
   display: flex;
   justify-content: center;
@@ -24,7 +24,7 @@
 }
 
 .die-img {
-  width: 50px;
+  width: 25px;
 }
 
 @keyframes roll {
