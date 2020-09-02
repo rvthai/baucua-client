@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Board.css";
 
 // Images
@@ -13,22 +13,31 @@ import Shrimp from "../../../assets/symbols/shrimp.png";
 import Token from "./Token/Token";
 
 function Board(props) {
+  useEffect(() => {
+    var el = document.getElementById("game-board");
+    if (props.ready) {
+      el.style.zIndex = -1;
+    } else {
+      el.style.zIndex = 0;
+    }
+  }, [props.ready]);
+
   const onSpotClick = (event) => {
-    // this id thing might be a problem...
     props.handleBet(event.target.id);
   };
 
+  // Prevent dragging of images and entities
   const handleDragStart = (event) => {
     event.preventDefault();
   };
 
-  // need this because clicking on token does not trigger the parent div id
-  const onTokenClick = (sym) => {
-    props.handleBet(sym);
+  // Clicking on token does not target parent div id, so this function is needed to handle that
+  const onTokenClick = (symbol) => {
+    props.handleBet(symbol);
   };
 
   return (
-    <div className="game-board-container">
+    <div id="game-board" className="game-board-container">
       <div id="deer" className="spot" onClick={onSpotClick}>
         <img
           onDragStart={handleDragStart}

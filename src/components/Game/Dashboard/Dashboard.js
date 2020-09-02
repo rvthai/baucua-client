@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 
 // Images
@@ -20,9 +20,20 @@ library.add(farCheckSquare);
 library.add(fasCheckSquare);
 
 function Dashboard(props) {
-  const [ready, setReady] = useState(false);
-
-  const [buttonText, setButtonText] = useState("Ready");
+  useEffect(() => {
+    var dash = document.getElementById("dashboard");
+    var r = document.getElementById("rdy-btn");
+    if (props.ready) {
+      var dollars = document.getElementsByClassName("active-dollar");
+      if (dollars.length > 0) {
+        dollars[0].classList.remove("active-dollar");
+      }
+      dash.style.zIndex = -1;
+    } else {
+      dash.style.zIndex = 0;
+      r.classList.remove("active-bet");
+    }
+  }, [props.ready]);
 
   const handleBetClick = () => {
     var r = document.getElementById("rdy-btn");
@@ -30,11 +41,9 @@ function Dashboard(props) {
     if (dollars.length > 0) {
       dollars[0].classList.remove("active-dollar");
     }
-    if (!ready) {
-      r.classList.add("active-bet");
-      setButtonText("Cancel");
-      setReady(true);
-    }
+
+    r.classList.add("active-bet");
+    props.handleBet();
   };
 
   const handleDollarClick = (event) => {
@@ -50,7 +59,7 @@ function Dashboard(props) {
   };
 
   return (
-    <div className="dashboard-container">
+    <div id="dashboard" className="dashboard-container">
       <div className="money-wrapper">
         <img
           id="1"
@@ -84,7 +93,7 @@ function Dashboard(props) {
         />
       </div>
 
-      <button id="rdy-btn" className="ready-button2" onClick={handleBetClick}>
+      <button id="rdy-btn" className="ready-button" onClick={handleBetClick}>
         BET
       </button>
     </div>

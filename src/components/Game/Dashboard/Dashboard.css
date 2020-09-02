@@ -27,7 +27,7 @@
   transition: 0.3s;
 }
 
-.ready-button2 {
+.ready-button {
   color: white;
   background-color: #caa56c;
   border-radius: 15px;
@@ -48,17 +48,4 @@
   color: #c9c9c9;
   box-shadow: 0 2px #644e2d;
   transition: 0.3s;
-}
-
-.unready-button {
-  color: white;
-  background-color: #caa56c;
-  border-radius: 15px;
-  font-size: 30px;
-  font-family: "Francois One", sans-serif;
-  width: 137px;
-  height: 65px;
-  outline: none;
-  border: none;
-  cursor: pointer;
 }
