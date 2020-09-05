@@ -10,7 +10,10 @@
   z-index: 1;
 }
 
-.round-modal > p, .gameover-modal > p{
-  color: #d39943;
+.round-modal > p,
+.gameover-modal > p {
+  color: white;
+  text-shadow: 4px 4px #caa56c;
   font-size: 64px;
+  font-weight: bold;
 }

@@ -1,0 +1,33 @@
+.scoreboard-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 250px;
+  height: auto;
+}
+
+.scoreboard-title {
+  color: white;
+  text-shadow: 4px 4px #caa56c;
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.scoreboard {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.player-score {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat {
+  color: white;
+  font-size: 30px;
+  margin: 0;
+}

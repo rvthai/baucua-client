@@ -77,7 +77,7 @@ function Room(props) {
   };
 
   const onClickStart = () => {
-    socket.emit("startgame", { room });
+    socket.emit("startgame", { room, balance });
   };
 
   switch (renderView) {
@@ -103,7 +103,8 @@ function Room(props) {
           round={round}
           balance={balance}
           gamestate={gamestate}
-          host={isHost}
+          isHost={isHost}
+          host={host}
           onLogoClick={props.onRenderMainMenu}
         />
       );

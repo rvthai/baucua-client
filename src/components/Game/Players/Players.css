@@ -1,45 +1,52 @@
-/* GAME MAIN - PLAYERS
--------------------------------------------*/
 .game-players-container {
   width: 300px;
   height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 1;
   border-radius: 15px;
 }
+
+.players-container {
+  margin: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+
 .game-player-card {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding-top: 5px;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: nowrap;
   color: white;
 }
-.game-player-icon > p {
-  text-align: center;
-  font-size: 14px;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-}
-.game-player-total,
-.game-player-bet {
+
+.player-icon {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-}
-.game-player-total > p,
-.game-player-bet > p {
-  text-align: center;
-  font-size: 14px;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
+  align-items: center;
 }
 
-@media screen and (max-width: 615px) {
-  .game-players-container {
-    display: none;
-  }
+.player-crown {
+  color: gold;
+  font-size: 10px;
+}
+
+.player-rank {
+  font-size: 20px;
+}
+
+.player-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-stat-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.player-stat-balance {
+  color: #e6e6e6;
+  margin: 0;
 }

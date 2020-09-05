@@ -51,7 +51,7 @@ function Game(props) {
   if (showRoundEnd) {
     setTimeout(() => {
       socket.emit("hideendmodal", { round, maxRound });
-    }, 3000);
+    }, 8000);
   }
   // useEffect -> emit the start modal
   useEffect(() => {
@@ -106,11 +106,12 @@ function Game(props) {
 
   // useEffect -> actions on timer and startTimer state change
   useEffect(() => {
-    socket.on("showendmodal", ({ round }) => {
+    socket.on("showendmodal", ({ round, gamestate }) => {
       setStartTimer(false);
       setTimeout(() => {
         setRoundEnd(true);
         setShowOverlay(true);
+        setGamestate(gamestate);
         setRound(round);
       }, 6000);
     });
@@ -168,7 +169,7 @@ function Game(props) {
       <div className="game-container">
         <Header timer={timer} round={round} gamestate={gamestate} />
         <div className="bottom-half">
-          <Players host={props.host} gamestate={gamestate} />
+          <Players host={props.host} id={socket.id} gamestate={gamestate} />
           <div className="main-board">
             <Board ready={ready} bets={gamestate.bets} handleBet={bet} />
             <Dashboard
@@ -180,13 +181,18 @@ function Game(props) {
         </div>
 
         {showOverlay ? <div id="overlay"></div> : null}
+
         <CSSTransition
           in={showRoundStart}
           timeout={300}
           unmountOnExit
           classNames="modal-round"
         >
-          <RoundModal start={showRoundStart} round={round} />
+          <RoundModal
+            gamestate={gamestate}
+            start={showRoundStart}
+            round={round}
+          />
         </CSSTransition>
 
         <CSSTransition
@@ -195,7 +201,7 @@ function Game(props) {
           unmountOnExit
           classNames="modal-round"
         >
-          <RoundModal end={showRoundEnd} round={round} />
+          <RoundModal gamestate={gamestate} end={showRoundEnd} round={round} />
         </CSSTransition>
 
         <CSSTransition
@@ -205,6 +211,7 @@ function Game(props) {
           classNames="modal-round"
         >
           <RoundModal
+            gamestate={gamestate}
             gameover={showGameOver}
             round={round}
             return={props.onLogoClick}
