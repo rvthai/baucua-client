@@ -39,26 +39,27 @@ function Game(props) {
   const [showGameOver, setGameOver] = useState(false);
 
   const [betAmount, setBetAmount] = useState(0);
-
+  // IT IS PROPS.ISHOST NOW
   // The Game Flow
   // GAME START
-  if (showRoundStart) {
+  if (props.isHost && showRoundStart) {
     setTimeout(() => {
       socket.emit("hidestartmodal");
     }, 3000);
   }
 
-  if (showRoundEnd) {
+  if (props.isHost && showRoundEnd) {
     setTimeout(() => {
-      socket.emit("hideendmodal", { round, maxRound });
-    }, 8000);
+      socket.emit("hideendmodal", { maxRound });
+    }, 5000);
   }
-  // useEffect -> emit the start modal
+
+  // on mount
   useEffect(() => {
-    if (props.host) {
+    if (props.isHost) {
       socket.emit("showstartmodal");
     }
-  }, []);
+  }, [socket]);
 
   // useEffect -> game transition listeners
   useEffect(() => {
@@ -74,7 +75,9 @@ function Game(props) {
       setGamestate(gamestate);
     });
 
-    socket.on("showstartmodal", () => {
+    socket.on("showstartmodal", ({ round }) => {
+      setReady(false);
+      setRound(round);
       setRoundStart(true);
       setShowOverlay(true);
     });
@@ -88,36 +91,39 @@ function Game(props) {
 
     socket.on("hideend", ({ gameover }) => {
       setRoundEnd(false);
-      setReady(false);
 
-      if (props.host && gameover) {
+      if (props.isHost && gameover) {
         setTimeout(() => {
           socket.emit("showgameover");
-        }, 3400);
+        }, 3000);
       }
 
-      if (props.host && !gameover) {
+      if (props.isHost && !gameover) {
         setTimeout(() => {
           socket.emit("showstartmodal");
         }, 3000);
       }
     });
-  }, []);
 
-  // useEffect -> actions on timer and startTimer state change
-  useEffect(() => {
     socket.on("showendmodal", ({ round, gamestate }) => {
       setStartTimer(false);
       setTimeout(() => {
         setRoundEnd(true);
         setShowOverlay(true);
         setGamestate(gamestate);
-        setRound(round);
-      }, 6000);
+        // setRound(round);
+      }, 5000);
     });
 
+    socket.on("showgameover", () => {
+      setGameOver(true);
+    });
+  }, []);
+
+  // useEffect -> actions on timer and startTimer state change
+  useEffect(() => {
     let interval;
-    if (startTimer && props.host && timer >= 0) {
+    if (startTimer && props.isHost && timer >= 0) {
       interval = setInterval(() => {
         socket.emit("timer", { room: gamestate.roomId, timer });
       }, 1000);

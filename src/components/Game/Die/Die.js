@@ -28,6 +28,10 @@ function Die(props) {
         roll3(dice3);
       }, 3000);
     });
+
+    socket.on("cleardice", () => {
+      clearDice();
+    });
   }, []);
 
   const roll1 = (sym) => {
@@ -50,6 +54,16 @@ function Die(props) {
     d3.classList.toggle("die-roll");
     d3.style.backgroundImage =
       "url(" + require("../../../assets/symbols/" + sym + ".png") + ")";
+  };
+
+  const clearDice = () => {
+    var d1 = document.getElementById("d1");
+    var d2 = document.getElementById("d2");
+    var d3 = document.getElementById("d3");
+
+    d1.style.backgroundImage = "none";
+    d2.style.backgroundImage = "none";
+    d3.style.backgroundImage = "none";
   };
 
   // const handleRoll = (dice) => {
