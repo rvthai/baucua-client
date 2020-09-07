@@ -19,7 +19,8 @@ function Token(props) {
     });
   };
 
-  const handleTokenClick = () => {
+  const handleTokenClick = (event) => {
+    event.stopPropagation();
     props.onTokenClick(props.animal);
   };
 
