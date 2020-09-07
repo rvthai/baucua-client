@@ -15,11 +15,11 @@ function Scoreboard(props) {
             <p className="stat">{player.name}</p>
             {player.net > 0 ? (
               <p className="stat" style={{ color: "#7FFF00" }}>
-                +{player.net}
+                + ${player.net}
               </p>
             ) : player.net < 0 ? (
               <p className="stat" style={{ color: "#DC143C" }}>
-                {player.net}
+                - ${player.net * -1}
               </p>
             ) : (
               <p className="stat">{player.net}</p>

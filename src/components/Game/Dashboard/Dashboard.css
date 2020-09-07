@@ -11,8 +11,14 @@
 .money {
   width: 137px;
   margin-right: 1rem;
-
   cursor: pointer;
+}
+
+.money-disabled {
+  display: none;
+  width: 137px;
+  margin-right: 1rem;
+  pointer-events: none;
 }
 
 .money:hover {

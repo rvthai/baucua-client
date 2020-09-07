@@ -51,7 +51,7 @@ function Game(props) {
   if (props.isHost && showRoundEnd) {
     setTimeout(() => {
       socket.emit("hideendmodal", { maxRound });
-    }, 5000);
+    }, 6000);
   }
 
   // on mount
@@ -95,24 +95,23 @@ function Game(props) {
       if (props.isHost && gameover) {
         setTimeout(() => {
           socket.emit("showgameover");
-        }, 3000);
+        }, 1000);
       }
 
       if (props.isHost && !gameover) {
         setTimeout(() => {
           socket.emit("showstartmodal");
-        }, 3000);
+        }, 1000);
       }
     });
 
-    socket.on("showendmodal", ({ round, gamestate }) => {
+    socket.on("showendmodal", ({ gamestate }) => {
       setStartTimer(false);
       setTimeout(() => {
         setRoundEnd(true);
         setShowOverlay(true);
         setGamestate(gamestate);
-        // setRound(round);
-      }, 5000);
+      }, 7000); // time here is based on dice roll
     });
 
     socket.on("showgameover", () => {
@@ -139,6 +138,13 @@ function Game(props) {
   };
 
   const bet = (pick) => {
+    var player = gamestate.players.filter((p) => socket.id === p.id);
+    player = player[0];
+
+    if (player.total < betAmount) {
+      setBetAmount(0);
+    }
+
     if (betAmount > 0) {
       socket.emit("bet", {
         room: gamestate.roomId,
@@ -146,6 +152,10 @@ function Game(props) {
         amount: parseInt(betAmount),
         animal: pick,
       });
+
+      if (player.total === betAmount) {
+        setBetAmount(0);
+      }
     }
   };
 
@@ -180,6 +190,8 @@ function Game(props) {
             <Board ready={ready} bets={gamestate.bets} handleBet={bet} />
             <Dashboard
               ready={ready}
+              gamestate={gamestate}
+              id={socket.id}
               handleBet={playerReady}
               handleBetting={betting}
             />
