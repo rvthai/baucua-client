@@ -39,16 +39,16 @@ function Game(props) {
   const [showGameOver, setGameOver] = useState(false);
 
   const [betAmount, setBetAmount] = useState(0);
-  // IT IS PROPS.ISHOST NOW
+
   // The Game Flow
   // GAME START
-  if (props.isHost && showRoundStart) {
+  if (showRoundStart) {
     setTimeout(() => {
       socket.emit("hidestartmodal");
     }, 3000);
   }
 
-  if (props.isHost && showRoundEnd) {
+  if (showRoundEnd) {
     setTimeout(() => {
       socket.emit("hideendmodal", { maxRound });
     }, 6000);
@@ -56,9 +56,7 @@ function Game(props) {
 
   // on mount
   useEffect(() => {
-    if (props.isHost) {
-      socket.emit("showstartmodal");
-    }
+    socket.emit("showstartmodal");
   }, [socket]);
 
   // useEffect -> game transition listeners
