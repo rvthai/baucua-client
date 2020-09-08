@@ -63,7 +63,17 @@ function Room(props) {
       setTimeout(() => setRender(2), 0); // change time for loader
     });
 
-    setTimeout(() => setRender(1), 0); // change time for loader
+    socket.on("gamerestart", ({ gamestate }) => {
+      setGameState(gamestate);
+      setRender(0);
+      setTimeout(() => setRender(1), 0);
+    });
+
+    if (gamestate.active) {
+      setRender(2);
+    } else {
+      setTimeout(() => setRender(1), 0); // change time for loader
+    }
   }, [player, players, host, isHost, timer, round, balance]);
 
   const onSettingsChange = (setting, value) => {

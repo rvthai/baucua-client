@@ -48,6 +48,12 @@
   transition: 0.1s;
 }
 
+.ready-button-disabled {
+  color: #e6e6e6;
+  background-color: #a4a4a4;
+  box-shadow: 0 5px #757575;
+}
+
 .active-bet {
   transform: translateY(5px);
   background-color: #80663f;

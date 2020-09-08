@@ -42,6 +42,7 @@ function Game(props) {
 
   // The Game Flow
   // GAME START
+  // will there be a problem if we dont check for the host condition
   if (showRoundStart) {
     setTimeout(() => {
       socket.emit("hidestartmodal");
@@ -90,13 +91,13 @@ function Game(props) {
     socket.on("hideend", ({ gameover }) => {
       setRoundEnd(false);
 
-      if (props.isHost && gameover) {
+      if (gameover) {
         setTimeout(() => {
           socket.emit("showgameover");
         }, 1000);
       }
 
-      if (props.isHost && !gameover) {
+      if (!gameover) {
         setTimeout(() => {
           socket.emit("showstartmodal");
         }, 1000);
@@ -120,7 +121,7 @@ function Game(props) {
   // useEffect -> actions on timer and startTimer state change
   useEffect(() => {
     let interval;
-    if (startTimer && props.isHost && timer >= 0) {
+    if (startTimer && timer >= 0) {
       interval = setInterval(() => {
         socket.emit("timer", { room: gamestate.roomId, timer });
       }, 1000);
@@ -228,6 +229,7 @@ function Game(props) {
         >
           <RoundModal
             gamestate={gamestate}
+            isHost={props.isHost}
             gameover={showGameOver}
             round={round}
             return={props.onLogoClick}

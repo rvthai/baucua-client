@@ -13,21 +13,6 @@ import TenDollarDisabled from "assets/money/ten-dollar-disabled.png";
 import TwentyDollarDisabled from "assets/money/twenty-dollar-disabled.png";
 import HundredDollarDisabled from "assets/money/hundred-dollar-disabled.png";
 
-// Fontawesome Icons
-// Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-
-import { faCheckSquare as farCheckSquare } from "@fortawesome/free-regular-svg-icons";
-import {
-  faCheckSquare as fasCheckSquare,
-  faPager,
-  faDollyFlatbed,
-} from "@fortawesome/free-solid-svg-icons";
-
-library.add(farCheckSquare);
-library.add(fasCheckSquare);
-
 function Dashboard(props) {
   useEffect(() => {
     var player = props.gamestate.players.filter((p) => props.id === p.id);
@@ -44,6 +29,11 @@ function Dashboard(props) {
         dollars[i].style.display = "inline-block";
         dollar.style.display = "none";
       }
+    }
+
+    var bet_btn = document.getElementById("rdy-btn");
+    if (player.bankrupt) {
+      bet_btn.classList.add("ready-button-disabled");
     }
   }, [props.gamestate]);
 

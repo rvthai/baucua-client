@@ -1,10 +1,6 @@
 import React from "react";
 import "./Scoreboard.css";
 
-// Fontawesome Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-
 function Scoreboard(props) {
   return (
     <div className="scoreboard-container">

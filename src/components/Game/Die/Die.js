@@ -37,21 +37,21 @@ function Die(props) {
   const roll1 = (sym) => {
     console.log("in roll1");
     var d1 = document.getElementById("d1");
-    d1.classList.toggle("die-roll");
+    //d1.classList.toggle("die-roll");
     d1.style.backgroundImage =
       "url(" + require("../../../assets/symbols/" + sym + ".png") + ")";
   };
   const roll2 = (sym) => {
     console.log("in roll 2");
     var d2 = document.getElementById("d2");
-    d2.classList.toggle("die-roll");
+    //d2.classList.toggle("die-roll");
     d2.style.backgroundImage =
       "url(" + require("../../../assets/symbols/" + sym + ".png") + ")";
   };
   const roll3 = (sym) => {
     console.log("in roll 3");
     var d3 = document.getElementById("d3");
-    d3.classList.toggle("die-roll");
+    //d3.classList.toggle("die-roll");
     d3.style.backgroundImage =
       "url(" + require("../../../assets/symbols/" + sym + ".png") + ")";
   };

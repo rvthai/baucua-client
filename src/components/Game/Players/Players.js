@@ -1,14 +1,10 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import SocketContext from "contexts/socket-context";
 import "./Players.css";
 
 // Fontawesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faUserCheck,
-  faCrown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 function Players(props) {
   const socket = useContext(SocketContext);
@@ -26,23 +22,14 @@ function Players(props) {
                   {player.id === socket.id ? "(You)" : null}
                 </span>
               </p>
-              <p className="player-stat-balance">${player.total}</p>
+              {player.bankrupt ? (
+                <p className="player-stat-bankrupt">BANKRUPT</p>
+              ) : (
+                <p className="player-stat-balance">${player.total}</p>
+              )}
             </div>
+
             <div className="player-icon">
-              <div>
-                {player.id === props.host ? (
-                  <FontAwesomeIcon className="player-crown" icon={faCrown} />
-                ) : null}
-              </div>
-              {/* {player.ready ? (
-                <FontAwesomeIcon
-                  icon={faUserCheck}
-                  size="2x"
-                  style={{
-                    color: `${player.color}`,
-                  }}
-                />
-              ) : ( */}
               <FontAwesomeIcon
                 icon={faUser}
                 size="2x"
@@ -50,7 +37,9 @@ function Players(props) {
                   color: `${player.color}`,
                 }}
               />
-              {/* )} */}
+              {player.ready && !player.bankrupt ? (
+                <FontAwesomeIcon icon={faCheck} className="check" />
+              ) : null}
             </div>
           </div>
         ))}
