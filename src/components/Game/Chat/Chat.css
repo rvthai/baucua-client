@@ -1,44 +1,85 @@
-/* GAME MAIN - Chat
--------------------------------------------*/
-.game-chat-container{
-  flex-grow: 0.4;
-  width: 315px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
-  margin-left: 10px;
-  border: none;
-  outline: none;
-  z-index: 1;
-}
-.chat-header-container > p{
-  font-size: 48px;
-  text-align: center;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-}
-.chat-messages{
-  flex: 1 1 auto;
-}
-.chat-input{
-  flex: 0.3 1 auto;
-  display: flex;
-}
-.chat-input > input{
+.chat-container {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 5rem;
   background-color: white;
-  font-size: 1em;
-  width: 100%;
-  color: black;
-  outline: none;
-  border: none;
+  width: 350px;
+  border-radius: 15px;
+  z-index: 1;
+  height: 500px;
 }
 
-@media screen and (max-width:615px){
-  .game-chat-container{
-      display: none;
-  }
- 
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: #caa56c;
+}
+
+.chat-header-title {
+  margin: 0.5rem 1rem 0.5rem 1rem;
+  font-weight: bold;
+}
+
+.chat-header-icon {
+  margin: 0.5rem 1rem 0.5rem 1rem;
+  opacity: 0.75;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.chat-header-icon:hover {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.chat-messages {
+  height: 417px;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+}
+
+.message {
+  margin: 0.5rem;
+  font-size: 16px;
+}
+
+.chat-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: solid 1px #e6e6e6;
+}
+.chat-input {
+  font-size: 16px;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  transition: all 0.2s ease-out;
+}
+
+.chat-input::placeholder {
+  color: #c9c9c9;
+}
+
+.chat-input[type="text"] {
+  font-family: "Oswald", sans-serif;
+}
+
+.chat-input-icon {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  opacity: 0.75;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.chat-input-icon:hover {
+  opacity: 1;
+  transition: 0.2s;
 }

@@ -18,8 +18,8 @@ function Settings(props) {
       }
     }
 
+    // Remove the disabled options styling if host changes
     var disabled_options = document.getElementsByClassName("disable");
-
     if (props.isHost && disabled_options.length > 0) {
       while (disabled_options.length > 0) {
         disabled_options[0].classList.remove("disable");

@@ -1,35 +1,20 @@
-.game-players-container {
-  width: 300px;
-  height: auto;
+.players-container {
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 15px;
+  width: 300px;
+  height: auto;
+  padding: 0.5rem 1rem;
 }
 
-.players-container {
-  margin: 0.5rem 1.5rem 0.5rem 1.5rem;
-}
-
-.game-player-card {
+.player-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
   color: white;
-}
-
-.player-icon {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.player-crown {
-  color: gold;
-  font-size: 10px;
 }
 
 .player-rank {
@@ -43,7 +28,6 @@
 }
 
 .player-stat-name {
-  font-weight: bold;
   margin: 0;
 }
 
@@ -57,9 +41,13 @@
   margin: 0;
 }
 
+.player-icon {
+  position: relative;
+}
+
 .check {
-  color: #a7c957;
   position: absolute;
+  color: #a7c957;
   bottom: 0;
   right: -7px;
 }

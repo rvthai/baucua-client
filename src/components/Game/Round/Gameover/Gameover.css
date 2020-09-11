@@ -1,13 +1,18 @@
-.gold {
-  color: rgb(221, 188, 78);
+.gameover-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: auto;
 }
 
-.silver {
-  color: rgb(212, 212, 212);
-}
-
-.bronze {
-  color: rgb(168, 133, 87);
+.gameover-title {
+  color: white;
+  text-shadow: 4px 4px #caa56c;
+  font-size: 54px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .play-again-button {
@@ -17,7 +22,7 @@
   border: none;
   outline: none;
   font-family: "Francois One", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   padding: 0.5rem 1rem;
   margin: 1rem;
   cursor: pointer;
@@ -29,30 +34,17 @@
   transition: 0.3s;
 }
 
-.results-container {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  width: 300px;
-  height: auto;
-}
-
-.results-title {
+.play-again-message {
   color: white;
-  text-shadow: 4px 4px #caa56c;
-  font-size: 50px;
-  font-weight: bold;
-  margin: 0;
 }
 
-.results {
+.leaderboard {
   display: flex;
   flex-direction: column;
   margin: 1rem;
 }
 
-.player-score {
+.leaderboard-score {
   display: flex;
   justify-content: space-between;
 }
@@ -61,4 +53,16 @@
   color: white;
   font-size: 30px;
   margin: 0;
+}
+
+.gold {
+  color: rgb(221, 188, 78);
+}
+
+.silver {
+  color: rgb(212, 212, 212);
+}
+
+.bronze {
+  color: rgb(168, 133, 87);
 }

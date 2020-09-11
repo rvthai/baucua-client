@@ -1,4 +1,121 @@
-/* @keyframes spin {
+.loader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#die {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform-style: preserve-3d;
+  animation: spin 10s infinite linear;
+}
+
+.side {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+#die .cover {
+  border-radius: 0;
+}
+
+#die .cover.x {
+  transform: rotateX(90deg);
+}
+
+#die .cover .y {
+  transform: rotateY(90deg);
+}
+
+#die .cover.z {
+  transform: rotateZ(90deg);
+}
+
+#die .front {
+  background-image: url("../../assets/symbols/crab.png");
+  background-size: 30px;
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: translateZ(25px);
+}
+
+#die .front.inner {
+  transform: translateZ(24px);
+}
+
+#die .back {
+  background-image: url("../../assets/symbols/gourd.png");
+  background-size: 30px;
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: rotateX(-180deg) translateZ(25px);
+}
+
+#die .back.inner {
+  transform: rotateX(-180deg) translateZ(24px);
+}
+
+#die .right {
+  background-image: url("../../assets/symbols/fish.png");
+  background-size: 30px;
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: rotateY(90deg) translateZ(25px);
+}
+
+#die .right.inner {
+  transform: rotateY(90deg) translateZ(24px);
+}
+
+#die .left {
+  background-image: url("../../assets/symbols/shrimp.png");
+  background-size: 30px;
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: rotateY(-90deg) translateZ(25px);
+}
+
+#die .left.inner {
+  transform: rotateY(-90deg) translateZ(24px);
+}
+
+#die .top {
+  background-image: url("../../assets/symbols/rooster.png");
+  background-size: 30px;
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: rotateX(90deg) translateZ(25px);
+}
+
+#die .top.inner {
+  transform: rotateX(90deg) translateZ(24px);
+}
+
+#die .bottom {
+  background-image: url("../../assets/symbols/deer.png");
+  background-size: 30px;
+  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: rotateX(-90deg) translateZ(25px);
+}
+
+#die .bottom.inner {
+  transform: rotateX(-90deg) translateZ(24px);
+}
+
+@keyframes spin {
   0% {
     transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
@@ -25,101 +142,3 @@
       rotateZ(360deg);
   }
 }
-
-#wrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#dice {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  transform-style: preserve-3d;
-  animation: spin 10s infinite linear;
-}
-
-.side {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: #fff;
-  border-radius: 15px;
-}
-
-#dice .cover,
-#dice .inner {
-  background: white;
-  box-shadow: none;
-}
-#dice .cover {
-  border-radius: 0;
-}
-#dice .cover.x {
-  transform: rotateY(90deg);
-}
-#dice .cover.z {
-  transform: rotateX(90deg);
-}
-#dice .front {
-  background-image: url("../../assets/symbols/crab.png");
-  background-size: cover;
-  background-color: white;
-  background-position: center center;
-  transform: translateZ(25px);
-}
-#dice .front.inner {
-  transform: translateZ(24px);
-}
-#dice .back {
-  background-image: url("../../assets/symbols/gourd.png");
-  background-size: cover;
-  background-color: white;
-  background-position: center center;
-  transform: rotateX(-180deg) translateZ(25px);
-}
-#dice .back.inner {
-  transform: rotateX(-180deg) translateZ(24px);
-}
-#dice .right {
-  background-image: url("../../assets/symbols/fish.png");
-  background-size: cover;
-  background-color: white;
-  background-position: center center;
-  transform: rotateY(90deg) translateZ(25px);
-}
-#dice .right.inner {
-  transform: rotateY(90deg) translateZ(24px);
-}
-#dice .left {
-  background-image: url("../../assets/symbols/shrimp.png");
-  background-size: cover;
-  background-color: white;
-  background-position: center center;
-  transform: rotateY(-90deg) translateZ(25px);
-}
-#dice .left.inner {
-  transform: rotateY(-90deg) translateZ(24px);
-}
-#dice .top {
-  background-image: url("../../assets/symbols/rooster.png");
-  background-size: cover;
-  background-color: white;
-  background-position: center center;
-  transform: rotateX(90deg) translateZ(25px);
-}
-#dice .top.inner {
-  transform: rotateX(90deg) translateZ(24px);
-}
-#dice .bottom {
-  background-image: url("../../assets/symbols/deer.png");
-  background-size: cover;
-  background-color: white;
-  background-position: center center;
-  transform: rotateX(-90deg) translateZ(25px);
-}
-#dice .bottom.inner {
-  transform: rotateX(-90deg) translateZ(24px);
-} */

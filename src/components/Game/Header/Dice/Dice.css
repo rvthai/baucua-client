@@ -1,0 +1,18 @@
+.dice-container {
+  display: flex;
+}
+
+.die {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: outset 5px;
+  border-radius: 15px;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50px;
+  width: 75px;
+  height: 75px;
+  margin: 0.5rem;
+}

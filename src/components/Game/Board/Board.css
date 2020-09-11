@@ -1,12 +1,12 @@
-.game-board-container {
-  width: 900px;
-  height: 500px;
-  background: #f5cac3;
+.board-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-content: center;
+  background: #f5cac3;
   border-radius: 15px;
+  width: 900px;
+  height: 500px;
 }
 
 .spot {
@@ -15,11 +15,15 @@
   justify-content: center;
   align-items: center;
   background-color: white;
+  border: double 5px #caa56c;
   border-radius: 50%;
   width: 200px;
   height: 200px;
   margin: 0.5rem;
-  border: double 5px #caa56c;
+}
+
+.symbol {
+  width: 100px;
 }
 
 .bets {
@@ -28,8 +32,4 @@
   grid-template-columns: repeat(2, auto);
   column-gap: 15px;
   row-gap: 15px;
-}
-
-.symbol {
-  width: 100px;
 }

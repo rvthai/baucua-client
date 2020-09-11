@@ -1,4 +1,4 @@
-import React, { useState, useForceUpdate } from "react";
+import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./MainMenu.css";
 
@@ -40,9 +40,13 @@ function MainMenu(props) {
     setOverlay(false);
   };
 
+  const handleDragStart = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="main-menu">
-      <img src={Logo} className="logo" />
+      <img src={Logo} className="logo" onDragStart={handleDragStart} />
       <div className="main-menu-btns">
         <button className="main-menu-btn" onClick={showHostModal}>
           Host
@@ -62,6 +66,7 @@ function MainMenu(props) {
           <HostModal
             onCancelClick={hideModal}
             onHostClick={props.onRenderRoom}
+            onInvalidCode={showErrorModal}
           />
         </CSSTransition>
         <CSSTransition
@@ -85,6 +90,7 @@ function MainMenu(props) {
           <ErrorModal onCancelClick={hideModal} message={errorMessage} />
         </CSSTransition>
       </div>
+
       <p className="copyright">
         Developed by{" "}
         <a href="https://github.com/rvthai" target="_blank">

@@ -2,8 +2,8 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  padding: 2rem;
-  max-width: 300px;
+  padding: 1.5rem;
+  max-width: 200px;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -14,13 +14,14 @@
 .error-modal-title {
   color: #353535;
   font-size: 34px;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0;
 }
 
 .error-modal-desc {
   color: #c9c9c9;
-  font-size: 18px;
+  font-size: 20px;
+  margin-top: 0.5rem;
 }
 
 .error-modal-try-again-btn {
@@ -33,7 +34,6 @@
   font-size: 18px;
   width: 110px;
   height: 50px;
-  margin-top: 1rem;
   cursor: pointer;
   transition: 0.3s;
 }

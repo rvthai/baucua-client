@@ -1,27 +1,27 @@
-.scoreboard-container {
+.results-container {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  width: 300px;
+  transform: translate(-50%, -50%);
+  width: 275px;
   height: auto;
 }
 
-.scoreboard-title {
+.results-title {
   color: white;
   text-shadow: 4px 4px #caa56c;
-  font-size: 50px;
+  font-size: 54px;
   font-weight: bold;
   margin: 0;
 }
 
-.scoreboard {
+.results {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
-.player-score {
+.results-stats {
   display: flex;
   justify-content: space-between;
 }

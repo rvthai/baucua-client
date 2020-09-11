@@ -2,23 +2,25 @@ import React, { useEffect } from "react";
 import "./Board.css";
 
 // Images
-import Deer from "../../../assets/symbols/deer.png";
-import Gourd from "../../../assets/symbols/gourd.png";
-import Rooster from "../../../assets/symbols/rooster.png";
-import Fish from "../../../assets/symbols/fish.png";
-import Crab from "../../../assets/symbols/crab.png";
-import Shrimp from "../../../assets/symbols/shrimp.png";
+import Deer from "assets/symbols/deer.png";
+import Gourd from "assets/symbols/gourd.png";
+import Rooster from "assets/symbols/rooster.png";
+import Fish from "assets/symbols/fish.png";
+import Crab from "assets/symbols/crab.png";
+import Shrimp from "assets/symbols/shrimp.png";
 
 // Components
 import Token from "./Token/Token";
 
 function Board(props) {
   useEffect(() => {
-    var el = document.getElementById("game-board");
+    var board = document.getElementById("board");
+
+    // If the player is ready, prevent the board from being clickable
     if (props.ready) {
-      el.style.zIndex = -1;
+      board.style.zIndex = -1;
     } else {
-      el.style.zIndex = 0;
+      board.style.zIndex = 0;
     }
   }, [props.ready]);
 
@@ -26,18 +28,18 @@ function Board(props) {
     props.handleBet(event.target.id);
   };
 
-  // Prevent dragging of images and entities
-  const handleDragStart = (event) => {
-    event.preventDefault();
-  };
-
-  // Clicking on token does not target parent div id, so this function is needed to handle that
+  // Clicking on token does not target parent div id
+  // This functions handles that by passing the symbol up
   const onTokenClick = (symbol) => {
     props.handleBet(symbol);
   };
 
+  const handleDragStart = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <div id="game-board" className="game-board-container">
+    <div id="board" className="board-container">
       <div id="deer" className="spot" onClick={onSpotClick}>
         <img
           onDragStart={handleDragStart}

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import SocketContext from "contexts/socket-context";
 import "./HostModal.css";
 
-// Fontawesome Icons
+// FontAwesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,21 +30,21 @@ function HostModal(props) {
     return true;
   };
 
-  const onKeyUp = (event) => {
-    if (event.key === "Enter") {
-      handleHostClick();
-    }
-  };
-
   const handleHostClick = () => {
     if (checkNameInput()) {
       socket.emit("host", { name, room }, (error) => {
         if (error) {
-          console.log(error);
+          props.onInvalidCode(error);
         } else {
           props.onHostClick();
         }
       });
+    }
+  };
+
+  const onKeyUp = (event) => {
+    if (event.key === "Enter") {
+      handleHostClick();
     }
   };
 

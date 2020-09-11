@@ -1,50 +1,36 @@
-/* GAME MAIN - HEADER
--------------------------------------------*/
-.main-header-container {
+.header-container {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  /* background-color: rgba(0, 0, 0, 0.2); */
   border-radius: 15px;
   margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.base-timer {
-  border: solid 2px white;
-  box-shadow: 2px 2px #caa56c;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 75px;
-  height: 75px;
-}
-#game-time {
-  visibility: hidden;
-}
-
-.game-time {
-  justify-content: center;
+.header-round {
   font-size: 40px;
   color: white;
   text-shadow: 2px 2px #caa56c;
+  margin-left: 2rem;
 }
 
-.game-dice {
+.header-dice {
   display: flex;
   justify-content: center;
 }
-.game-die {
+
+.header-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px white;
+  box-shadow: 2px 2px #caa56c;
+  border-radius: 50%;
+  font-size: 40px;
+  color: white;
+  text-shadow: 2px 2px #caa56c;
   width: 75px;
-  background-color: white;
-  margin: 5px;
-  border-radius: 15px;
-}
-#game-done {
-  visibility: hidden;
-}
-.game-done {
-  flex-basis: 15%;
+  height: 75px;
+  margin-right: 2rem;
 }

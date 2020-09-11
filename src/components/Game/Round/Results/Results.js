@@ -1,13 +1,13 @@
 import React from "react";
-import "./Scoreboard.css";
+import "./Results.css";
 
-function Scoreboard(props) {
+function Results(props) {
   return (
-    <div className="scoreboard-container">
-      <p className="scoreboard-title">Results</p>
-      <div className="scoreboard">
+    <div className="results-container">
+      <p className="results-title">Results</p>
+      <div className="results">
         {props.gamestate.players.map((player, index) => (
-          <div key={index} className="player-score">
+          <div key={index} className="results-stats">
             <p className="stat">{player.name}</p>
             {player.net > 0 ? (
               <p className="stat" style={{ color: "#7FFF00" }}>
@@ -27,4 +27,4 @@ function Scoreboard(props) {
   );
 }
 
-export default Scoreboard;
+export default Results;

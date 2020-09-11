@@ -4,17 +4,15 @@ import io from "socket.io-client";
 import "./App.css";
 
 // Components
-import MainMenu from "../MainMenu/MainMenu";
-import Room from "../Room/Room";
+import MainMenu from "components/MainMenu/MainMenu";
+import Room from "components/Room/Room";
 
 const ENDPOINT = "http://localhost:9000";
 
 function App() {
-  // State
   const [socket, setSocket] = useState(null);
   const [renderView, setRender] = useState(0);
 
-  // Component lifecycle
   useEffect(() => {
     setSocket(
       io(ENDPOINT, {
@@ -27,12 +25,8 @@ function App() {
     };
   }, []);
 
-  const renderRoom = () => {
-    setRender(1);
-  };
-
   const renderMainMenu = () => {
-    // disconnect old socket and connect a new socket
+    // disconnect the old socket and connect a new socket
     socket.disconnect();
     setSocket(
       io(ENDPOINT, {
@@ -41,6 +35,10 @@ function App() {
     );
 
     setRender(0);
+  };
+
+  const renderRoom = () => {
+    setRender(1);
   };
 
   // Render

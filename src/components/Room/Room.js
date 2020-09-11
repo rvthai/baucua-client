@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Suspense } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SocketContext from "contexts/socket-context";
 
 // Components
@@ -7,15 +7,14 @@ import Lobby from "components/Lobby/Lobby";
 import Game from "components/Game/Game";
 
 function Room(props) {
-  // State
   const socket = useContext(SocketContext);
 
   const [renderView, setRender] = useState(0);
 
   const [room, setRoom] = useState("");
 
-  const [player, setPlayer] = useState("");
   const [players, setPlayers] = useState([]);
+  const [player, setPlayer] = useState("");
 
   const [host, setHost] = useState("");
   const [isHost, setIsHost] = useState(false);
@@ -24,28 +23,51 @@ function Room(props) {
   const [round, setRound] = useState(5);
   const [balance, setBalance] = useState(10);
 
-  const [gamestate, setGameState] = useState({});
+  const [gamestate, setGamestate] = useState({});
 
   useEffect(() => {
-    socket.on("players", ({ players }) => {
-      setPlayers(players);
+    socket.on("gamestart", ({ gamestate }) => {
+      setGamestate(gamestate);
+      setRender(0); // Loader
+      setTimeout(() => setRender(2), 2000);
     });
 
-    socket.on("roomdata", ({ room, roomid, id }) => {
-      if (room.host === id) {
+    socket.on("gamerestart", ({ gamestate }) => {
+      setGamestate(gamestate);
+      setRender(0); // Loader
+      setTimeout(() => setRender(1), 2000);
+    });
+
+    // To prevent game returning to lobby on changes to the players list
+    if (gamestate.active) {
+      setRender(2);
+    } else {
+      setTimeout(() => setRender(1), 2000);
+    }
+  }, []);
+
+  useEffect(() => {
+    socket.on("roomdata", ({ room, host, id }) => {
+      if (host === id) {
         setIsHost(true);
       }
-      setRoom(roomid);
-      setHost(room.host);
+      setRoom(room);
+      setHost(host);
       setPlayer(id);
+    });
+
+    socket.on("players", ({ players }) => {
+      setPlayers(players);
     });
 
     socket.on("timeropt", ({ timer }) => {
       setTimer(timer);
     });
+
     socket.on("roundopt", ({ round }) => {
       setRound(round);
     });
+
     socket.on("balanceopt", ({ balance }) => {
       setBalance(balance);
     });
@@ -56,24 +78,6 @@ function Room(props) {
       }
       setHost(newhost);
     });
-
-    socket.on("gamestart", ({ gamestate }) => {
-      setGameState(gamestate);
-      setRender(0);
-      setTimeout(() => setRender(2), 0); // change time for loader
-    });
-
-    socket.on("gamerestart", ({ gamestate }) => {
-      setGameState(gamestate);
-      setRender(0);
-      setTimeout(() => setRender(1), 0);
-    });
-
-    if (gamestate.active) {
-      setRender(2);
-    } else {
-      setTimeout(() => setRender(1), 0); // change time for loader
-    }
   }, [player, players, host, isHost, timer, round, balance]);
 
   const onSettingsChange = (setting, value) => {
@@ -87,9 +91,10 @@ function Room(props) {
   };
 
   const onClickStart = () => {
-    socket.emit("startgame", { room, balance });
+    socket.emit("startgame", { balance });
   };
 
+  // Render
   switch (renderView) {
     case 1:
       return (

@@ -1,49 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./Lobby.css";
 
 // Components
-import Player from "../Player/Player";
+import Player from "./Player/Player";
 import Settings from "./Settings/Settings";
-import Tutorial from "./Tutorial/Tutorial";
+import Help from "./Help/Help";
 
 // Fontawesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
 // Logo
 import Logo from "assets/logo/logo.png";
 
 function Lobby(props) {
-  const [tutorial, showTutorial] = useState(false);
+  const [help, showHelp] = useState(false);
 
   const copyToClipboard = () => {
-    const el = document.createElement("textarea");
-    el.value = props.room;
-    document.body.appendChild(el);
-    el.select();
+    const code = document.createElement("textarea");
+    code.value = props.room;
+    document.body.appendChild(code);
+    code.select();
     document.execCommand("copy");
-    document.body.removeChild(el);
+    document.body.removeChild(code);
+
+    var snackbar = document.getElementById("snackbar");
+    snackbar.className = "show";
+    setTimeout(() => {
+      snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
   };
 
   const onHowToPlayClick = () => {
-    if (window.innerWidth < "800") {
-      document.getElementById("howtoplay").style.visibility = "hidden";
+    if (help === true) {
+      showHelp(false);
+    } else {
+      showHelp(true);
     }
-
-    document.body.style.overflow = "hidden";
-    showTutorial(true);
   };
 
   const onCancelClick = () => {
-    if (window.innerWidth < "800") {
-      document.getElementById("howtoplay").style.visibility = "visible";
-    }
-
-    document.body.style.overflow = "auto";
-    showTutorial(false);
+    showHelp(false);
   };
 
+  // Set specific views for the host
   var button;
   var lobby_message;
   if (props.isHost) {
@@ -59,22 +61,14 @@ function Lobby(props) {
 
   return (
     <div className="lobby-page-container">
-      <CSSTransition
-        in={tutorial}
-        timeout={300}
-        unmountOnExit
-        classNames="drawer"
-      >
-        <Tutorial onCloseClick={onCancelClick} />
+      <CSSTransition in={help} timeout={100} unmountOnExit classNames="dialog">
+        <Help onCloseClick={onCancelClick} />
       </CSSTransition>
-      <div className="nav">
-        <div className="mini-logo-wrapper">
-          <img src={Logo} className="mini-logo" onClick={props.onLogoClick} />
-        </div>
-        <p id="howtoplay" className="how-to-play" onClick={onHowToPlayClick}>
-          HOW TO PLAY
-        </p>
+
+      <div className="mini-logo-wrapper">
+        <img src={Logo} className="mini-logo" onClick={props.onLogoClick} />
       </div>
+
       <div className="lobby-container">
         <p className="room-code">
           Room Code:
@@ -96,13 +90,23 @@ function Lobby(props) {
         <div className="lobby">
           <p className="lobby-title">Lobby ({props.players.length}/8)</p>
           <p className="lobby-message">{lobby_message}</p>
-          <div className="players">
+          <div className="lobby-players">
             {props.players.map((player, index) => (
               <Player key={index} player={player} host={props.host} />
             ))}
           </div>
           {button}
         </div>
+      </div>
+
+      <div id="snackbar">Copied to clipboard!</div>
+      <div className="help-btn-wrapper">
+        <FontAwesomeIcon
+          id="help-btn"
+          icon={faQuestionCircle}
+          size="3x"
+          onClick={onHowToPlayClick}
+        />
       </div>
     </div>
   );

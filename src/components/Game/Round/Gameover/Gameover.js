@@ -1,13 +1,20 @@
-import React from "react";
-import "./Results.css";
+import React, { useContext } from "react";
+import SocketContext from "contexts/socket-context";
+import "./Gameover.css";
 
-function Results(props) {
+function Gameover(props) {
+  const socket = useContext(SocketContext);
+
+  const onPlayAgainClick = () => {
+    socket.emit("playagain");
+  };
+
   return (
-    <div className="results-container">
-      <p className="results-title">Gameover</p>
-      <div className="results">
+    <div className="gameover-container">
+      <p className="gameover-title">Gameover</p>
+      <div className="leaderboard">
         {props.gamestate.players.map((player, index) => (
-          <div key={index} className="player-score">
+          <div key={index} className="leaderboard-score">
             {player.rank === 1 ? (
               <>
                 <p className="stat gold">#{player.rank}</p>
@@ -37,12 +44,16 @@ function Results(props) {
         ))}
       </div>
       {props.isHost ? (
-        <button className="play-again-button" onClick={props.onPlayAgainClick}>
+        <button className="play-again-button" onClick={onPlayAgainClick}>
           Play Again
         </button>
-      ) : null}
+      ) : (
+        <p className="play-again-message">
+          Waiting for host to restart game...
+        </p>
+      )}
     </div>
   );
 }
 
-export default Results;
+export default Gameover;

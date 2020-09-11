@@ -6,119 +6,85 @@
   max-width: 1200px;
 }
 
-.chat-button {
-  color: white;
-  cursor: pointer;
-  font-size: 40px;
+.mini-logo-wrapper {
+  width: 100%;
+  margin-top: 2rem;
 }
 
-.main-board {
+.mini-logo {
+  max-width: 200px;
+  height: auto;
+  cursor: pointer;
+}
+
+.game-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
   max-width: 900px;
   margin-left: 1rem;
 }
 
-.bottom-half {
-  display: flex;
-  flex-direction: row;
-  max-width: 1200px;
-}
-
-.game-container {
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-}
-.game-header-container,
-.game-main-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.game-main-container {
-  flex-direction: column;
-  height: 700px;
-  max-height: 700px;
-  margin-bottom: 1rem;
-}
-
-/* GAME HEADER
--------------------------------------------*/
-.game-header-container .game-leave {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.game-header-container .game-logo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-#ingame-leave {
-  text-decoration: none;
-  color: inherit;
-}
-#ingame-leave p {
-  color: white;
-  font-size: 24px;
-}
-#ingame-leave p:hover {
-  transition: all 0.3s, ease-in 0s;
-  color: rgb(170, 170, 170);
-}
-#ingame-logo {
-  max-height: 100px;
-}
-
-/* MAIN GAME - CONTAINER
--------------------------------------------*/
-.game-game-container {
-  display: flex;
-  flex-direction: row;
-  border: solid 1px;
-  max-width: 1200px;
-}
-
-#round-overlay {
+#overlay {
   position: fixed;
+  background-color: black;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  opacity: 0.5;
+}
+
+/* Chat Button */
+.chat-btn-wrapper {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+#chat-btn {
+  color: white;
+  filter: drop-shadow(0 0 2px black);
+  margin-top: 2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#chat-btn:hover {
+  transform: translateY(-2px);
+  transition: 0.2s;
 }
 
 /* CSS Transition Group */
-.modal-round-enter {
+.round-modal-enter {
   opacity: 0%;
   transform: translate(-50%, -50%);
 }
-.modal-round-enter-active {
+.round-modal-enter-active {
   transform: translate(-50%, -50%);
   opacity: 100%;
   transition: 0.3s;
 }
-.modal-round-enter-done {
+.round-modal-enter-done {
   transform: translate(-50%, -50%);
   opacity: 1000%;
 }
-.modal-round-exit {
+.round-modal-exit {
   transform: translate(-50%, -50%);
   opacity: 100%;
 }
-.modal-round-exit-active {
+.round-modal-exit-active {
   transform: translate(-50%, -50%);
   opacity: 0%;
   transition: 0.3s;
-}
-
-@media screen and (max-width: 615px) {
-  .game-board-container {
-    flex-basis: 100%;
-  }
-  .game-main-container {
-    height: 800px;
-  }
 }

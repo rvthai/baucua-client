@@ -1,0 +1,12 @@
+.player {
+  text-align: center;
+  width: 150px;
+}
+
+.player-name {
+  margin-top: 0.25rem;
+}
+
+.crown-icon {
+  color: gold;
+}
