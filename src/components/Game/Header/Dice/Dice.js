@@ -44,6 +44,10 @@ function Dice() {
     var die2 = document.getElementById("die2");
     var die3 = document.getElementById("die3");
 
+    if (die1 === null || die2 === null || die3 === null) {
+      return null;
+    }
+
     die1.style.backgroundImage = "none";
     die2.style.backgroundImage = "none";
     die3.style.backgroundImage = "none";

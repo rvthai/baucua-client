@@ -24,7 +24,6 @@ function Game(props) {
   const [gamestate, setGamestate] = useState(props.gamestate);
 
   const [ready, setReady] = useState(false);
-  const [readyUp, setReadyUp] = useState(false);
 
   const [chat, setChat] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -79,7 +78,6 @@ function Game(props) {
 
     socket.on("showstartmodal", ({ round }) => {
       setReady(false);
-      setReadyUp(false);
       setRound(round);
       setRoundStart(true);
       setShowOverlay(true);
@@ -143,10 +141,11 @@ function Game(props) {
 
   const playerReady = (button_clicked) => {
     if (button_clicked) {
-      setReadyUp(true);
+      socket.emit("readyplayer", true);
+    } else {
+      socket.emit("readyplayer", false);
     }
     setReady(true);
-    socket.emit("readyplayer", { gamestate });
   };
 
   const betting = (dollar) => {
@@ -202,7 +201,7 @@ function Game(props) {
       <div className="game-container">
         <Header timer={timer} round={round} />
         <div className="game">
-          <Players id={socket.id} readyUp={readyUp} gamestate={gamestate} />
+          <Players id={socket.id} gamestate={gamestate} />
           <div className="game-board">
             <Board ready={ready} bets={gamestate.bets} handleBet={bet} />
             <Dashboard
