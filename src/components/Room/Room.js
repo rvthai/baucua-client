@@ -26,6 +26,8 @@ function Room(props) {
   const [gamestate, setGamestate] = useState({});
 
   useEffect(() => {
+    socket.emit("roomsetup");
+
     socket.on("gamestart", ({ gamestate }) => {
       setGamestate(gamestate);
       setRender(0); // Loader
@@ -38,7 +40,7 @@ function Room(props) {
       setTimeout(() => setRender(1), 2000);
     });
 
-    // To prevent game returning to lobby on changes to the players list
+    //To prevent game returning to lobby on changes to the players list
     if (gamestate.active) {
       setRender(2);
     } else {
@@ -78,6 +80,7 @@ function Room(props) {
       }
       setHost(newhost);
     });
+    setTimeout(() => setRender(1), 2000);
   }, [player, players, host, isHost, timer, round, balance]);
 
   const onSettingsChange = (setting, value) => {

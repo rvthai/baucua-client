@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./MainMenu.css";
 
