@@ -21,7 +21,7 @@ function Dice() {
     socket.on("cleardice", () => {
       clearDice();
     });
-  }, []);
+  }, [socket]);
 
   const roll1 = (symbol) => {
     var die1 = document.getElementById("die1");

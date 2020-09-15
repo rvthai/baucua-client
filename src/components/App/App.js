@@ -8,32 +8,20 @@ import MainMenu from "components/MainMenu/MainMenu";
 import Room from "components/Room/Room";
 
 const ENDPOINT = "http://localhost:9000";
+const socket = io(ENDPOINT, { reconnection: false });
 
 function App() {
-  const [socket, setSocket] = useState(null);
   const [renderView, setRender] = useState(0);
 
+  // Clean up socket on component unmounting
   useEffect(() => {
-    setSocket(
-      io(ENDPOINT, {
-        reconnection: false,
-      })
-    );
-
     return () => {
       socket.disconnect();
     };
   }, []);
 
   const renderMainMenu = () => {
-    // disconnect the old socket and connect a new socket
-    socket.disconnect();
-    setSocket(
-      io(ENDPOINT, {
-        reconnection: false,
-      })
-    );
-
+    socket.emit("removeplayer");
     setRender(0);
   };
 

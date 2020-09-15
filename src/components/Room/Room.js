@@ -12,9 +12,7 @@ function Room(props) {
   const [renderView, setRender] = useState(0);
 
   const [room, setRoom] = useState("");
-
   const [players, setPlayers] = useState([]);
-  const [player, setPlayer] = useState("");
 
   const [host, setHost] = useState("");
   const [isHost, setIsHost] = useState(false);
@@ -40,22 +38,16 @@ function Room(props) {
       setTimeout(() => setRender(1), 2000);
     });
 
-    //To prevent game returning to lobby on changes to the players list
-    if (gamestate.active) {
-      setRender(2);
-    } else {
-      setTimeout(() => setRender(1), 2000);
-    }
-  }, []);
-
-  useEffect(() => {
-    socket.on("roomdata", ({ room, host, id }) => {
+    socket.on("roomdata", ({ room, settings, host, id }) => {
       if (host === id) {
         setIsHost(true);
       }
       setRoom(room);
       setHost(host);
-      setPlayer(id);
+
+      setTimer(settings.time);
+      setRound(settings.rounds);
+      setBalance(settings.balance);
     });
 
     socket.on("players", ({ players }) => {
@@ -75,13 +67,18 @@ function Room(props) {
     });
 
     socket.on("newhost", (newhost) => {
-      if (newhost === player) {
+      if (newhost === socket.id) {
         setIsHost(true);
       }
       setHost(newhost);
     });
+
     setTimeout(() => setRender(1), 2000);
-  }, [player, players, host, isHost, timer, round, balance]);
+
+    return () => {
+      socket.off();
+    };
+  }, [socket]);
 
   const onSettingsChange = (setting, value) => {
     if (setting === "timer") {

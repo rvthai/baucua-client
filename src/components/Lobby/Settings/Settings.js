@@ -11,7 +11,7 @@ import {
 
 function Settings(props) {
   useEffect(() => {
-    if (props.players.length > 1 && !props.isHost) {
+    if (!props.isHost) {
       var options = document.getElementsByClassName("select");
       for (let i = 0; i < options.length; i++) {
         options[i].classList.add("disable");

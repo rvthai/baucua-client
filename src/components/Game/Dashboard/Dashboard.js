@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Dashboard.css";
 
 // Images - Dollars
@@ -39,7 +39,7 @@ function Dashboard(props) {
     if (player.bankrupt) {
       bet_btn.classList.add("bet-btn-disabled");
     }
-  }, [props.gamestate]);
+  }, [props.gamestate, props.id]);
 
   // useEffect - If the player is ready, prevent the dashboard from being clickable
   useEffect(() => {
@@ -89,36 +89,42 @@ function Dashboard(props) {
           id="1"
           className="dollar"
           src={OneDollar}
+          alt="one-dollar"
           onClick={handleDollarClick}
         />
         <img
           id="5"
           className="dollar"
           src={FiveDollar}
+          alt="five-dollar"
           onClick={handleDollarClick}
         />
         <img
           id="10"
           className="dollar"
           src={TenDollar}
+          alt="ten-dollar"
           onClick={handleDollarClick}
         />
         <img
           id="20"
           className="dollar"
           src={TwentyDollar}
+          alt="twenty-dollar"
           onClick={handleDollarClick}
         />
         <img
           id="50"
           className="dollar"
           src={FiftyDollar}
+          alt="fifty-dollar"
           onClick={handleDollarClick}
         />
         <img
           id="100"
           className="dollar"
           src={HundredDollar}
+          alt="hundred-dollar"
           onClick={handleDollarClick}
         />
 
@@ -126,31 +132,37 @@ function Dashboard(props) {
           id="1-disabled"
           className="dollar-disabled"
           src={OneDollarDisabled}
+          alt="one-dollar-disabled"
         />
         <img
           id="5-disabled"
           className="dollar-disabled"
           src={FiveDollarDisabled}
+          alt="five-dollar-disabled"
         />
         <img
           id="10-disabled"
           className="dollar-disabled"
           src={TenDollarDisabled}
+          alt="ten-dollar-disabled"
         />
         <img
           id="20-disabled"
           className="dollar-disabled"
           src={TwentyDollarDisabled}
+          alt="twenty-dollar-disabled"
         />
         <img
           id="50-disabled"
           className="dollar-disabled"
           src={FiftyDollarDisabled}
+          alt="fifty-dollar-disabled"
         />
         <img
           id="100-disabled"
           className="dollar-disabled"
           src={HundredDollarDisabled}
+          alt="hundred-dollar-disabled"
         />
       </div>
 

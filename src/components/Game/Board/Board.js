@@ -50,8 +50,9 @@ function Board(props) {
         />
         <div id="deer" className="bets">
           {props.bets.map((bet, index) => {
+            var token = null;
             if (bet.animal === "deer") {
-              return (
+              token = (
                 <Token
                   key={index}
                   id={bet.id}
@@ -62,6 +63,7 @@ function Board(props) {
                 />
               );
             }
+            return token;
           })}
         </div>
       </div>
@@ -76,8 +78,9 @@ function Board(props) {
         />
         <div id="gourd" className="bets">
           {props.bets.map((bet, index) => {
+            var token = null;
             if (bet.animal === "gourd") {
-              return (
+              token = (
                 <Token
                   key={index}
                   id={bet.id}
@@ -88,6 +91,7 @@ function Board(props) {
                 />
               );
             }
+            return token;
           })}
         </div>
       </div>
@@ -102,8 +106,9 @@ function Board(props) {
         />
         <div id="rooster" className="bets">
           {props.bets.map((bet, index) => {
+            var token = null;
             if (bet.animal === "rooster") {
-              return (
+              token = (
                 <Token
                   key={index}
                   id={bet.id}
@@ -114,6 +119,7 @@ function Board(props) {
                 />
               );
             }
+            return token;
           })}
         </div>
       </div>
@@ -128,8 +134,9 @@ function Board(props) {
         />
         <div id="fish" className="bets">
           {props.bets.map((bet, index) => {
+            var token = null;
             if (bet.animal === "fish") {
-              return (
+              token = (
                 <Token
                   key={index}
                   id={bet.id}
@@ -140,6 +147,7 @@ function Board(props) {
                 />
               );
             }
+            return token;
           })}
         </div>
       </div>
@@ -154,8 +162,9 @@ function Board(props) {
         />
         <div id="crab" className="bets">
           {props.bets.map((bet, index) => {
+            var token = null;
             if (bet.animal === "crab") {
-              return (
+              token = (
                 <Token
                   key={index}
                   id={bet.id}
@@ -166,6 +175,7 @@ function Board(props) {
                 />
               );
             }
+            return token;
           })}
         </div>
       </div>
@@ -180,8 +190,9 @@ function Board(props) {
         />
         <div id="shrimp" className="bets">
           {props.bets.map((bet, index) => {
+            var token = null;
             if (bet.animal === "shrimp") {
-              return (
+              token = (
                 <Token
                   key={index}
                   id={bet.id}
@@ -192,6 +203,7 @@ function Board(props) {
                 />
               );
             }
+            return token;
           })}
         </div>
       </div>

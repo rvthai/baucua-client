@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import SocketContext from "contexts/socket-context";
 import "./Chat.css";
 
@@ -31,7 +31,7 @@ function Chat(props) {
     const user = props.gamestate.players.find((p) => p.id === socket.id);
     if (user) {
       let input = document.getElementById("message");
-      socket.emit("sendMessage", {
+      socket.emit("sendmessage", {
         id: socket.id,
         name: user.name,
         message: input.value,

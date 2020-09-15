@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./MainMenu.css";
 
@@ -46,7 +46,12 @@ function MainMenu(props) {
 
   return (
     <div className="main-menu">
-      <img src={Logo} className="logo" onDragStart={handleDragStart} />
+      <img
+        src={Logo}
+        alt="logo"
+        className="logo"
+        onDragStart={handleDragStart}
+      />
       <div className="main-menu-btns">
         <button className="main-menu-btn" onClick={showHostModal}>
           Host
@@ -93,11 +98,19 @@ function MainMenu(props) {
 
       <p className="copyright">
         Developed by{" "}
-        <a href="https://github.com/rvthai" target="_blank">
+        <a
+          href="https://github.com/rvthai"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Ricky Thai
         </a>{" "}
         and{" "}
-        <a href="https://github.com/jackiedl" target="_blank">
+        <a
+          href="https://github.com/jackiedl"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Jackie Luu
         </a>
       </p>

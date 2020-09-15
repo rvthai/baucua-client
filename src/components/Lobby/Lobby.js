@@ -66,7 +66,12 @@ function Lobby(props) {
       </CSSTransition>
 
       <div className="mini-logo-wrapper">
-        <img src={Logo} className="mini-logo" onClick={props.onLogoClick} />
+        <img
+          src={Logo}
+          alt="logo"
+          className="mini-logo"
+          onClick={props.onLogoClick}
+        />
       </div>
 
       <div className="lobby-container">
