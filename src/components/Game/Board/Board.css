@@ -33,3 +33,9 @@
   column-gap: 15px;
   row-gap: 15px;
 }
+
+@media screen and (max-width: 650px) {
+  .board-container {
+    width: auto;
+  }
+}

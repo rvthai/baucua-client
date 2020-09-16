@@ -16,3 +16,12 @@
   height: 75px;
   margin: 0.5rem;
 }
+
+@media screen and (max-width: 800px) {
+  .die {
+    width: 50px;
+    height: 50px;
+    background-size: 25px;
+    border: outset 2px;
+  }
+}

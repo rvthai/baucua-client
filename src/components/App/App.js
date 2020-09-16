@@ -7,7 +7,7 @@ import "./App.css";
 import MainMenu from "components/MainMenu/MainMenu";
 import Room from "components/Room/Room";
 
-const ENDPOINT = "http://localhost:9000";
+const ENDPOINT = "http://192.168.1.18:9000";
 const socket = io(ENDPOINT, { reconnection: false });
 
 function App() {

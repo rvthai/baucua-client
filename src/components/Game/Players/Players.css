@@ -51,3 +51,11 @@
   bottom: 0;
   right: -7px;
 }
+
+@media screen and (max-width: 650px) {
+  .players-container {
+    width: auto;
+    height: 100%;
+    margin-bottom: 1rem;
+  }
+}

@@ -61,7 +61,7 @@ function Lobby(props) {
 
   return (
     <div className="lobby-page-container">
-      <CSSTransition in={help} timeout={100} unmountOnExit classNames="dialog">
+      <CSSTransition in={help} timeout={300} unmountOnExit classNames="dialog">
         <Help onCloseClick={onCancelClick} />
       </CSSTransition>
 

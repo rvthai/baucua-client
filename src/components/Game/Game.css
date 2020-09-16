@@ -88,3 +88,13 @@
   opacity: 0%;
   transition: 0.3s;
 }
+
+@media screen and (max-width: 650px) {
+  .game {
+    flex-direction: column;
+  }
+
+  .game-board {
+    margin: 0;
+  }
+}

@@ -34,3 +34,34 @@
   height: 75px;
   margin-right: 2rem;
 }
+
+@media screen and (max-width: 650px) {
+  .header-container {
+    flex-direction: column;
+  }
+
+  .header-round {
+    font-size: 24px;
+    color: white;
+    text-shadow: 2px 2px #caa56c;
+    margin-left: 0;
+  }
+
+  .mobile-header-time {
+    display: block;
+    font-size: 14px;
+    color: white;
+    text-shadow: 2px 2px #caa56c;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-time {
+    display: none;
+  }
+}
+
+@media screen and (mix-width: 800px) {
+  .mobile-header-time {
+    display: none;
+  }
+}

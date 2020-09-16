@@ -77,3 +77,14 @@
   transform: translate(-50%, -50%) scale(0);
   transition: 0.3s;
 }
+
+/* Mobile Screen */
+@media screen and (max-width: 800px) {
+  .main-menu-btn:hover {
+    background: #caa56c;
+  }
+
+  #overlay {
+    display: none;
+  }
+}

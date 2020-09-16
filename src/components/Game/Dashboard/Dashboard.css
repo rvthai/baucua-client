@@ -1,11 +1,13 @@
 .dashboard-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-top: 1rem;
 }
 
 .dollars {
   display: flex;
+  align-items: flex-start;
 }
 
 .dollar {
