@@ -9,6 +9,10 @@
 .round-banner {
   color: white;
   text-shadow: 4px 4px #caa56c;
-  font-size: 64px;
+  font-size: 50px;
   font-weight: bold;
+}
+
+/* Mobile */
+@media screen and (max-width: 650px) {
 }

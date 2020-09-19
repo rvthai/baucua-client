@@ -18,22 +18,26 @@ function MainMenu(props) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const showHostModal = () => {
+    document.body.style.overflow = "hidden";
     setHostModal(true);
     setOverlay(true);
   };
 
   const showJoinModal = () => {
+    document.body.style.overflow = "hidden";
     setJoinModal(true);
     setOverlay(true);
   };
 
   const showErrorModal = (message) => {
+    document.body.style.overflow = "hidden";
     setJoinModal(false);
     setErrorModal(true);
     setErrorMessage(message);
   };
 
   const hideModal = () => {
+    document.body.style.overflow = "auto";
     setHostModal(false);
     setJoinModal(false);
     setErrorModal(false);

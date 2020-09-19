@@ -42,7 +42,7 @@ function Chat(props) {
 
   return (
     <div className="chat-container">
-      <div className="chat-header">
+      <div className="chat-header" onClick={props.onCollapseClick}>
         <p className="chat-header-title">CHAT ROOM</p>
         <FontAwesomeIcon
           className="chat-header-icon"

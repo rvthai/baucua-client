@@ -26,6 +26,7 @@ function JoinModal(props) {
 
     // Error handling if name and room are empty
     if (name !== "" && room !== "") {
+      document.body.style.overflow = "auto";
       socket.emit("check", room, (error) => {
         if (error) {
           props.onInvalidCode(error);
@@ -65,6 +66,7 @@ function JoinModal(props) {
   return (
     <div className="join-modal">
       <FontAwesomeIcon
+        id="join-icon"
         style={{ color: "#353535" }}
         icon={faDoorOpen}
         size="4x"

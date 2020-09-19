@@ -1,7 +1,4 @@
 .host-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,6 +9,9 @@
   background-color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   z-index: 1;
+  position: fixed;
+  left: 50%;
+  top: 50%;
 }
 
 .host-modal-title {
@@ -29,6 +29,7 @@
   border-radius: 5px;
   transition: all 0.2s ease-out;
   -webkit-transition: all 0.2s ease-out;
+  -webkit-appearance: none;
 }
 
 .host-modal-input:focus {
@@ -36,12 +37,26 @@
   outline: 0;
 }
 
-.host-modal-input::placeholder {
+.host-modal-input::placeholder,
+.host-modal-input-error::placeholder {
   color: #c9c9c9;
 }
 
-.host-modal-input[type="text"] {
+.host-modal-input[type="text"],
+.host-modal-input-error[type="text"] {
   font-family: "Oswald", sans-serif;
+}
+
+.host-modal-input-error {
+  outline: 0;
+  font-size: 24px;
+  padding: 0.75rem;
+  border: 1px solid #cc0000;
+  text-align: center;
+  border-radius: 5px;
+  transition: all 0.2s ease-out;
+  -webkit-transition: all 0.2s ease-out;
+  -webkit-appearance: none;
 }
 
 .host-modal-btns {
@@ -88,4 +103,10 @@
 .host-modal-host-btn:hover {
   background-color: #580c0e;
   transition: 0.3s;
+}
+
+@media screen and (max-width: 600px) {
+  .host-modal-host-btn:hover {
+    background-color: #88181b;
+  }
 }

@@ -21,9 +21,8 @@ function HostModal(props) {
   const checkNameInput = () => {
     if (name === "") {
       var name_input = document.getElementById("name-input");
-      name_input.style.boxShadow = "0 0 5px #CC0000";
-      name_input.style.border = "none";
-      name_input.style.transition = "none";
+      name_input.classList.remove("host-modal-input");
+      name_input.classList.add("host-modal-input-error");
       return false;
     }
 
@@ -32,6 +31,7 @@ function HostModal(props) {
 
   const handleHostClick = () => {
     if (checkNameInput()) {
+      document.body.style.overflow = "auto";
       socket.emit("host", { name, room }, (error) => {
         if (error) {
           props.onInvalidCode(error);

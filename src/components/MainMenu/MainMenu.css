@@ -60,31 +60,37 @@
 
 /* CSSTransitionGroup for modals */
 .modal-enter {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%) scale(0);
 }
 .modal-enter-active {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%) scale(1);
   transition: 0.3s;
 }
 
 .modal-enter-done {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%) scale(1);
 }
 .modal-exit {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%) scale(1);
 }
 .modal-exit-active {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%) scale(0);
   transition: 0.3s;
 }
 
 /* Mobile Screen */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .main-menu-btn:hover {
     background: #caa56c;
   }
-
-  #overlay {
-    display: none;
+}
+@media screen and (max-width: 650px) {
+  .main-menu-btn:hover {
+    background: #caa56c;
   }
 }

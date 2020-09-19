@@ -1,7 +1,7 @@
 .join-modal {
-  position: absolute;
-  top: 50%;
+  position: fixed;
   left: 50%;
+  top: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,6 +29,7 @@
   border-radius: 5px;
   transition: all 0.2s ease-out;
   -webkit-transition: all 0.2s ease-out;
+  -webkit-appearance: none;
 }
 
 .join-modal-input:focus {
@@ -93,10 +94,10 @@
 .join-modal-input-error {
   font-size: 24px;
   padding: 0.75rem;
-  border: solid 1px #c9c9c9;
-  box-shadow: 0 0 5px #cc0000;
+  border: solid 1px #cc0000;
   text-align: center;
   border-radius: 5px;
+  -webkit-appearance: none;
 }
 
 .join-modal-input-error:focus {
@@ -109,4 +110,32 @@
 
 .join-modal-input-error[type="text"] {
   font-family: "Oswald", sans-serif;
+}
+
+@media screen and (orientation: landscape) {
+  #join-icon {
+    font-size: 40px;
+  }
+
+  .join-modal-title {
+    font-size: 30px;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .join-modal-input {
+    font-size: 20px;
+  }
+
+  .join-modal-join-btn {
+    font-size: 18px;
+    width: 100px;
+    height: 40px;
+  }
+
+  .join-modal-cancel-btn {
+    font-size: 18px;
+    width: 100px;
+    height: 40px;
+  }
 }

@@ -34,8 +34,37 @@
   row-gap: 15px;
 }
 
+/* Mobile */
 @media screen and (max-width: 650px) {
   .board-container {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
     width: auto;
+    height: auto;
+  }
+
+  .spot {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: double 3px #caa56c;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 0.5rem;
+  }
+
+  .symbol {
+    width: 75px;
+  }
+}
+
+/* Mobile Landscape Orientation */
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+  .board-container {
+    width: auto;
+    height: auto;
   }
 }

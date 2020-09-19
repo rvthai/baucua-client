@@ -35,13 +35,16 @@ function Lobby(props) {
 
   const onHowToPlayClick = () => {
     if (help === true) {
+      //document.body.style.overflow = "auto";
       showHelp(false);
     } else {
+      //document.body.style.overflow = "hidden";
       showHelp(true);
     }
   };
 
   const onCancelClick = () => {
+    //document.body.style.overflow = "auto";
     showHelp(false);
   };
 

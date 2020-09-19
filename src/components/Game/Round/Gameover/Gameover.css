@@ -10,7 +10,7 @@
 .gameover-title {
   color: white;
   text-shadow: 4px 4px #caa56c;
-  font-size: 54px;
+  font-size: 50px;
   font-weight: bold;
   margin: 0;
 }
@@ -70,4 +70,24 @@
 
 .bronze {
   color: rgb(168, 133, 87);
+}
+
+@media screen and (max-width: 650px) {
+  .gameover-container {
+    width: 250px;
+  }
+
+  .stat {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 850px) and (orientation: landscape) {
+  .gameover-container {
+    width: 250px;
+  }
+
+  .stat {
+    font-size: 14px;
+  }
 }

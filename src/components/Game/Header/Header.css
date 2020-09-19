@@ -35,6 +35,10 @@
   margin-right: 2rem;
 }
 
+.mobile-header-time {
+  display: none;
+}
+
 @media screen and (max-width: 650px) {
   .header-container {
     flex-direction: column;
@@ -60,8 +64,8 @@
   }
 }
 
-@media screen and (mix-width: 800px) {
+/* @media screen and (min-width: 800px) {
   .mobile-header-time {
     display: none;
   }
-}
+} */

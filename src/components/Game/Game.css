@@ -58,6 +58,7 @@
   padding: 0.5rem;
   cursor: pointer;
   transition: 0.3s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #chat-btn:hover {
@@ -89,7 +90,19 @@
   transition: 0.3s;
 }
 
+/* Mobile */
 @media screen and (max-width: 650px) {
+  .game {
+    flex-direction: column;
+  }
+
+  .game-board {
+    margin: 0;
+  }
+}
+
+/* Mobile Landscape Orientation */
+@media screen and (max-width: 1000px) and (orientation: landscape) {
   .game {
     flex-direction: column;
   }

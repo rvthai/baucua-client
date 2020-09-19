@@ -13,7 +13,7 @@ function Player(props) {
   } else {
     host_icon = (
       <FontAwesomeIcon
-        className="crown-icon"
+        className="crown-icon-ghost"
         icon={faCrown}
         style={{ opacity: 0 }}
       />
@@ -22,14 +22,17 @@ function Player(props) {
 
   return (
     <div className="player">
-      <div>{host_icon}</div>
-      <FontAwesomeIcon
-        icon={faUser}
-        size="5x"
-        style={{
-          color: props.player.color,
-        }}
-      />
+      <div>
+        <div>{host_icon}</div>
+        <FontAwesomeIcon
+          id="player-icon"
+          icon={faUser}
+          size="5x"
+          style={{
+            color: props.player.color,
+          }}
+        />
+      </div>
       <p className="player-name">{props.player.name}</p>
     </div>
   );

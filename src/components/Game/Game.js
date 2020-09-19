@@ -174,13 +174,16 @@ function Game(props) {
 
   const onChatClick = () => {
     if (chat) {
+      document.body.style.overflow = "auto";
       setChat(false);
     } else {
+      document.body.style.overflow = "hidden";
       setChat(true);
     }
   };
 
   const onCollapseClick = () => {
+    document.body.style.overflow = "auto";
     setChat(false);
   };
 
