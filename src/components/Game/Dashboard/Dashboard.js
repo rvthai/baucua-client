@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import SocketContext from "contexts/socket-context";
 import "./Dashboard.css";
 
 // Images - Dollars
@@ -34,6 +35,24 @@ import FiftyDollarDisabledVert from "assets/money/fifty-dollar-disabled-vert.png
 import HundredDollarDisabledVert from "assets/money/hundred-dollar-disabled-vert.png";
 
 function Dashboard(props) {
+  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    socket.on("showtimesup", () => {
+      var dashboard = document.getElementById("dashboard");
+
+      var dollars = document.getElementsByClassName("dollar-active");
+      if (dollars.length > 0) {
+        dollars[0].classList.remove("dollar-active");
+      }
+      dashboard.style.zIndex = -1;
+    });
+
+    socket.on("nextround", () => {
+      var dashboard = document.getElementById("dashboard");
+      dashboard.style.zIndex = 0;
+    });
+  }, [socket]);
   // useEffect - check and handle which dollars are available in real time
   useEffect(() => {
     const player = props.gamestate.players.filter((p) => props.id === p.id)[0];
@@ -101,7 +120,7 @@ function Dashboard(props) {
     }
 
     bet_btn.classList.add("bet-btn-active");
-    props.handleReady(true);
+    props.handleReady();
   };
 
   return (

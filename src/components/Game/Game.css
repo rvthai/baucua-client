@@ -44,6 +44,16 @@
   opacity: 0.5;
 }
 
+#clear-overlay {
+  position: fixed;
+  background-color: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+}
+
 /* Chat Button */
 .chat-btn-wrapper {
   position: fixed;

@@ -29,13 +29,13 @@ function Room(props) {
     socket.on("gamestart", ({ gamestate }) => {
       setGamestate(gamestate);
       setRender(0); // Loader
-      setTimeout(() => setRender(2), 2000);
+      setTimeout(() => setRender(2), 1500);
     });
 
     socket.on("gamerestart", ({ gamestate }) => {
       setGamestate(gamestate);
       setRender(0); // Loader
-      setTimeout(() => setRender(1), 2000);
+      setTimeout(() => setRender(1), 1500);
     });
 
     socket.on("roomdata", ({ room, settings, host, id }) => {
@@ -73,7 +73,7 @@ function Room(props) {
       setHost(newhost);
     });
 
-    setTimeout(() => setRender(1), 2000);
+    setTimeout(() => setRender(1), 1500);
 
     return () => {
       socket.off();

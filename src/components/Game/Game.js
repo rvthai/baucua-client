@@ -29,122 +29,103 @@ function Game(props) {
   const [messages, setMessages] = useState([]);
 
   const [round, setRound] = useState(props.gamestate.round);
-  const [startTimer, setStartTimer] = useState(false);
+  // const [startTimer, setStartTimer] = useState(false);
   const [timer, setTime] = useState(props.timer);
 
   const [betAmount, setBetAmount] = useState(0);
 
   const [showOverlay, setShowOverlay] = useState(false);
+  const [showClearOverlay, setShowClearOverlay] = useState(false);
   const [showRoundStart, setRoundStart] = useState(false);
   const [showRoundEnd, setRoundEnd] = useState(false);
   const [showGameOver, setGameover] = useState(false);
+  const [showTimesUp, setTimesUp] = useState(false);
+  const [showRollTime, setRollTime] = useState(false);
+
+  const [results, setResults] = useState([]);
 
   // useEffect - Show first round at the start of every game
-  useEffect(() => {
-    socket.emit("showstartmodal");
-  }, [socket]);
 
-  // useEffect - Handles round transitions
-  useEffect(() => {
-    // Transition from round banner to round start
-    if (showRoundStart) {
-      setTimeout(() => {
-        socket.emit("hidestartmodal");
-      }, 3000);
-    }
-
-    // Transition from results to round banner
-    if (showRoundEnd) {
-      setTimeout(() => {
-        socket.emit("hideendmodal");
-      }, 5000);
-    }
-  }, [socket, showRoundStart, showRoundEnd]);
-
-  // useEffect - Manages game flow and game state
   useEffect(() => {
     socket.on("newgamestate", ({ gamestate }) => {
       setGamestate(gamestate);
     });
 
-    socket.on("timer", ({ second }) => {
-      setTime(second);
-    });
-
-    socket.on("endtimer", () => {
-      playerReady();
-    });
-
-    socket.on("showstartmodal", ({ round }) => {
-      setReady(false);
-      setRound(round);
+    socket.on("showround", () => {
       setRoundStart(true);
       setShowOverlay(true);
     });
 
-    socket.on("hidestart", () => {
+    socket.on("hideround", () => {
       setRoundStart(false);
       setShowOverlay(false);
-      setStartTimer(true);
-      setTime(timer);
     });
 
-    socket.on("showendmodal", ({ gamestate }) => {
-      setStartTimer(false);
-      setTimeout(() => {
-        setRoundEnd(true);
-        setShowOverlay(true);
-        setGamestate(gamestate);
-      }, 7000);
+    socket.on("timer", (current_time) => {
+      setTime(current_time);
     });
 
-    socket.on("hideend", ({ gameover }) => {
+    socket.on("showtimesup", () => {
+      setTimesUp(true);
+      setShowClearOverlay(true);
+    });
+
+    socket.on("hidetimesup", () => {
+      setTimesUp(false);
+      setShowClearOverlay(false);
+    });
+
+    socket.on("rolltime", () => {
+      setRollTime(true);
+      setShowClearOverlay(true);
+    });
+
+    socket.on("hiderolling", () => {
+      setRollTime(false);
+      setShowClearOverlay(false);
+    });
+
+    socket.on("showresults", (results) => {
+      setResults(results);
+      setRoundEnd(true);
+      setShowOverlay(true);
+    });
+
+    socket.on("hideresults", () => {
       setRoundEnd(false);
-
-      if (gameover) {
-        setTimeout(() => {
-          socket.emit("showgameover");
-        }, 1000);
-      }
-
-      if (!gameover) {
-        setTimeout(() => {
-          socket.emit("showstartmodal");
-        }, 1000);
-      }
     });
 
-    socket.on("showgameover", () => {
+    socket.on("nextround", (round) => {
+      setRound(round);
+      setReady(false);
+    });
+
+    socket.on("gameover", (results) => {
+      setResults(results);
       setGameover(true);
+      setShowOverlay(true);
     });
-    // eslint-disable-next-line
   }, [socket]);
 
-  // useEffect - Manages the chat events
   useEffect(() => {
     socket.on("chatbox", ({ chatbox }) => {
       setMessages(chatbox);
     });
   }, [socket]);
 
-  // useEffect - Manages the timer
   useEffect(() => {
-    let interval;
-    if (startTimer && timer >= 0) {
-      interval = setInterval(() => {
-        socket.emit("timer", { timer });
-      }, 1000);
+    if (round === 1) {
+      setRoundStart(true);
+      setShowOverlay(true);
     }
 
-    return () => clearInterval(interval);
-  }, [socket, timer, startTimer]);
-
-  const playerReady = (button_clicked) => {
-    if (button_clicked) {
-      socket.emit("readyplayer", true);
-    } else {
-      socket.emit("readyplayer", false);
+    if (props.isHost) {
+      socket.emit("roundstart");
     }
+  }, [socket, round]);
+
+  const playerReady = () => {
+    socket.emit("readyplayer");
     setReady(true);
   };
 
@@ -223,6 +204,7 @@ function Game(props) {
         </div>
 
         {showOverlay ? <div id="overlay"></div> : null}
+        {showClearOverlay ? <div id="clear-overlay"></div> : null}
 
         <CSSTransition
           in={showRoundStart}
@@ -232,6 +214,22 @@ function Game(props) {
         >
           <Round start={showRoundStart} round={round} gamestate={gamestate} />
         </CSSTransition>
+        <CSSTransition
+          in={showTimesUp}
+          timeout={300}
+          unmountOnExit
+          classNames="round-modal"
+        >
+          <Round timesup={showTimesUp} gamestate={gamestate} />
+        </CSSTransition>
+        <CSSTransition
+          in={showRollTime}
+          timeout={300}
+          unmountOnExit
+          classNames="round-modal"
+        >
+          <Round rolling={showRollTime} gamestate={gamestate} />
+        </CSSTransition>
 
         <CSSTransition
           in={showRoundEnd}
@@ -239,7 +237,7 @@ function Game(props) {
           unmountOnExit
           classNames="round-modal"
         >
-          <Round gamestate={gamestate} end={showRoundEnd} />
+          <Round results={results} gamestate={gamestate} end={showRoundEnd} />
         </CSSTransition>
 
         <CSSTransition
@@ -250,6 +248,7 @@ function Game(props) {
         >
           <Round
             gameover={showGameOver}
+            results={results}
             isHost={props.isHost}
             gamestate={gamestate}
             return={props.onLogoClick}
@@ -269,3 +268,110 @@ function Game(props) {
 }
 
 export default Game;
+
+/*
+  // useEffect - Handles round transitions
+  useEffect(() => {
+    // Transition from round banner to round start
+    if (props.isHost && showRoundStart) {
+      setTimeout(() => {
+        socket.emit("hidestartmodal");
+      }, 3000);
+    }
+
+    // Transition from results to round banner
+    if (props.isHost && showRoundEnd) {
+      setTimeout(() => {
+        socket.emit("hideendmodal");
+      }, 5000);
+    }
+  }, [socket, showRoundStart, showRoundEnd]);
+
+  // useEffect - Manages game flow and game state
+  useEffect(() => {
+    socket.on("newgamestate", ({ gamestate }) => {
+      setGamestate(gamestate);
+    });
+
+    socket.on("timer", ({ second }) => {
+      setTime(second);
+    });
+
+    socket.on("endtimer", () => {
+      socket.emit("endround");
+      setReady(true);
+      //playerReady(false); // this could be the problem i didnt supply it with a parameter before
+    });
+
+    socket.on("showstartmodal", ({ round }) => {
+      setReady(false);
+      setRound(round);
+      setRoundStart(true);
+      setShowOverlay(true);
+    });
+
+    socket.on("hidestart", () => {
+      setRoundStart(false);
+      setShowOverlay(false);
+      setStartTimer(true);
+      socket.emit("timer", true);
+      setTime(timer);
+    });
+
+    socket.on("showendmodal", ({ gamestate }) => {
+      setStartTimer(false);
+      setTimeout(() => {
+        setRoundEnd(true);
+        setShowOverlay(true);
+        setGamestate(gamestate);
+      }, 7000);
+    });
+
+    socket.on("hideend", ({ gameover }) => {
+      setRoundEnd(false);
+
+      if (props.isHost && gameover) {
+        setTimeout(() => {
+          socket.emit("showgameover");
+        }, 1000);
+      }
+
+      if (props.isHost && !gameover) {
+        setTimeout(() => {
+          socket.emit("showstartmodal");
+        }, 1000);
+      }
+    });
+
+    socket.on("showgameover", () => {
+      setGameover(true);
+    });
+    // eslint-disable-next-line
+  }, [socket]);
+
+  // useEffect - Manages the chat events
+  useEffect(() => {
+    socket.on("chatbox", ({ chatbox }) => {
+      setMessages(chatbox);
+    });
+  }, [socket]);
+
+  // useEffect - Manages the timer
+  useEffect(() => {
+    socket.on("timer", ({ timer }) => {
+      if (timer < 0) {
+        socket.emit("timer", false);
+      } else {
+        setTime(timer);
+      }
+    });
+    // let interval;
+    // if (props.isHost && startTimer && timer >= 0) {
+    //   interval = setInterval(() => {
+    //     socket.emit("timer", { timer });
+    //   }, 1000);
+    // }
+    // return () => clearInterval(interval);
+  }, [socket, timer, startTimer]);
+*/
+// seems like endtimer is problem not when bet is clicked

@@ -9,13 +9,13 @@ function Dice() {
     socket.on("diceroll", ({ die1, die2, die3 }) => {
       setTimeout(() => {
         roll1(die1);
-      }, 2000);
+      }, 1000);
       setTimeout(() => {
         roll2(die2);
-      }, 3000);
+      }, 2000);
       setTimeout(() => {
         roll3(die3);
-      }, 4000);
+      }, 3000);
     });
 
     socket.on("cleardice", () => {
@@ -25,16 +25,19 @@ function Dice() {
 
   const roll1 = (symbol) => {
     var die1 = document.getElementById("die1");
+    if (die1 === null) return;
     die1.style.backgroundImage =
       "url(" + require("assets/symbols/" + symbol + ".png") + ")";
   };
   const roll2 = (symbol) => {
     var die2 = document.getElementById("die2");
+    if (die2 === null) return;
     die2.style.backgroundImage =
       "url(" + require("assets/symbols/" + symbol + ".png") + ")";
   };
   const roll3 = (symbol) => {
     var die3 = document.getElementById("die3");
+    if (die3 === null) return;
     die3.style.backgroundImage =
       "url(" + require("assets/symbols/" + symbol + ".png") + ")";
   };

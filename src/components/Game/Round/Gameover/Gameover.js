@@ -13,7 +13,7 @@ function Gameover(props) {
     <div className="gameover-container">
       <p className="gameover-title">Gameover</p>
       <div className="leaderboard">
-        {props.gamestate.players.map((player, index) => (
+        {props.results.map((player, index) => (
           <div key={index} className="leaderboard-score">
             {player.rank === 1 ? (
               <>

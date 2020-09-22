@@ -6,7 +6,7 @@ function Results(props) {
     <div className="results-container">
       <p className="results-title">Results</p>
       <div className="results">
-        {props.gamestate.players.map((player, index) => (
+        {props.results.map((player, index) => (
           <div key={index} className="results-stats">
             <p className="stat">{player.name}</p>
             {player.net > 0 ? (

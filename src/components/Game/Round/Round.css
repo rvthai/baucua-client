@@ -4,6 +4,7 @@
   left: 50%;
   text-align: center;
   z-index: 1;
+  width: 100%;
 }
 
 .round-banner {
@@ -13,6 +14,27 @@
   font-weight: bold;
 }
 
+.times-up-banner {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: 1rem;
+}
+
+.times-up {
+  margin: 0;
+  color: #fff;
+  /* text-shadow: 4px 4px #caa56c; */
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.rolling {
+  color: white;
+  font-size: 20px;
+  font-style: italic;
+  margin: 0;
+}
 /* Mobile */
 @media screen and (max-width: 650px) {
 }

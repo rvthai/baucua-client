@@ -112,7 +112,7 @@
   font-family: "Oswald", sans-serif;
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (max-width: 1000px) and (orientation: landscape) {
   #join-icon {
     font-size: 40px;
   }
