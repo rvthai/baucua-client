@@ -27,7 +27,7 @@ function JoinModal(props) {
     // Error handling if name and room are empty
     if (name !== "" && room !== "") {
       document.body.style.overflow = "auto";
-      socket.emit("check", room, (error) => {
+      socket.emit("check", { room }, (error) => {
         if (error) {
           props.onInvalidCode(error);
         } else {

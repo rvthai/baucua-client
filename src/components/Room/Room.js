@@ -24,21 +24,10 @@ function Room(props) {
   const [gamestate, setGamestate] = useState({});
 
   useEffect(() => {
+    // Signal to server that data is needed to set up the room for user
     socket.emit("roomsetup");
 
-    socket.on("gamestart", ({ gamestate }) => {
-      setGamestate(gamestate);
-      setRender(0); // Loader
-      setTimeout(() => setRender(2), 1500);
-    });
-
-    socket.on("gamerestart", ({ gamestate }) => {
-      setGamestate(gamestate);
-      setRender(0); // Loader
-      setTimeout(() => setRender(1), 1500);
-    });
-
-    socket.on("roomdata", ({ room, settings, host, id }) => {
+    socket.on("roomdata", ({ room, host, id, settings }) => {
       if (host === id) {
         setIsHost(true);
       }
@@ -52,6 +41,18 @@ function Room(props) {
 
     socket.on("players", ({ players }) => {
       setPlayers(players);
+    });
+
+    socket.on("gamestart", ({ gamestate }) => {
+      setGamestate(gamestate);
+      setRender(0); // Loader
+      setTimeout(() => setRender(2), 1500);
+    });
+
+    socket.on("gamerestart", ({ gamestate }) => {
+      setGamestate(gamestate);
+      setRender(0); // Loader
+      setTimeout(() => setRender(1), 1500);
     });
 
     socket.on("timeropt", ({ timer }) => {
