@@ -58,7 +58,7 @@ function Players(props) {
                   color: player.color,
                 }}
               />
-              {player.betClicked && player.ready && !player.bankrupt ? (
+              {player.ready && !player.bankrupt ? (
                 <FontAwesomeIcon icon={faCheck} className="check" />
               ) : null}
             </div>
