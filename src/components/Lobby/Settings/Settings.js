@@ -56,10 +56,10 @@ function Settings(props) {
           Rounds:
         </span>
         <select
-          id="round"
+          id="rounds"
           className="select"
           onChange={onOptionChange}
-          value={props.round}
+          value={props.rounds}
         >
           <option value={5}>5</option>
           <option value={10}>10</option>

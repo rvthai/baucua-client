@@ -91,7 +91,7 @@ function Lobby(props) {
           players={props.players}
           isHost={props.isHost}
           timer={props.timer}
-          round={props.round}
+          rounds={props.rounds}
           balance={props.balance}
           onSettingsChange={props.onSettingsChange}
         />

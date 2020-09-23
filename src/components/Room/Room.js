@@ -18,7 +18,7 @@ function Room(props) {
   const [isHost, setIsHost] = useState(false);
 
   const [timer, setTimer] = useState(30);
-  const [round, setRound] = useState(5);
+  const [rounds, setRounds] = useState(5);
   const [balance, setBalance] = useState(10);
 
   const [gamestate, setGamestate] = useState({});
@@ -27,15 +27,15 @@ function Room(props) {
     // Signal to server that data is needed to set up the room for user
     socket.emit("roomsetup");
 
-    socket.on("roomdata", ({ room, host, id, settings }) => {
-      if (host === id) {
+    socket.on("roomdata", ({ room, host, settings }) => {
+      if (host === socket.id) {
         setIsHost(true);
       }
       setRoom(room);
       setHost(host);
 
       setTimer(settings.time);
-      setRound(settings.rounds);
+      setRounds(settings.rounds);
       setBalance(settings.balance);
     });
 
@@ -43,49 +43,42 @@ function Room(props) {
       setPlayers(players);
     });
 
+    socket.on("newhost", ({ host }) => {
+      if (host === socket.id) {
+        setIsHost(true);
+      }
+      setHost(host);
+    });
+
+    socket.on("timeropt", ({ timer }) => {
+      setTimer(timer);
+    });
+    socket.on("roundsopt", ({ rounds }) => {
+      setRounds(rounds);
+    });
+    socket.on("balanceopt", ({ balance }) => {
+      setBalance(balance);
+    });
+
     socket.on("gamestart", ({ gamestate }) => {
       setGamestate(gamestate);
       setRender(0); // Loader
       setTimeout(() => setRender(2), 1500);
     });
-
     socket.on("gamerestart", ({ gamestate }) => {
       setGamestate(gamestate);
       setRender(0); // Loader
       setTimeout(() => setRender(1), 1500);
     });
 
-    socket.on("timeropt", ({ timer }) => {
-      setTimer(timer);
-    });
-
-    socket.on("roundopt", ({ round }) => {
-      setRound(round);
-    });
-
-    socket.on("balanceopt", ({ balance }) => {
-      setBalance(balance);
-    });
-
-    socket.on("newhost", (newhost) => {
-      if (newhost === socket.id) {
-        setIsHost(true);
-      }
-      setHost(newhost);
-    });
-
     setTimeout(() => setRender(1), 1500);
-
-    return () => {
-      socket.off();
-    };
   }, [socket]);
 
   const onSettingsChange = (setting, value) => {
     if (setting === "timer") {
       socket.emit("timerchange", { timer: value });
-    } else if (setting === "round") {
-      socket.emit("roundchange", { round: value });
+    } else if (setting === "rounds") {
+      socket.emit("roundschange", { rounds: value });
     } else if (setting === "balance") {
       socket.emit("balancechange", { balance: value });
     }
@@ -105,7 +98,7 @@ function Room(props) {
           host={host}
           isHost={isHost}
           timer={timer}
-          round={round}
+          rounds={rounds}
           balance={balance}
           onSettingsChange={onSettingsChange}
           onLogoClick={props.onRenderMainMenu}
@@ -116,8 +109,6 @@ function Room(props) {
       return (
         <Game
           timer={timer}
-          round={round}
-          balance={balance}
           gamestate={gamestate}
           isHost={isHost}
           host={host}

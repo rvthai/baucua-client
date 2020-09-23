@@ -29,7 +29,6 @@ function Game(props) {
   const [messages, setMessages] = useState([]);
 
   const [round, setRound] = useState(props.gamestate.round);
-  // const [startTimer, setStartTimer] = useState(false);
   const [timer, setTime] = useState(props.timer);
 
   const [betAmount, setBetAmount] = useState(0);
@@ -40,17 +39,44 @@ function Game(props) {
   const [showRoundEnd, setRoundEnd] = useState(false);
   const [showGameOver, setGameover] = useState(false);
   const [showTimesUp, setTimesUp] = useState(false);
-  const [showRollTime, setRollTime] = useState(false);
+  const [showAllBetsIn, setAllBetsIn] = useState(false);
 
   const [results, setResults] = useState([]);
 
-  // useEffect - Show first round at the start of every game
+  // useEffect on the start of each round
+  useEffect(() => {
+    if (round === 1) {
+      setRoundStart(true);
+      setShowOverlay(true);
+    }
 
+    if (props.isHost) {
+      socket.emit("roundstart");
+    }
+  }, [socket, round]);
+
+  // useEffect on gamestate changes
   useEffect(() => {
     socket.on("newgamestate", ({ gamestate }) => {
       setGamestate(gamestate);
     });
 
+    socket.on("timer", ({ current_time }) => {
+      setTime(current_time);
+    });
+
+    socket.on("nextround", ({ round }) => {
+      setRound(round);
+      setReady(false);
+    });
+
+    socket.on("chatbox", ({ chatbox }) => {
+      setMessages(chatbox);
+    });
+  }, [socket]);
+
+  // useEffect on displaying transition events
+  useEffect(() => {
     socket.on("showround", () => {
       setRoundStart(true);
       setShowOverlay(true);
@@ -59,10 +85,6 @@ function Game(props) {
     socket.on("hideround", () => {
       setRoundStart(false);
       setShowOverlay(false);
-    });
-
-    socket.on("timer", (current_time) => {
-      setTime(current_time);
     });
 
     socket.on("showtimesup", () => {
@@ -75,17 +97,17 @@ function Game(props) {
       setShowClearOverlay(false);
     });
 
-    socket.on("rolltime", () => {
-      setRollTime(true);
+    socket.on("showallbetsin", () => {
+      setAllBetsIn(true);
       setShowClearOverlay(true);
     });
 
-    socket.on("hiderolling", () => {
-      setRollTime(false);
+    socket.on("hideallbetsin", () => {
+      setAllBetsIn(false);
       setShowClearOverlay(false);
     });
 
-    socket.on("showresults", (results) => {
+    socket.on("showresults", ({ results }) => {
       setResults(results);
       setRoundEnd(true);
       setShowOverlay(true);
@@ -95,34 +117,12 @@ function Game(props) {
       setRoundEnd(false);
     });
 
-    socket.on("nextround", (round) => {
-      setRound(round);
-      setReady(false);
-    });
-
-    socket.on("gameover", (results) => {
+    socket.on("gameover", ({ results }) => {
       setResults(results);
       setGameover(true);
       setShowOverlay(true);
     });
   }, [socket]);
-
-  useEffect(() => {
-    socket.on("chatbox", ({ chatbox }) => {
-      setMessages(chatbox);
-    });
-  }, [socket]);
-
-  useEffect(() => {
-    if (round === 1) {
-      setRoundStart(true);
-      setShowOverlay(true);
-    }
-
-    if (props.isHost) {
-      socket.emit("roundstart");
-    }
-  }, [socket, round]);
 
   const playerReady = () => {
     socket.emit("readyplayer");
@@ -223,12 +223,12 @@ function Game(props) {
           <Round timesup={showTimesUp} gamestate={gamestate} />
         </CSSTransition>
         <CSSTransition
-          in={showRollTime}
+          in={showAllBetsIn}
           timeout={300}
           unmountOnExit
           classNames="round-modal"
         >
-          <Round rolling={showRollTime} gamestate={gamestate} />
+          <Round rolling={showAllBetsIn} gamestate={gamestate} />
         </CSSTransition>
 
         <CSSTransition
