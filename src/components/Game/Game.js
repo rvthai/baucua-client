@@ -53,6 +53,7 @@ function Game(props) {
     if (props.isHost) {
       socket.emit("roundstart");
     }
+    // eslint-disable-next-line
   }, [socket, round]);
 
   // useEffect on gamestate changes

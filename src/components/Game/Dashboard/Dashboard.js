@@ -80,7 +80,7 @@ function Dashboard(props) {
     if (player.bankrupt) {
       bet_btn.classList.add("bet-btn-disabled");
     }
-  }, [props.gamestate, props.id, window.innerWidth]);
+  }, [props.gamestate, props.id]);
 
   // useEffect - If the player is ready, prevent the dashboard from being clickable
   useEffect(() => {
