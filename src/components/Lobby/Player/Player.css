@@ -11,6 +11,7 @@
   color: gold;
 }
 
+/* Mobile Responsive */
 @media screen and (max-width: 650px) {
   .player {
     display: flex;
@@ -24,7 +25,7 @@
   }
 
   .crown-icon {
-    font-size: 10px;
+    font-size: 7px;
   }
 
   .crown-icon-ghost {

@@ -30,8 +30,8 @@
 .game-board {
   display: flex;
   flex-direction: column;
-  max-width: 900px;
   margin-left: 1rem;
+  width: 100%;
 }
 
 #overlay {
@@ -100,8 +100,8 @@
   transition: 0.3s;
 }
 
-/* Mobile */
-@media screen and (max-width: 650px) {
+/* Mobile Responsive */
+@media screen and (max-width: 1012px) {
   .game {
     flex-direction: column;
   }
@@ -111,8 +111,7 @@
   }
 }
 
-/* Mobile Landscape Orientation */
-@media screen and (max-width: 1000px) and (orientation: landscape) {
+@media screen and (max-width: 650px) {
   .game {
     flex-direction: column;
   }

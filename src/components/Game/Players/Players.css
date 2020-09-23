@@ -55,7 +55,15 @@
   right: -7px;
 }
 
-/* Mobile */
+/* Mobile Responsive */
+@media screen and (max-width: 1012px) {
+  .players-container {
+    width: auto;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .players-container {
     display: none;
@@ -96,14 +104,5 @@
     grid-template-columns: 1rem 1em 9rem auto;
     justify-items: start;
     color: white;
-  }
-}
-
-/* Mobile Landscape Orientation */
-@media screen and (max-width: 1000px) and (orientation: landscape) {
-  .players-container {
-    width: auto;
-    height: auto;
-    margin-bottom: 1rem;
   }
 }

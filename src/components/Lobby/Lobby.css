@@ -191,24 +191,7 @@
   transition: 0.2s;
 }
 
-/* Mobile */
-@media screen and (max-width: 800px) {
-  .mini-logo-wrapper {
-    text-align: center;
-  }
-
-  .lobby {
-    width: 600px;
-  }
-
-  .lobby-players {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-}
-
+/* Mobile Responsive */
 @media screen and (max-width: 650px) {
   .lobby-title {
     font-size: 24px;

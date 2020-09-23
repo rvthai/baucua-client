@@ -105,6 +105,7 @@
   transition: 0.3s;
 }
 
+/* Mobile Responsive */
 @media screen and (max-width: 600px) {
   .host-modal-host-btn:hover {
     background-color: #88181b;

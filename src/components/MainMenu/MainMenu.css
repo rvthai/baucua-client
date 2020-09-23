@@ -42,6 +42,7 @@
   color: #e6e6e6;
   text-align: center;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .copyright > a {
@@ -83,13 +84,14 @@
   transition: 0.3s;
 }
 
-/* Mobile Screen */
-@media screen and (max-width: 1000px) {
+/* Mobile Responsive */
+@media screen and (max-width: 650px) {
   .main-menu-btn:hover {
     background: #caa56c;
   }
 }
-@media screen and (max-width: 650px) {
+
+@media screen and (max-width: 1000px) {
   .main-menu-btn:hover {
     background: #caa56c;
   }

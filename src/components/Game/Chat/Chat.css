@@ -86,7 +86,7 @@
   transition: 0.2s;
 }
 
-/* Mobile */
+/* Mobile Responsive */
 @media screen and (max-width: 500px) {
   .chat-container {
     position: fixed;

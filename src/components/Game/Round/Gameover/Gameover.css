@@ -72,6 +72,7 @@
   color: rgb(168, 133, 87);
 }
 
+/* Mobile Responsive */
 @media screen and (max-width: 650px) {
   .gameover-container {
     width: 250px;

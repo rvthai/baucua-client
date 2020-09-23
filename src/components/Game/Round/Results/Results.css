@@ -32,6 +32,7 @@
   margin: 0;
 }
 
+/* Mobile Responsive */
 @media screen and (max-width: 650px) {
   .results-container {
     width: 250px;

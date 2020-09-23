@@ -17,6 +17,7 @@
   margin: 0.5rem;
 }
 
+/* Mobile Responsive */
 @media screen and (max-width: 800px) {
   .die {
     width: 50px;

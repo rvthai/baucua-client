@@ -72,6 +72,10 @@ function Room(props) {
     });
 
     setTimeout(() => setRender(1), 1500);
+
+    return () => {
+      socket.off();
+    };
   }, [socket]);
 
   const onSettingsChange = (setting, value) => {
