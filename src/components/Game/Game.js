@@ -139,6 +139,7 @@ function Game(props) {
 
     if (player.total < betAmount) {
       setBetAmount(0);
+      return null;
     }
 
     if (betAmount > 0) {

@@ -35,6 +35,25 @@
 }
 
 /* Mobile Responsive */
+@media screen and (max-width: 1012px) {
+  .spot {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: double 3px #caa56c;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: 0.5rem;
+  }
+
+  .symbol {
+    width: 100px;
+  }
+}
+
 @media screen and (max-width: 750px) {
   .board-container {
     grid-template-columns: repeat(2, 1fr);
@@ -58,24 +77,5 @@
 
   .symbol {
     width: 75px;
-  }
-}
-
-@media screen and (max-width: 1012px) {
-  .spot {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border: double 3px #caa56c;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    margin: 0.5rem;
-  }
-
-  .symbol {
-    width: 100px;
   }
 }

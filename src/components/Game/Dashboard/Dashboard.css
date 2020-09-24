@@ -66,6 +66,7 @@
   color: #e6e6e6;
   background-color: #a4a4a4;
   box-shadow: 0 5px #757575;
+  pointer-events: none;
 }
 
 .dollars-mobile {

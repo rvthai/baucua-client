@@ -53,6 +53,7 @@ function Dashboard(props) {
       dashboard.style.zIndex = 0;
     });
   }, [socket]);
+
   // useEffect - check and handle which dollars are available in real time
   useEffect(() => {
     const player = props.gamestate.players.filter((p) => props.id === p.id)[0];
