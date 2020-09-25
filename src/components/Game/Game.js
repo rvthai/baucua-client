@@ -257,6 +257,7 @@ function Game(props) {
           />
         </CSSTransition>
       </div>
+
       <div className="chat-btn-wrapper">
         <FontAwesomeIcon
           id="chat-btn"

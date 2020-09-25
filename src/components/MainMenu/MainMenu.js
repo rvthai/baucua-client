@@ -99,7 +99,6 @@ function MainMenu(props) {
           <ErrorModal onCancelClick={hideModal} message={errorMessage} />
         </CSSTransition>
       </div>
-
       <p className="copyright">
         Developed by{" "}
         <a

@@ -76,27 +76,35 @@
   transition: 0.2s;
 }
 
-/* CSS Transition Group */
+/* CSSTransitionGroup for banners */
 .round-modal-enter {
-  opacity: 0%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  opacity: 0;
 }
+
 .round-modal-enter-active {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  opacity: 100%;
+  opacity: 1;
   transition: 0.3s;
 }
+
 .round-modal-enter-done {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  opacity: 1000%;
+  opacity: 1;
 }
+
 .round-modal-exit {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  opacity: 100%;
+  opacity: 1;
 }
 .round-modal-exit-active {
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  opacity: 0%;
+  opacity: 0;
   transition: 0.3s;
 }
 
