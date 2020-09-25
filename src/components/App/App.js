@@ -8,8 +8,8 @@ import MainMenu from "components/MainMenu/MainMenu";
 import Room from "components/Room/Room";
 
 const DEV_ENDPOINT = "http://localhost:9000";
-const PROD_ENDPOINT = "https://baucuacacop.herokuapp.com/";
-const socket = io(PROD_ENDPOINT, { reconnection: false });
+// const PROD_ENDPOINT = "https://baucuacacop.herokuapp.com/";
+const socket = io(DEV_ENDPOINT, { reconnection: false });
 
 function App() {
   const [renderView, setRender] = useState(0);
