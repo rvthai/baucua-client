@@ -7,8 +7,9 @@ import "./App.css";
 import MainMenu from "components/MainMenu/MainMenu";
 import Room from "components/Room/Room";
 
-const ENDPOINT = "http://localhost:9000";
-const socket = io(ENDPOINT, { reconnection: false });
+const DEV_ENDPOINT = "http://localhost:9000";
+const PROD_ENDPOINT = "https://baucuacacop.herokuapp.com/";
+const socket = io(PROD_ENDPOINT, { reconnection: false });
 
 function App() {
   const [renderView, setRender] = useState(0);
